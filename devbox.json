@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
+  "packages": [
+    "nodejs@24.11.1",
+    "turbo@2.5.6",
+    "nest-cli@latest",
+    "eslint@latest",
+    "prettier@latest"
+  ],
+  "shell": {
+    "init_hook": ["npm install"],
+    "scripts": {
+      "init": ["echo \"Init started...\""]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@spotify/frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start:dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.1",
+    "@emotion/react": "^11.14.0",
+    "@fontsource/roboto": "^5.2.9",
+    "@mui/material": "^7.3.5",
+    "axios": "^1.13.2",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.1",
+    "mobx-react-observer": "^1.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.9.6"
+  },
+  "devDependencies": {
+    "@libs/eslint-config": "*",
+    "@libs/typescript-config": "*",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.2.5"
+  }
+}

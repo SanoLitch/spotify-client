@@ -1,0 +1,21 @@
+{
+  "name": "spotify-client",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "start:dev": "turbo run dev",
+    "local:up": "docker compose -f ./docker-compose.local.yaml up -d"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": ">=24"
+  }
+}

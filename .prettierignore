@@ -1,0 +1,13 @@
+*.ts
+*.tsx
+*.js
+*.jsx
+*.mjs
+package-lock.json
+dist
+src-tauri
+.git
+.vscode
+.idea
+node_modules
+.obsidian

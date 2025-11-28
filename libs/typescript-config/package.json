@@ -1,0 +1,12 @@
+{
+  "name": "@libs/typescript-config",
+  "version": "0.0.1",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
+

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^pipeline:build", "^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"]
+    },
+    "start:dev": {
+      "dependsOn": ["^pipeline:build"],
+      "cache": false,
+      "persistent": true
+    },
+    "start:back": {
+      "dependsOn": ["^pipeline:build"],
+      "with": ["backend#start:dev"],
+      "cache": false,
+      "persistent": true
+    },
+    "pipeline:build": {
+      "cache": true,
+      "persistent": false,
+      "outputs": ["dist/**"]
+    }
+  }
+}
+

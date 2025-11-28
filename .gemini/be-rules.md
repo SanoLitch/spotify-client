@@ -1,0 +1,399 @@
+---
+description:
+globs: apps/backend/**/*.ts
+alwaysApply: false
+---
+
+You are a senior TypeScript programmer with experience in the NestJS framework
+and a preference for clean programming and design patterns.
+
+Generate code, corrections, and refactorings that comply with the basic
+principles and nomenclature.
+
+## TypeScript General Guidelines
+
+### Basic Principles
+
+- Use English for all code and Russian for documentation.
+- Always declare the type of each variable and function (parameters and return
+  value).
+  - Avoid using any.
+  - Create necessary types.
+- Use access modifiers for class members explicit (except constructors).
+- Use method/function return type explicit.
+- One export per file.
+
+### Architecture
+
+- Use Hexagon, Clean architecture and Domain Driven Design principles.
+- Use vertical slice approach based on feature/entity for modules.
+- Use next folder structure for each module/slice:
+  - _api_ contains controller, DTOs and other api/presentation stuff.
+  - _db_ contains database models, repositories and etc.
+  - _domain_ contains domain entities, use-cases if needed and buissness logic.
+  - _lib_ contains mappers, utility and etc.
+- Incapsulate buissness logic in domain entities/services
+- Use repository pattern for database models
+- Module _db_ in _src/db_ contains base functionality to interact with database:
+  - folder _migrations_ used for migration storing
+  - folder _schemes_ contains all PrismaORM schemes, one file per entity
+
+# Domain-Driven Design (DDD) Common Principles
+
+## General Principles:
+
+- Thin Services, Rich Domain: Services in the domain layer should act as
+  orchestrators (Application Services). They coordinate the workflow but do not
+  contain business logic. All business rules, validations, and logic should be
+  encapsulated within Domain Entities and Value Objects.
+- Separation of Concerns: Strictly separate layers. The api layer communicates
+  with the domain layer via DTOs. The domain layer is self-contained. The db
+  layer (Repositories) communicates with the database and should be
+  persistence-ignorant from the domain's perspective.
+- Explicit Dependencies: The domain layer should have no dependencies on
+  external frameworks or libraries (like NestJS, Express, or even
+  database-specific libraries like Prisma Client). All external interactions
+  should be handled at the application's boundaries (services, controllers,
+  mappers).
+
+## Domain Entities:
+
+- Identity and Mutability: An entity has a unique identity (id) that remains
+  constant throughout its lifecycle. Its other properties can be mutable.
+- Encapsulation: An entity is responsible for maintaining its own invariants
+  (business rules that must always be true). Its internal state should only be
+  modified through its own methods, never directly from a service.
+- Factory Methods for Creation: Use static factory methods (e.g., static
+  create(...)) to construct new entity instances. This method should encapsulate
+  all the logic for creating a valid entity, including:
+  - Generating a unique ID (Uuid.create()).
+  - Hashing passwords (PasswordHash.create(...)).
+  - Setting default values (e.g., createdAt). -Validating input parameters.
+- Business Logic in Methods: All operations that change or query the state of an
+  entity should be implemented as methods on the entity itself (e.g.,
+  isPasswordMatching(...), updateProfile(...), deactivate()).
+
+## Value Objects (VOs)
+
+- No Identity: A Value Object is defined by its attributes, not by an ID. Two
+  VOs with the same attributes are considered equal.
+- Immutability: A Value Object must be immutable. Once created, its state cannot
+  be changed. If a change is needed, a new instance of the VO should be created.
+  All properties should be readonly.
+- Encapsulation of Primitives: Use VOs to wrap primitive types (string, number)
+  that have business meaning. This prevents "Primitive Obsession" and makes the
+  domain model more expressive.
+  - string for a password hash -> PasswordHash VO.
+  - string for a UUID -> Uuid VO.
+  - string for an email -> Email VO.
+- Self-Validation: A VO should validate its own value upon creation in its
+  constructor or a factory method. It should be impossible to create an invalid
+  VO.
+
+## Repositories
+
+- Persistence Ignorance: Repositories are the boundary between the domain and
+  the data access layer. They should present an interface that feels like an
+  in-memory collection.
+- Return Persistence Models: Repositories should accept and return "raw"
+  persistence models (e.g., Prisma models), not domain entities. The
+  responsibility for mapping between persistence models and domain entities lies
+  with the Application Service (or a dedicated Mapper called by the service).
+- Fail-Fast: Prefer methods that throw an exception when an item is not found
+  (e.g., findUniqueOrThrow) over methods that return null. This simplifies the
+  service layer by centralizing error handling.
+
+## Mappers
+
+- Single Responsibility: A mapper's only job is to translate data between
+  layers.
+- Clear Method Naming: Use explicit names for mapping methods:
+- toEntity(persistenceModel): DomainEntity (or toDomain)
+- toDto(domainEntity): DTO
+- toPersistence(domainEntity): PersistenceModel
+- Hydration/Dehydration: The mapper is responsible for "hydrating" Value Objects
+  from primitive types when mapping toEntity, and "dehydrating" them back to
+  primitives when mapping toPersistence or toDto.
+
+# Domain-Driven Design (DDD): Rich Model & Aggregates Principles
+
+This document outlines the core principles for implementing a rich domain model
+using the Domain-Driven Design (DDD) approach. The primary goal is to move
+beyond anemic domain models (where objects are just data containers) and create
+"smart" entities that encapsulate business logic and rules, leading to a more
+robust, maintainable, and understandable system.
+
+---
+
+## 1. The Aggregate Pattern
+
+- An **Aggregate** is a cluster of associated objects (entities and value
+  objects) that we treat as a single unit for the purpose of data changes.
+- Every Aggregate has a single entry point called the **Aggregate Root**. It is
+  a specific entity within the aggregate.
+- All external references must only go to the Aggregate Root. Child entities
+  within the aggregate can only be accessed through the root.
+- A change to any object within the aggregate boundary must be performed as a
+  single, atomic transaction.
+
+```mermaid
+graph TD
+    subgraph "GameSession Aggregate"
+        A[GameSession <br/> (Aggregate Root)] --> B(Player)
+        A --> C(Map)
+        B --> D(Building)
+        B --> E(Unit)
+    end
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+```
+
+---
+
+## 2. Responsibilities of an Aggregate Root
+
+The Aggregate Root is the heart of the pattern. It must be responsible for the
+following:
+
+- **Be the Sole Gatekeeper:** All commands and modifications for any entity
+  within the aggregate must go through a method on the Aggregate Root. Direct
+  modification of child entities from services is forbidden.
+- **Enforce Invariants:** The Aggregate Root is responsible for maintaining the
+  consistency and validity of the entire aggregate. It must enforce all business
+  rules (invariants) before any state change is committed.
+  > _Example: A `GameSession` root must ensure a `Player` cannot be added if the
+  > session is already `IN_PROGRESS`._
+- **Manage Entity Lifecycles:** The Aggregate Root controls the creation and
+  deletion of its child entities.
+  > _Example: A `GameSession` creates `Player`s; a `Player` creates
+  > `Building`s._
+- **Use Factory Methods for Creation:** Use static factory methods (e.g.,
+  `static createNew()`) to encapsulate the logic for creating a valid root
+  instance in its initial state.
+- **Expose Behavior, Not State:** Methods on the root should be named after
+  business operations (e.g., `addPlayer`, `startGame`, `finishGame`), not
+  generic setters (e.g., `setStatus`).
+
+---
+
+## 3. Responsibilities of Child Entities
+
+- **Contain Local Logic:** Entities within the aggregate should contain business
+  logic that pertains directly to them.
+  > _Example: A `Building` entity should know how to `produceUnit()`._
+- **Never Be Modified Directly:** Their state should only be changed by methods
+  on the Aggregate Root or by other entities within the same aggregate.
+
+---
+
+## 4. The Role of Application Services (Use Cases)
+
+- **Be Thin Orchestrators:** Services should not contain business logic. Their
+  role is to orchestrate the interaction between the outside world (e.g.,
+  controllers) and the domain model.
+- **Follow a Clear Workflow:**
+  1.  **Fetch:** Load one or more Aggregate Roots from the repository.
+  2.  **Execute:** Call a single method on an Aggregate Root, passing any
+      necessary data. The domain model handles all the business rules.
+  3.  **Persist:** Save the modified Aggregate Root back to the repository.
+- **Manage Transactions:** The service is responsible for defining the
+  transaction boundary. The entire `fetch -> execute -> persist` flow should be
+  atomic.
+
+---
+
+## 5. Example: Anemic vs. Rich Model
+
+### Before: Anemic Model (Logic in the Service)
+
+```typescript
+// In PlayerService.ts
+async addPlayerToSession(userId: string, sessionId: string): Promise<void> {
+  const session = await this.sessionRepo.findById(sessionId);
+  const playerExists = await this.playerRepo.exists(userId, sessionId);
+
+  if (session.status !== 'WAITING') {
+    throw new SessionNotWaitingError();
+  }
+  if (playerExists) {
+    throw new PlayerAlreadyJoinedError();
+  }
+  // ... more checks ...
+
+  const player = new Player({ userId, sessionId, ... }); // Just a data bag
+  await this.playerRepo.save(player);
+
+  session.playerCount++; // Direct state mutation
+  await this.sessionRepo.save(session);
+}
+```
+
+### After: Rich Model (Logic in the Domain Model)
+
+```typescript
+// In GameSessionService.ts
+async addPlayerToSession(userId: string, sessionId: string): Promise<void> {
+  // 1. Fetch the aggregate root
+  const session = await this.sessionRepo.findById(sessionId);
+  const user = await this.userRepo.findById(userId);
+
+  // 2. Execute a business method on the root. All logic is inside.
+  session.addPlayer(user);
+
+  // 3. Persist the entire aggregate
+  await this.sessionRepo.save(session);
+}
+
+// In GameSession.ts (The Aggregate Root)
+public addPlayer(user: User): void {
+  if (this.status !== GameSessionStatus.Waiting) {
+    throw new SessionNotWaitingError();
+  }
+  if (this.players.some(p => p.userId.equals(user.id))) {
+    throw new PlayerAlreadyJoinedError();
+  }
+  // ... more checks ...
+
+  const newPlayer = Player.createForSession(user, this.id);
+  this.players.push(newPlayer);
+}
+```
+
+---
+
+## 6. Benefits of This Approach
+
+- **Robustness:** Business rules are consistently enforced because they are
+  co-located with the data they protect. It becomes impossible to create an
+  invalid state.
+- **Testability:** The rich domain model can be unit-tested in complete
+  isolation, without databases, frameworks, or external dependencies.
+- **Clarity:** The code becomes a more accurate reflection of the business
+  domain. The intent of a use case is immediately clear from reading the service
+  method.
+- **Flexibility:** Services become simple "glue" code and are easy to change or
+  replace without affecting the core business logic encapsulated in the domain
+  model.
+
+### Nomenclature
+
+- Use PascalCase for classes.
+- Use camelCase for variables, functions, methods.
+- Use camelCase for class/interface/type/object/etc member names
+  - Except if another naming provided by documentation.
+- Use kebab-case for file and directory names.
+- Use kebab-case for file migration file names.
+- Use UPPERCASE for environment variables.
+  - Avoid magic numbers and define constants.
+- Use PascalCase for PrismaORM model name, use singular form.
+  - Force provide "@@map" attribute with snake_case name, use plural form of the
+    same name.
+  - Use snake_case for enititi's field name in PrismaORM models
+    - If name has underscore then force provide "map" attribute with same value
+      as field/table name, but use camelCase format
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: isLoading, hasError, canDelete, etc.
+- Use complete words instead of abbreviations and correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - i, j for loops
+    - err for errors
+    - ctx for contexts
+    - req, res, next for middleware function parameters
+- Try to use closet relative path within one module for imports
+- Group imports by:
+  - Platform specific imports should be at the top
+  - After third-party modules
+  - After project files
+- Sort each import group by:
+  - Distance to target file
+  - Alphabetical
+- Use Public Api methodology for re-export module members outside by using
+  index.ts file
+
+### Functions
+
+- In this context, what is understood as a function will also apply to a method.
+- Write short functions with a single purpose. Less than 20 instructions.
+- Name functions with a verb and something else.
+  - If it returns a boolean, use isX or hasX, canX, etc.
+  - If it doesn't return anything, use executeX or saveX, etc.
+- Avoid nesting blocks by:
+  - Early checks and returns.
+  - Extraction to utility functions.
+- Use higher-order functions (map, filter, reduce, etc.) to avoid function
+  nesting.
+  - Use arrow functions for simple functions (less than 3 instructions).
+  - Use named functions for non-simple functions.
+- Use default parameter values instead of checking for null or undefined.
+- Reduce function parameters using RO-RO
+  - Use an object to pass multiple parameters.
+  - Use an object to return results.
+  - Declare necessary types for input arguments and output.
+- Use a single level of abstraction.
+
+### Data
+
+- Don't abuse primitive types and encapsulate data in composite types.
+- Avoid data validations in functions and use classes with internal validation.
+- Prefer immutability for data.
+  - Use readonly for data that doesn't change.
+  - Use as const for literals that don't change.
+
+### Classes
+
+- Follow SOLID principles.
+- Prefer composition over inheritance.
+- Declare interfaces to define contracts.
+- Write small classes with a single purpose.
+  - Less than 200 instructions.
+  - Less than 10 public methods.
+  - Less than 10 properties.
+
+### Exceptions
+
+- Use exceptions to handle errors you don't expect.
+- If you catch an exception, it should be to:
+  - Fix an expected problem.
+  - Add context.
+  - Otherwise, use a global handler.
+
+### Testing
+
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+  - Follow the convention: inputX, mockX, actualX, expectedX, etc.
+- Write unit tests for each public function.
+  - Use test doubles to simulate dependencies.
+    - Except for third-party dependencies that are not expensive to execute.
+- Write acceptance tests for each module.
+  - Follow the Given-When-Then convention.
+
+## Specific to NestJS
+
+### Basic Principles
+
+- Use modular architecture
+- Encapsulate the API in modules.
+  - One module per main domain/route.
+  - One controller for its route.
+    - And other controllers for secondary routes.
+  - A models folder with data types.
+    - DTOs validated with class-validator for inputs.
+    - Declare simple types for outputs.
+  - A services module with business logic and persistence.
+    - Entities with PrismaORM for data persistence.
+    - One service per entity.
+- A core module for nest artifacts
+  - Global filters for exception handling.
+  - Global middlewares for request management.
+  - Guards for permission management.
+  - Interceptors for request management.
+- A shared module for services shared between modules.
+  - Utilities
+  - Shared business logic
+
+### Testing
+
+- Use the standard Jest framework for testing.
+- Write tests for each controller and service.
+- Write end to end tests for each api module.
