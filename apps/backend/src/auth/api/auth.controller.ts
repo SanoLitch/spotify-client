@@ -2,12 +2,16 @@ import {
   Controller, Get, Query, Res, Req, UnauthorizedException,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware';
 import { AuthService } from '../domain/auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get('login')
   public login(@Res() res: Response): void {
@@ -33,9 +37,7 @@ export class AuthController {
       sameSite: 'lax',
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days roughly
     });
-
-    // Redirect to frontend root, skipping the query param exposure
-    return res.redirect('https://localhost:5173/');
+    return res.redirect(this.configService.getOrThrow<string>('FE_URI'));
   }
 
   @Get('me')
@@ -43,7 +45,6 @@ export class AuthController {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
     }
-
     return this.authService.getMe(req.user.accessToken);
   }
 

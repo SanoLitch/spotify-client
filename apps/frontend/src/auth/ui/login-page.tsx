@@ -4,8 +4,7 @@ import {
 
 export const LoginPage = () => {
   const handleLogin = () => {
-    // Редирект на бэкенд для начала OAuth flow
-    window.location.href = 'https://localhost:3000/auth/login';
+    window.location.href = 'api/auth/login';
   };
 
   return (
@@ -14,7 +13,7 @@ export const LoginPage = () => {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      bgcolor="#121212" // Spotify Dark
+      bgcolor="#121212"
     >
       <Paper
         elevation={ 3 }

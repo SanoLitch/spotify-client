@@ -10,7 +10,8 @@
   "shell": {
     "init_hook": ["npm install"],
     "scripts": {
-      "init": ["echo \"Init started...\""]
+      "init": ["echo \"Init started...\""],
+      "dev": ["turbo run start:dev"]
     }
   }
 }

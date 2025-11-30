@@ -1,4 +1,6 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import {
+  makeAutoObservable, runInAction,
+} from 'mobx';
 import { api } from '../../infrastructure/api/axios.instance';
 
 export interface UserProfile {
@@ -6,7 +8,6 @@ export interface UserProfile {
   display_name: string;
   email: string;
   images: { url: string }[];
-  // Add other fields as needed
 }
 
 class AuthStore {

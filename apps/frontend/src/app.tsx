@@ -54,7 +54,7 @@ const App = observer(() => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={ <LoginPage /> } />
-          
+
           {/* Redirect old callback path to root just in case */}
           <Route path="/auth/callback" element={ <Navigate replace to="/" /> } />
 
@@ -64,7 +64,10 @@ const App = observer(() => {
                 <Box p={ 4 }>
                   <h1>Welcome to Spotify Client!</h1>
                   {authStore.user && (
-                    <p>Logged in as: {authStore.user.display_name}</p>
+                    <p>
+                      Logged in as:
+                      {authStore.user.display_name}
+                    </p>
                   )}
                   <button onClick={ () => authStore.logout() }>Logout</button>
                 </Box>

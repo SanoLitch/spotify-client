@@ -4,7 +4,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', 'vite.config.ts'],
     languageOptions: { parser: tsParser },
     extends: [feBaseConfig],
   },
