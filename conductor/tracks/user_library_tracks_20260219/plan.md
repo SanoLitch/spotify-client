@@ -17,7 +17,7 @@ Goal: Integrate with Spotify API and expose the endpoint.
 - [x] Task: Implement Spotify Library Adapter [8417e3b]
     - [ ] Extend `SpotifyApiService` if needed or use it within `SpotifyLibraryAdapter`
     - [ ] Implement `SpotifyLibraryAdapter` mapping Spotify DTOs to `Track` entities
-- [ ] Task: Create Library Controller [ ]
+- [x] Task: Create Library Controller [315ad42]
     - [ ] Define `LibraryController` with `GET /library/tracks`
     - [ ] Implement DTOs for pagination and response
 - [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
