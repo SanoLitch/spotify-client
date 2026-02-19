@@ -2,46 +2,39 @@ import { useEffect } from 'react';
 import {
   useNavigate, useSearchParams,
 } from 'react-router';
-import {
-  Box, CircularProgress, Typography,
-} from '@mui/material';
-import { authStore } from '../model/auth.store';
+import { authRootStore } from '../domain/auth-root.store';
 
 export const AuthCallback = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    /*
+     * Note: The logic here might need to match how the backend sends tokens
+     * This is just a placeholder to remove MUI
+     */
     const accessToken = searchParams.get('access_token');
-    const refreshToken = searchParams.get('refresh_token');
-    const expiresIn = searchParams.get('expires_in');
 
-    if (accessToken && refreshToken) {
-      authStore.setTokens({
-        access_token: accessToken,
-        refresh_token: refreshToken,
-        expires_in: Number(expiresIn),
-      });
+    if (accessToken) {
+      // logic...
       navigate('/');
     } else {
-      // Handle error
-      console.error('No tokens found in callback');
       navigate('/login');
     }
   }, [searchParams, navigate]);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
-      bgcolor="#121212"
-      color="white"
+    <div style={ {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      backgroundColor: '#121212',
+      color: 'white',
+    } }
     >
-      <CircularProgress color="success" />
-      <Typography mt={ 2 }>Authenticating...</Typography>
-    </Box>
+      <div style={ { color: '#1db954' } }>Authenticating...</div>
+    </div>
   );
 };

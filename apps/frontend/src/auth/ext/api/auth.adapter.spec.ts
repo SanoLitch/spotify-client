@@ -1,5 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SpotifyAuthAdapter } from './auth.adapter';
+import {
+  describe, it, expect, vi, beforeEach,
+} from 'vitest';
+import {
+  SpotifyAuthAdapter, UserProfileDto,
+} from './auth.adapter';
 import { apiClient } from '../../../shared/api/api-client';
 import { User } from '../../domain/user.model';
 
@@ -14,11 +18,12 @@ describe('SpotifyAuthAdapter', () => {
 
   beforeEach(() => {
     adapter = new SpotifyAuthAdapter();
+
     vi.clearAllMocks();
   });
 
   it('should fetch profile and return User model', async () => {
-    const mockDto = {
+    const mockDto: UserProfileDto = {
       id: '123',
       display_name: 'Test',
       email: 'test@test.com',
@@ -27,7 +32,7 @@ describe('SpotifyAuthAdapter', () => {
 
     vi.mocked(apiClient.get).mockReturnValue({
       json: () => Promise.resolve(mockDto),
-    } as any); // ky return type is complex to mock fully
+    });
 
     const user = await adapter.getMe();
 
@@ -40,7 +45,7 @@ describe('SpotifyAuthAdapter', () => {
   it('should call logout endpoint', async () => {
     vi.mocked(apiClient.get).mockReturnValue({
       json: () => Promise.resolve({}),
-    } as any);
+    });
 
     await adapter.logout();
 

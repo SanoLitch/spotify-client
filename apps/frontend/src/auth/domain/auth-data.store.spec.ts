@@ -20,6 +20,7 @@ describe('AuthDataStore', () => {
       displayName: 'Test',
       email: 'test@test.com',
     });
+
     store.setUser(user);
     expect(store.user).toBe(user);
     expect(store.isAuthenticated).toBe(true);
@@ -32,6 +33,7 @@ describe('AuthDataStore', () => {
       displayName: 'Test',
       email: 'test@test.com',
     });
+
     store.setUser(user);
     store.clear();
     expect(store.user).toBe(null);

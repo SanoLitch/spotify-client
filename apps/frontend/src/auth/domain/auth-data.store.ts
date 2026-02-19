@@ -3,6 +3,7 @@ import { User } from './user.model';
 
 export class AuthDataStore {
   public user: User | null = null;
+
   public isAuthenticated: boolean = false;
   public isLoading: boolean = true;
 

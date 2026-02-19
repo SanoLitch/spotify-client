@@ -1,4 +1,4 @@
-import { AuthPort } from './auth.port';
+import { AuthApiPort } from './auth.port';
 import { apiClient } from '../../../shared/api/api-client';
 import { User } from '../../domain/user.model';
 
@@ -9,7 +9,7 @@ export interface UserProfileDto {
   images: { url: string }[];
 }
 
-export class SpotifyAuthAdapter implements AuthPort {
+export class SpotifyAuthAdapter implements AuthApiPort {
   public async getMe(): Promise<User> {
     const data = await apiClient.get('auth/me').json<UserProfileDto>();
 

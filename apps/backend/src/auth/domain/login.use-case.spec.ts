@@ -1,7 +1,7 @@
 import { LoginUseCase } from './login.use-case';
+import { User } from './user.entity';
 import { AuthPort } from '../ext/spotify/auth.port';
 import { UserRepositoryPort } from '../ext/storage/user-repository.port';
-import { User } from './user.entity';
 
 describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;
@@ -23,7 +23,10 @@ describe('LoginUseCase', () => {
 
   it('should authenticate user and save to repository', async () => {
     const code = 'spotify-code';
-    const tokens = { accessToken: 'at', refreshToken: 'rt' };
+    const tokens = {
+      accessToken: 'at',
+      refreshToken: 'rt',
+    };
     const user = User.create({
       id: 'spotify-id',
       displayName: 'Test User',
@@ -38,6 +41,9 @@ describe('LoginUseCase', () => {
     expect(authProvider.exchangeCodeForTokens).toHaveBeenCalledWith(code);
     expect(authProvider.getProfile).toHaveBeenCalledWith(tokens.accessToken);
     expect(userRepository.save).toHaveBeenCalledWith(user);
-    expect(result).toEqual({ user, tokens });
+    expect(result).toEqual({
+      user,
+      tokens,
+    });
   });
 });

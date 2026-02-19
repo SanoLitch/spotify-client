@@ -1,29 +1,32 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import {
+  describe, it, expect, beforeEach, vi, Mocked,
+} from 'vitest';
 import { CheckAuthUseCase } from './check-auth.case';
-import { AuthPort } from './ext/api/auth.port';
+import { AuthApiPort } from './ext/api/auth.port';
 import { AuthDataStore } from './domain/auth-data.store';
 import { User } from './domain/user.model';
 
 describe('CheckAuthUseCase', () => {
   let useCase: CheckAuthUseCase;
-  let authApi: jest.Mocked<AuthPort>;
-  let authDataStore: jest.Mocked<AuthDataStore>;
+  let authApi: Mocked<AuthApiPort>;
+  let authDataStore: Mocked<AuthDataStore>;
 
   beforeEach(() => {
     authApi = {
       getMe: vi.fn(),
       logout: vi.fn(),
-    } as any;
+    };
     authDataStore = {
       setUser: vi.fn(),
       clear: vi.fn(),
       setLoading: vi.fn(),
-    } as any;
+    };
     useCase = new CheckAuthUseCase(authApi, authDataStore);
   });
 
   it('should fetch user and update store on success', async () => {
     const user = { id: '1' } as User;
+
     vi.mocked(authApi.getMe).mockResolvedValue(user);
 
     await useCase.execute();

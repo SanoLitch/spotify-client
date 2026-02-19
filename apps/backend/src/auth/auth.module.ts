@@ -28,12 +28,12 @@ import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
     {
       provide: MeUseCase,
       inject: ['AuthPort'],
-      useFactory: (authPort) => new MeUseCase(authPort),
+      useFactory: authPort => new MeUseCase(authPort),
     },
     {
       provide: 'AuthPort',
       inject: [SpotifyApiService],
-      useFactory: (api) => new SpotifyAuthAdapter(api),
+      useFactory: api => new SpotifyAuthAdapter(api),
     },
     {
       provide: 'UserRepositoryPort',

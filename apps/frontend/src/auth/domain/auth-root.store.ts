@@ -10,7 +10,9 @@ export class AuthRootStore {
 
   constructor() {
     this.data = new AuthDataStore();
+
     const authApi = new SpotifyAuthAdapter();
+
     this.checkAuthUseCase = new CheckAuthUseCase(authApi, this.data);
     this.logoutUseCase = new LogoutUseCase(authApi, this.data);
   }

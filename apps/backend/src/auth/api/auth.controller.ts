@@ -4,16 +4,10 @@ import {
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware';
+import { UserDto } from './user.dto';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
 import { MeUseCase } from '../domain/me.use-case';
-
-export interface UserDto {
-  id: string;
-  display_name: string;
-  email: string;
-  avatar_url?: string;
-}
 
 @Controller('auth')
 export class AuthController {

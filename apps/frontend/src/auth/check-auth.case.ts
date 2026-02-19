@@ -1,9 +1,9 @@
-import { AuthPort } from './ext/api/auth.port';
+import { AuthApiPort } from './ext/api/auth.port';
 import { AuthDataStore } from './domain/auth-data.store';
 
 export class CheckAuthUseCase {
   constructor(
-    private readonly authApi: AuthPort,
+    private readonly authApi: AuthApiPort,
     private readonly authDataStore: AuthDataStore,
   ) {}
 
@@ -11,6 +11,7 @@ export class CheckAuthUseCase {
     this.authDataStore.setLoading(true);
     try {
       const user = await this.authApi.getMe();
+
       this.authDataStore.setUser(user);
     } catch (error) {
       this.authDataStore.clear();

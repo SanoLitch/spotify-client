@@ -1,9 +1,9 @@
-import { AuthPort } from './ext/api/auth.port';
+import { AuthApiPort } from './ext/api/auth.port';
 import { AuthDataStore } from './domain/auth-data.store';
 
 export class LogoutUseCase {
   constructor(
-    private readonly authApi: AuthPort,
+    private readonly authApi: AuthApiPort,
     private readonly authDataStore: AuthDataStore,
   ) {}
 

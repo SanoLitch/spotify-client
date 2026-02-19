@@ -1,10 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import {
+  Test, TestingModule,
+} from '@nestjs/testing';
+import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import { AuthController } from './auth.controller';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
 import { MeUseCase } from '../domain/me.use-case';
-import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
 import { User } from '../domain/user.entity';
 
 describe('AuthController', () => {
@@ -23,10 +25,22 @@ describe('AuthController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
       providers: [
-        { provide: LoginUseCase, useValue: loginUseCase },
-        { provide: LogoutUseCase, useValue: logoutUseCase },
-        { provide: MeUseCase, useValue: meUseCase },
-        { provide: ConfigService, useValue: configService },
+        {
+          provide: LoginUseCase,
+          useValue: loginUseCase,
+        },
+        {
+          provide: LogoutUseCase,
+          useValue: logoutUseCase,
+        },
+        {
+          provide: MeUseCase,
+          useValue: meUseCase,
+        },
+        {
+          provide: ConfigService,
+          useValue: configService,
+        },
       ],
     }).compile();
 
@@ -61,6 +75,7 @@ describe('AuthController', () => {
         displayName: 'Test',
         email: 'test@test.com',
       });
+
       meUseCase.execute.mockResolvedValue({ user });
 
       const req = {
