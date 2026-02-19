@@ -25,7 +25,7 @@ Goal: Integrate with Spotify API and expose the endpoint.
 ## Phase 3: Frontend Domain and Application Layers
 Goal: Create reactive stores and use cases for the library.
 
-- [ ] Task: Define Frontend Track Model and LibraryStore [ ]
+- [x] Task: Define Frontend Track Model and LibraryStore [337caec]
     - [ ] Create `Track` model in `apps/frontend/src/library/domain/track.model.ts`
     - [ ] Implement `LibraryDataStore` (MobX) to manage tracks, pagination, and loading state
 - [ ] Task: Implement GetSavedTracks Use Case [ ]
