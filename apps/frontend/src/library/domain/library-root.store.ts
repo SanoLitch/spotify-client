@@ -9,6 +9,7 @@ export class LibraryRootStore {
   constructor() {
     this.data = new LibraryDataStore();
     const libraryApi = new SpotifyLibraryAdapter();
+
     this.getSavedTracksCase = new GetSavedTracksCase(libraryApi, this.data);
   }
 }

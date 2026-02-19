@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { authRootStore } from '../../auth';
-import { PageRoute, ROUTES } from '@shared/routing';
+import {
+  PageRoute, ROUTES,
+} from '@shared/routing';
 import { secondaryButton } from '@shared/ui';
-import { TrackList } from '../../library/ui/track-list';
 import * as styles from './home-page.css';
+import { TrackList } from '../../library/ui/track-list';
+import { authRootStore } from '../../auth';
 
 export const HomePageView = observer(() => {
   const { user } = authRootStore.data;
@@ -15,7 +17,9 @@ export const HomePageView = observer(() => {
           <h1 className={ styles.welcomeTitle }>Welcome to Spotify Client!</h1>
           {user && (
             <p className={ styles.userName }>
-              Logged in as: {user.displayName}
+              Logged in as:
+              {' '}
+              {user.displayName}
             </p>
           )}
         </div>

@@ -1,4 +1,6 @@
-import { PageRoute, ROUTES } from '@shared/routing';
+import {
+  PageRoute, ROUTES,
+} from '@shared/routing';
 import { primaryButton } from '@shared/ui';
 import * as styles from './login-page.css';
 

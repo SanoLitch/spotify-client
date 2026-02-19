@@ -3,7 +3,7 @@ import { vars } from '@shared/ui/theme.css';
 
 export const row = style({
   display: 'grid',
-  gridTemplateColumns: '48px 1fr 1fr 80px',
+  gridTemplateColumns: '48px 1fr',
   gap: vars.spacing.md,
   padding: `${vars.spacing.sm} ${vars.spacing.md}`,
   alignItems: 'center',
@@ -28,6 +28,12 @@ export const mainInfo = style({
   overflow: 'hidden',
 });
 
+export const titleWrapper = style({
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: vars.spacing.sm,
+});
+
 export const title = style({
   fontSize: vars.fontSizes.md,
   fontWeight: 500,
@@ -37,24 +43,16 @@ export const title = style({
   textOverflow: 'ellipsis',
 });
 
-export const artist = style({
-  fontSize: vars.fontSizes.sm,
-  color: vars.colors.textSecondary,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
-export const album = style({
-  fontSize: vars.fontSizes.sm,
-  color: vars.colors.textSecondary,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
 export const duration = style({
   fontSize: vars.fontSizes.sm,
   color: vars.colors.textSecondary,
-  textAlign: 'right',
+  flexShrink: 0,
+});
+
+export const metadata = style({
+  fontSize: vars.fontSizes.sm,
+  color: vars.colors.textSecondary,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 });

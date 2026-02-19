@@ -1,4 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  describe, it, expect, vi, beforeEach,
+} from 'vitest';
 import { GetSavedTracksCase } from './get-saved-tracks.case';
 import { LibraryPort } from './library.port';
 import { LibraryDataStore } from './domain/library-data.store';
@@ -27,12 +29,16 @@ describe('GetSavedTracksCase', () => {
       items: [{ id: '1' } as Track],
       total: 100,
     };
+
     libraryApi.getSavedTracks.mockResolvedValue(mockResult);
 
     await useCase.execute();
 
     expect(libraryDataStore.setLoading).toHaveBeenCalledWith(true);
-    expect(libraryApi.getSavedTracks).toHaveBeenCalledWith({ limit: 20, offset: 0 });
+    expect(libraryApi.getSavedTracks).toHaveBeenCalledWith({
+      limit: 20,
+      offset: 0,
+    });
     expect(libraryDataStore.appendTracks).toHaveBeenCalledWith(mockResult.items, mockResult.total);
     expect(libraryDataStore.setLoading).toHaveBeenCalledWith(false);
   });

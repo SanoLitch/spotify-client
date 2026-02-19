@@ -16,7 +16,7 @@ export const loadingContainer = style({
 export const spinner = style({
   width: '40px',
   height: '40px',
-  border: `4px solid ${vars.colors.surface}`,
+  border: `4px solid ${ vars.colors.surface }`,
   borderLeftColor: vars.colors.brand,
   borderRadius: vars.borderRadius.full,
   animation: 'spin 1s linear infinite',

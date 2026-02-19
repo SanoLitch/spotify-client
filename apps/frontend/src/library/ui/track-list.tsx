@@ -32,10 +32,7 @@ export const TrackList = observer(() => {
   return (
     <div className={ styles.listContainer }>
       <div className={ styles.header }>
-        <span>#</span>
-        <span>Title</span>
-        <span>Album</span>
-        <span className={ styles.headerTime }>Time</span>
+        Songs
       </div>
 
       { data.tracks.map((track) => (

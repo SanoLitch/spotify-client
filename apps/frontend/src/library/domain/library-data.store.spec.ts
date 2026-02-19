@@ -1,4 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import {
+  describe, it, expect, beforeEach,
+} from 'vitest';
 import { LibraryDataStore } from './library-data.store';
 import { Track } from './track.model';
 
@@ -19,6 +21,7 @@ describe('LibraryDataStore', () => {
 
   it('should append tracks and update pagination', () => {
     const track = { id: '1' } as Track;
+
     store.appendTracks([track], 100);
 
     expect(store.tracks).toEqual([track]);
@@ -29,6 +32,7 @@ describe('LibraryDataStore', () => {
 
   it('should set hasMore to false when all tracks are loaded', () => {
     const track = { id: '1' } as Track;
+
     store.appendTracks([track], 1);
 
     expect(store.hasMore).toBe(false);

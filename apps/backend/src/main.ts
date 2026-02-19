@@ -28,10 +28,10 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Spotify Client API')
     .setDescription(
-      'The Spotify Client application API description. ' +
-      '<br/><br/>' +
-      '<b>Note:</b> To test protected endpoints, you must first log in here: ' +
-      '<a href="/api/auth/login" target="_blank">Login with Spotify</a>',
+      'The Spotify Client application API description. '
+      + '<br/><br/>'
+      + '<b>Note:</b> To test protected endpoints, you must first log in here: '
+      + '<a href="/api/auth/login" target="_blank">Login with Spotify</a>',
     )
     .setVersion('1.0')
     .addTag('auth')

@@ -9,9 +9,6 @@ export const listContainer = style({
 });
 
 export const header = style({
-  display: 'grid',
-  gridTemplateColumns: '48px 1fr 1fr 80px',
-  gap: vars.spacing.md,
   padding: `${vars.spacing.sm} ${vars.spacing.md}`,
   borderBottom: `1px solid ${vars.colors.surfaceHover}`,
   color: vars.colors.textSecondary,
@@ -19,10 +16,7 @@ export const header = style({
   textTransform: 'uppercase',
   fontWeight: 'bold',
   letterSpacing: '0.1em',
-});
-
-export const headerTime = style({
-  textAlign: 'right',
+  marginBottom: vars.spacing.sm,
 });
 
 export const sentinel = style({

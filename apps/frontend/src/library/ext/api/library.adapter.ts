@@ -1,5 +1,7 @@
 import { apiClient } from '@shared/api';
-import { LibraryPort, GetSavedTracksParams, GetSavedTracksResult } from '../../library.port';
+import {
+  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
+} from '../../library.port';
 import { Track } from '../../domain/track.model';
 
 export interface TrackDto {
@@ -29,7 +31,7 @@ export class SpotifyLibraryAdapter implements LibraryPort {
     }).json<GetTracksResponseDto>();
 
     return {
-      items: data.items.map((dto) => Track.create({
+      items: data.items.map(dto => Track.create({
         id: dto.id,
         name: dto.name,
         artists: dto.artists,

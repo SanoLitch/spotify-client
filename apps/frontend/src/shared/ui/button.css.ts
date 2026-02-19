@@ -12,24 +12,30 @@ export const baseButton = style({
   },
 });
 
-export const primaryButton = style([baseButton, {
-  backgroundColor: vars.colors.brand,
-  color: vars.colors.text,
-  padding: `${vars.spacing.sm} ${vars.spacing.xl}`,
-  fontSize: vars.fontSizes.md,
-  ':hover': {
-    backgroundColor: vars.colors.brandHover,
-    transform: 'scale(1.05)',
+export const primaryButton = style([
+  baseButton,
+  {
+    backgroundColor: vars.colors.brand,
+    color: vars.colors.text,
+    padding: `${ vars.spacing.sm } ${ vars.spacing.xl }`,
+    fontSize: vars.fontSizes.md,
+    ':hover': {
+      backgroundColor: vars.colors.brandHover,
+      transform: 'scale(1.05)',
+    },
   },
-}]);
+]);
 
-export const secondaryButton = style([baseButton, {
-  backgroundColor: vars.colors.surface,
-  color: vars.colors.text,
-  padding: `${vars.spacing.sm} ${vars.spacing.md}`,
-  fontSize: vars.fontSizes.sm,
-  borderRadius: vars.borderRadius.sm,
-  ':hover': {
-    backgroundColor: vars.colors.surfaceHover,
+export const secondaryButton = style([
+  baseButton,
+  {
+    backgroundColor: vars.colors.surface,
+    color: vars.colors.text,
+    padding: `${ vars.spacing.sm } ${ vars.spacing.md }`,
+    fontSize: vars.fontSizes.sm,
+    borderRadius: vars.borderRadius.sm,
+    ':hover': {
+      backgroundColor: vars.colors.surfaceHover,
+    },
   },
-}]);
+]);

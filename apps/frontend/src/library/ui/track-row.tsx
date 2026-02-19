@@ -14,14 +14,13 @@ export const TrackRow = ({ track }: TrackRowProps) => {
         className={ styles.cover }
       />
       <div className={ styles.mainInfo }>
-        <span className={ styles.title }>{ track.name }</span>
-        <span className={ styles.artist }>{ track.artists.join(', ') }</span>
-      </div>
-      <div className={ styles.album }>
-        { track.albumName }
-      </div>
-      <div className={ styles.duration }>
-        { track.formattedDuration }
+        <div className={ styles.titleWrapper }>
+          <span className={ styles.title }>{ track.name }</span>
+          <span className={ styles.duration }>{ track.formattedDuration }</span>
+        </div>
+        <div className={ styles.metadata }>
+          { track.artists.join(', ') } | { track.albumName }
+        </div>
       </div>
     </div>
   );
