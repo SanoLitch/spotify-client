@@ -36,9 +36,9 @@ Goal: Create reactive stores and use cases for the library.
 ## Phase 4: Frontend Infrastructure and UI Integration
 Goal: Connect to the backend API, migrate UI to Radix UI + Vanilla Extract, and implement data-driven routing.
 
-- [ ] Task: Implement Library API Adapter [ ]
+- [x] Task: Implement Library API Adapter [8f51259]
     - [ ] Create `LibraryAdapter` using `apiClient` to fetch from backend
-- [ ] Task: Create UI Components [ ]
+- [x] Task: Create UI Components [9b2f3ef]
     - [ ] Implement `TrackRow` and `TrackList` components using Vanilla Extract and Radix primitives
     - [ ] Implement infinite scroll logic in `TrackList`
 - [ ] Task: Integrate into Home Page [ ]
