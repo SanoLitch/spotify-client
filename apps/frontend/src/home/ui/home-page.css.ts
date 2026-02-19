@@ -5,15 +5,23 @@ export const container = style({
   padding: vars.spacing.xl,
 });
 
-export const logoutButton = style({
-  backgroundColor: vars.colors.surface,
-  color: vars.colors.text,
-  border: 'none',
-  padding: `${ vars.spacing.sm } ${ vars.spacing.md }`,
-  borderRadius: vars.borderRadius.sm,
-  cursor: 'pointer',
-  marginTop: vars.spacing.md,
-  ':hover': {
-    backgroundColor: vars.colors.surfaceHover,
-  },
+export const header = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: vars.spacing.xl,
+});
+
+export const welcomeTitle = style({
+  color: vars.colors.brand,
+  margin: 0,
+});
+
+export const userName = style({
+  margin: 0,
+  color: vars.colors.textSecondary,
+});
+
+export const sectionTitle = style({
+  marginBottom: vars.spacing.md,
 });

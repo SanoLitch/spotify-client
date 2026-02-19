@@ -33,22 +33,3 @@ export const subtitle = style({
   color: vars.colors.textSecondary,
   margin: 0,
 });
-
-export const loginButton = style({
-  backgroundColor: vars.colors.brand,
-  color: vars.colors.text,
-  border: 'none',
-  padding: `${ vars.spacing.sm } ${ vars.spacing.xl }`,
-  borderRadius: vars.borderRadius.full,
-  cursor: 'pointer',
-  fontWeight: 'bold',
-  fontSize: vars.fontSizes.md,
-  transition: 'transform 0.2s, background-color 0.2s',
-  ':hover': {
-    backgroundColor: vars.colors.brandHover,
-    transform: 'scale(1.05)',
-  },
-  ':active': {
-    transform: 'scale(0.95)',
-  },
-});

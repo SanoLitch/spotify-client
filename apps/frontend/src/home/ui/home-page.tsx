@@ -1,31 +1,37 @@
 import { observer } from 'mobx-react-lite';
-import {
-  PageRoute, ROUTES,
-} from '@shared/routing';
-import { vars } from '@shared/ui/theme.css';
-import * as styles from './home-page.css';
 import { authRootStore } from '../../auth';
+import { PageRoute, ROUTES } from '@shared/routing';
+import { secondaryButton } from '@shared/ui';
+import { TrackList } from '../../library/ui/track-list';
+import * as styles from './home-page.css';
 
 export const HomePageView = observer(() => {
   const { user } = authRootStore.data;
 
   return (
     <div className={ styles.container }>
-      <h1 style={ { color: vars.colors.brand } }>Welcome to Spotify Client!</h1>
-      {user && (
-        <p>
-          Logged in as:
-          {' '}
-          {user.displayName}
-        </p>
-      )}
-      <button
-        type="button"
-        className={ styles.logoutButton }
-        onClick={ () => authRootStore.logoutUseCase.execute() }
-      >
-        Logout
-      </button>
+      <header className={ styles.header }>
+        <div>
+          <h1 className={ styles.welcomeTitle }>Welcome to Spotify Client!</h1>
+          {user && (
+            <p className={ styles.userName }>
+              Logged in as: {user.displayName}
+            </p>
+          )}
+        </div>
+        <button
+          type="button"
+          className={ secondaryButton }
+          onClick={ () => authRootStore.logoutUseCase.execute() }
+        >
+          Logout
+        </button>
+      </header>
+
+      <section>
+        <h2 className={ styles.sectionTitle }>Your Saved Tracks</h2>
+        <TrackList />
+      </section>
     </div>
   );
 });

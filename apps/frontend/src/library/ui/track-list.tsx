@@ -9,7 +9,6 @@ export const TrackList = observer(() => {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initial load
     getSavedTracksCase.execute();
   }, [getSavedTracksCase]);
 
@@ -36,7 +35,7 @@ export const TrackList = observer(() => {
         <span>#</span>
         <span>Title</span>
         <span>Album</span>
-        <span style={{ textAlign: 'right' }}>Time</span>
+        <span className={ styles.headerTime }>Time</span>
       </div>
 
       { data.tracks.map((track) => (

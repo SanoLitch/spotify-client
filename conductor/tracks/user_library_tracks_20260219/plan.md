@@ -41,6 +41,6 @@ Goal: Connect to the backend API, migrate UI to Radix UI + Vanilla Extract, and 
 - [x] Task: Create UI Components [9b2f3ef]
     - [ ] Implement `TrackRow` and `TrackList` components using Vanilla Extract and Radix primitives
     - [ ] Implement infinite scroll logic in `TrackList`
-- [ ] Task: Integrate into Home Page [ ]
+- [~] Task: Integrate into Home Page [ ]
     - [ ] Update `HomePage` to render the `TrackList`
 - [ ] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)

@@ -21,6 +21,10 @@ export const header = style({
   letterSpacing: '0.1em',
 });
 
+export const headerTime = style({
+  textAlign: 'right',
+});
+
 export const sentinel = style({
   height: '20px',
   width: '100%',
