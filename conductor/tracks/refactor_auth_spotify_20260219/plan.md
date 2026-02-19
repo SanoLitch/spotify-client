@@ -6,7 +6,7 @@ Goal: Define the core business logic and interfaces for authentication.
 - [x] Task: Define Auth Domain Entities and Port Interfaces [70cef07]
     - [ ] Write tests for `User` entity and domain logic
     - [ ] Implement `User` entity and `AuthProvider` / `UserRepository` interfaces
-- [ ] Task: Implement Authentication Use Cases
+- [x] Task: Implement Authentication Use Cases [97bf65e]
     - [ ] Write tests for `LoginUseCase` and `LogoutUseCase`
     - [ ] Implement Use Cases orchestrating the ports
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Backend Domain and Application Layers' (Protocol in workflow.md)
