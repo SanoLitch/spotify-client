@@ -1,11 +1,15 @@
-import { useEffect, useRef } from 'react';
+import {
+  useEffect, useRef,
+} from 'react';
 import { observer } from 'mobx-react-lite';
-import { libraryRootStore } from '../domain';
 import { TrackRow } from './track-row';
 import * as styles from './track-list.css';
+import { libraryRootStore } from '../domain';
 
 export const TrackList = observer(() => {
-  const { data, getSavedTracksCase } = libraryRootStore;
+  const {
+    data, getSavedTracksCase,
+  } = libraryRootStore;
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,12 +18,12 @@ export const TrackList = observer(() => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting && data.hasMore && !data.isLoading) {
           getSavedTracksCase.execute();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sentinelRef.current) {
@@ -27,7 +31,11 @@ export const TrackList = observer(() => {
     }
 
     return () => observer.disconnect();
-  }, [data.hasMore, data.isLoading, getSavedTracksCase]);
+  }, [
+    data.hasMore,
+    data.isLoading,
+    getSavedTracksCase,
+  ]);
 
   return (
     <div className={ styles.listContainer }>
@@ -35,7 +43,7 @@ export const TrackList = observer(() => {
         Songs
       </div>
 
-      { data.tracks.map((track) => (
+      { data.tracks.map(track => (
         <TrackRow key={ track.id } track={ track } />
       )) }
 

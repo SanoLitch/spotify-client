@@ -5,7 +5,7 @@ export const row = style({
   display: 'grid',
   gridTemplateColumns: '48px 1fr',
   gap: vars.spacing.md,
-  padding: `${vars.spacing.sm} ${vars.spacing.md}`,
+  padding: `${ vars.spacing.sm } ${ vars.spacing.md }`,
   alignItems: 'center',
   borderRadius: vars.borderRadius.sm,
   transition: 'background-color 0.2s',

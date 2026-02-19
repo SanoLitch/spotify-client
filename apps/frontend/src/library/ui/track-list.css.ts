@@ -9,8 +9,8 @@ export const listContainer = style({
 });
 
 export const header = style({
-  padding: `${vars.spacing.sm} ${vars.spacing.md}`,
-  borderBottom: `1px solid ${vars.colors.surfaceHover}`,
+  padding: `${ vars.spacing.sm } ${ vars.spacing.md }`,
+  borderBottom: `1px solid ${ vars.colors.surfaceHover }`,
   color: vars.colors.textSecondary,
   fontSize: vars.fontSizes.sm,
   textTransform: 'uppercase',
