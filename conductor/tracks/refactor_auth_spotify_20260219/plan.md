@@ -22,8 +22,10 @@ Goal: Structure the frontend authentication logic into reactive stores and use c
 - [x] Task: Conductor - User Manual Verification 'Phase 3' [20f64b0]
 
 ## Phase 4: Frontend Infrastructure and UI Integration [DONE]
-Goal: Connect to the backend API and update the UI.
+Goal: Connect to the backend API, migrate UI to Radix UI + Vanilla Extract, and implement data-driven routing.
 
 - [x] Task: Implement Frontend Auth API Adapter [1dd648c]
-- [x] Task: Integrate with React Components [e8a04db]
-- [x] Task: Conductor - User Manual Verification 'Phase 4' [503f248]
+- [x] Task: Migrate UI from MUI to Radix UI + Vanilla Extract [0d96ac4]
+- [x] Task: Implement Centralized Theme and Global Tokens [7da40c6]
+- [x] Task: Implement Data-Driven Routing with @shared alias [d8d9a0c]
+- [x] Task: Conductor - User Manual Verification 'Phase 4'
