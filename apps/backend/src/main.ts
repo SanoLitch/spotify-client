@@ -14,7 +14,6 @@ async function bootstrap() {
   app.use(cookieParser());
   app.setGlobalPrefix('api');
 
-  // OpenAPI / Swagger Setup
   const config = new DocumentBuilder()
     .setTitle('Spotify Client API')
     .setDescription('The Spotify Client application API description')
@@ -24,9 +23,8 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  // Scalar API Reference
   app.use(
-    '/reference',
+    '/docs',
     apiReference({
       spec: {
         content: document,

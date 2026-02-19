@@ -22,9 +22,9 @@ describe('SpotifyAuthAdapter', () => {
   it('should fetch profile and return User model', async () => {
     const mockDto = {
       id: '123',
-      display_name: 'Test',
+      displayName: 'Test',
       email: 'test@test.com',
-      images: [{ url: 'img' }],
+      avatarUrl: 'img',
     };
 
     vi.mocked(apiClient.get).mockReturnValue({

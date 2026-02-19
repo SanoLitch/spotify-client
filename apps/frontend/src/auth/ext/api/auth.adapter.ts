@@ -4,9 +4,9 @@ import { User } from '../../domain/user.model';
 
 export interface UserProfileDto {
   id: string;
-  display_name: string;
+  displayName: string;
   email: string;
-  images: { url: string }[];
+  avatarUrl?: string;
 }
 
 export class SpotifyAuthAdapter implements AuthPort {
@@ -15,9 +15,9 @@ export class SpotifyAuthAdapter implements AuthPort {
 
     return User.create({
       id: data.id,
-      displayName: data.display_name,
+      displayName: data.displayName,
       email: data.email,
-      avatarUrl: data.images?.[0]?.url,
+      avatarUrl: data.avatarUrl,
     });
   }
 
