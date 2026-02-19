@@ -22,7 +22,7 @@ Goal: Implement the concrete Spotify integration and API endpoints.
     - [ ] Refactor Controller to use Use Cases instead of direct service calls
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Backend Infrastructure and API Layers' (Protocol in workflow.md)
 
-## Phase 3: Frontend Domain and Application Layers
+## Phase 3: Frontend Domain and Application Layers [checkpoint: 20f64b0]
 Goal: Structure the frontend authentication logic into reactive stores and use cases.
 
 - [x] Task: Define Frontend Auth Stores (MobX) [9cd300d]
