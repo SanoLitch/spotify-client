@@ -28,7 +28,7 @@ Goal: Create reactive stores and use cases for the library.
 - [x] Task: Define Frontend Track Model and LibraryStore [337caec]
     - [ ] Create `Track` model in `apps/frontend/src/library/domain/track.model.ts`
     - [ ] Implement `LibraryDataStore` (MobX) to manage tracks, pagination, and loading state
-- [~] Task: Implement GetSavedTracks Use Case [ ]
+- [x] Task: Implement GetSavedTracks Use Case [8f51259]
     - [ ] Write unit tests for `GetSavedTracksCase`
     - [ ] Implement fetching logic with `LibraryAdapter`
 - [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
