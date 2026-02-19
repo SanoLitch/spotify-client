@@ -22,7 +22,7 @@ Goal: Integrate with Spotify API and expose the endpoint.
     - [ ] Implement DTOs for pagination and response
 - [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
-## Phase 3: Frontend Domain and Application Layers
+## Phase 3: Frontend Domain and Application Layers [checkpoint: 82660d3]
 Goal: Create reactive stores and use cases for the library.
 
 - [x] Task: Define Frontend Track Model and LibraryStore [337caec]
