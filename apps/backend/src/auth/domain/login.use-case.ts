@@ -1,6 +1,6 @@
+import { User } from './user.entity';
 import { AuthPort } from '../ext/spotify/auth.port';
 import { UserRepositoryPort } from '../ext/storage/user-repository.port';
-import { User } from './user.entity';
 
 export interface LoginInput {
   code: string;
