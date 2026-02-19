@@ -1,6 +1,6 @@
 # Implementation Plan - User Library: Saved Tracks
 
-## Phase 1: Backend Domain and Application Layers
+## Phase 1: Backend Domain and Application Layers [checkpoint: 651fe1a]
 Goal: Define the Track entity and core library logic.
 
 - [x] Task: Define Track Domain Entity and LibraryPort [6be8efd]
