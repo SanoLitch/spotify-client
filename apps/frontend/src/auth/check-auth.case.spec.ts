@@ -6,14 +6,14 @@ import { User } from './domain/user.model';
 
 describe('CheckAuthUseCase', () => {
   let useCase: CheckAuthUseCase;
-  let authApi: AuthPort;
-  let authDataStore: AuthDataStore;
+  let authApi: jest.Mocked<AuthPort>;
+  let authDataStore: jest.Mocked<AuthDataStore>;
 
   beforeEach(() => {
     authApi = {
       getMe: vi.fn(),
       logout: vi.fn(),
-    };
+    } as any;
     authDataStore = {
       setUser: vi.fn(),
       clear: vi.fn(),

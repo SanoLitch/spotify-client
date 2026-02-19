@@ -6,6 +6,14 @@ import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
+import { MeUseCase } from '../domain/me.use-case';
+
+export interface UserDto {
+  id: string;
+  display_name: string;
+  email: string;
+  avatar_url?: string;
+}
 
 @Controller('auth')
 export class AuthController {
@@ -13,6 +21,7 @@ export class AuthController {
     private readonly configService: ConfigService,
     private readonly loginUseCase: LoginUseCase,
     private readonly logoutUseCase: LogoutUseCase,
+    private readonly meUseCase: MeUseCase,
   ) {}
 
   @Get('login')
@@ -43,10 +52,6 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
-      /*
-       * We don't have expires_in here yet from the domain output,
-       * let's use a default or update domain output if needed.
-       */
       maxAge: 3600 * 1000,
     });
 
@@ -60,17 +65,19 @@ export class AuthController {
   }
 
   @Get('me')
-  public async me(@Req() req: AuthenticatedRequest) {
+  public async me(@Req() req: AuthenticatedRequest): Promise<UserDto> {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
     }
-    /*
-     * We need a GetMeUseCase here to follow the pattern.
-     * For now, let's keep it simple or implement it if it's in the spec.
-     * Spec says: Implement Use Cases for "Login", "Logout", and "Refresh Token".
-     * "me" probably needs its own use case.
-     */
-    return { message: 'Not fully implemented with use case yet' };
+
+    const { user } = await this.meUseCase.execute(req.user.accessToken);
+
+    return {
+      id: user.id,
+      display_name: user.displayName,
+      email: user.email,
+      avatar_url: user.avatarUrl,
+    };
   }
 
   @Get('logout')

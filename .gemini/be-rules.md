@@ -21,6 +21,9 @@ principles and nomenclature.
   - Create necessary types.
 - Use access modifiers for class members explicit (except constructors).
 - Use method/function return type explicit.
+- Use ONLY named exports (no default exports).
+- Explicitly type all DTOs and Data Transfer Objects.
+- Avoid using `any` in tests; use properly typed mocks and interfaces.
 - One export per file.
 
 ### Architecture

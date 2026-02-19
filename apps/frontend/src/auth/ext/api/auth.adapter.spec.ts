@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SpotifyAuthAdapter } from './auth.adapter';
-import { api } from '../../../ext/core/api';
+import { apiClient } from '../../../shared/api/api-client';
 import { User } from '../../domain/user.model';
 
-vi.mock('../../../ext/core/api', () => ({
-  api: {
+vi.mock('../../../shared/api/api-client', () => ({
+  apiClient: {
     get: vi.fn(),
   },
 }));
@@ -25,23 +25,25 @@ describe('SpotifyAuthAdapter', () => {
       images: [{ url: 'img' }],
     };
 
-    vi.mocked(api.get).mockReturnValue({
+    vi.mocked(apiClient.get).mockReturnValue({
       json: () => Promise.resolve(mockDto),
-    } as any);
+    } as any); // ky return type is complex to mock fully
 
     const user = await adapter.getMe();
 
-    expect(api.get).toHaveBeenCalledWith('auth/me');
+    expect(apiClient.get).toHaveBeenCalledWith('auth/me');
     expect(user).toBeInstanceOf(User);
     expect(user.id).toBe('123');
     expect(user.displayName).toBe('Test');
   });
 
   it('should call logout endpoint', async () => {
-    vi.mocked(api.get).mockReturnValue({} as any);
+    vi.mocked(apiClient.get).mockReturnValue({
+      json: () => Promise.resolve({}),
+    } as any);
 
     await adapter.logout();
 
-    expect(api.get).toHaveBeenCalledWith('auth/logout');
+    expect(apiClient.get).toHaveBeenCalledWith('auth/logout');
   });
 });

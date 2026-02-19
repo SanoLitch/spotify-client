@@ -15,6 +15,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.9",
+    "@libs/ddd": "*",
     "@mui/material": "^7.3.5",
     "ky": "^1.14.3",
     "mobx": "^6.13.7",
@@ -30,13 +31,10 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.2.2",
+    "@vitejs/plugin-react": "^5.1.4",
     "globals": "^16.5.0",
     "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@7.2.5",
+    "vite": "^7.3.1",
     "vitest": "^4.0.18"
-  },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.2.5"
   }
 }

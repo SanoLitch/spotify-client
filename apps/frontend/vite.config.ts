@@ -1,8 +1,6 @@
 import {
   defineConfig, loadEnv,
 } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import observerPlugin from 'mobx-react-observer/swc-plugin';
 
 export default defineConfig(({ mode }) => {
   const cwd = process.cwd();
@@ -13,7 +11,7 @@ export default defineConfig(({ mode }) => {
   const appPort = Number(APP_PORT);
 
   return {
-    plugins: [react({ plugins: [] })],
+    plugins: [],
     test: {
       globals: true,
     },

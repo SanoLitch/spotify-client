@@ -23,13 +23,18 @@ const darkTheme = createTheme({
 });
 
 const ProtectedRoute = observer(() => {
+  if (authRootStore.data.isLoading) {
+    return null; // Or a smaller spinner
+  }
+
   if (!authRootStore.data.isAuthenticated) {
     return <Navigate replace to="/login" />;
   }
+
   return <Outlet />;
 });
 
-const App = observer(() => {
+export const App = observer(() => {
   useEffect(() => {
     authRootStore.checkAuthUseCase.execute();
   }, []);
@@ -81,5 +86,3 @@ const App = observer(() => {
     </ThemeProvider>
   );
 });
-
-export default App;

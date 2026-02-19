@@ -1,2 +1,2 @@
-export * from './email.vo';
+export { Email } from './email.vo';
 export * from './domain-error';

@@ -1,5 +1,5 @@
 {
-  "extends": "@libs/typescript-config/nest-lib.json",
+  "extends": "@libs/typescript-config/lib.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"

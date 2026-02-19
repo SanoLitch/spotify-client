@@ -8,6 +8,7 @@ import { SpotifyApiService } from './lib/spotify-api.service';
 import { AuthMiddleware } from './api/auth.middleware';
 import { LoginUseCase } from './domain/login.use-case';
 import { LogoutUseCase } from './domain/logout.use-case';
+import { MeUseCase } from './domain/me.use-case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
 
 @Module({
@@ -25,9 +26,14 @@ import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
       useFactory: () => new LogoutUseCase(),
     },
     {
+      provide: MeUseCase,
+      inject: ['AuthPort'],
+      useFactory: (authPort) => new MeUseCase(authPort),
+    },
+    {
       provide: 'AuthPort',
       inject: [SpotifyApiService],
-      useFactory: api => new SpotifyAuthAdapter(api),
+      useFactory: (api) => new SpotifyAuthAdapter(api),
     },
     {
       provide: 'UserRepositoryPort',
