@@ -77,31 +77,25 @@ graph TD
 
 ```
 /src
-└── /order
-    ├── /app
-    │   └── update-order-field.use-case.ts  # Сценарии использования
-    ├── /domain (или /model)
-    │   ├── order.types.ts                  # Типы доменных моделей
-    │   ├── order.errors.ts                 # Кастомные доменные ошибки
-    │   ├── order.events.ts                 # Локальная шина событий модуля
-    │   ├── order-item.model.ts             # Модель для вложенной сущности
-    │   ├── order-data.store.ts             # Стор для данных
-    │   ├── order-validation.store.ts       # Стор для логики валидации
-    │   ├── order-rules.store.ts            # Стор для бизнес-правил
-    │   └── root-order.store.ts             # Фасад, объединяющий сторы
-    ├── /ui
-    │   ├── order-form.tsx                  # Компонент формы
-    │   ├── order-items-table.tsx           # Компонент таблицы
-    │   └── use-order-form.ts               # Кастомный хук для логики формы
-    ├── /ext
-    │   ├── /api
-    │   │   ├── order.adapter.ts            # Реализация API-клиента (Adapter)
-    │   │   ├── order.port.ts               # Интерфейс API (Port)
-    │   │   └── order.types.ts              # Типы DTO
-    │   └── /validation
-    │       └── zod-order-validator.ts      # Адаптер для Zod
-    └── /lib
-        └── order.mapper.ts                 # Маппер
+└── /auth
+    ├── /domain                             # Бизнес-логика и состояние
+    │   ├── user.model.ts                   # Доменные модели
+    │   ├── auth.errors.ts                  # Кастомные доменные ошибки
+    │   ├── auth-data.store.ts              # Сторы (MobX)
+    │   └── auth-root.store.ts              # Фасад сторов
+    ├── /ui                                 # UI-слой (React)
+    │   ├── login-page.tsx                  # Компоненты
+    │   └── use-login-form.ts               # Хуки UI-логики
+    ├── /ext                                # Внешние интеграции (Infrastructure)
+    │   ├── /api                            # API интеграция
+    │   │   ├── auth.adapter.ts             # Реализация (Adapter)
+    │   │   ├── auth.port.ts                # Интерфейс (Port)
+    │   │   ├── auth.dto.ts                 # Data Transfer Objects
+    │   │   └── auth.mapper.ts              # Мапперы (DTO -> Model)
+    │   └── /storage                        # LocalStorage и т.д.
+    ├── /lib                                # Чистые утилиты модуля
+    ├── check-auth.case.ts                  # Сценарии использования (Use Cases)
+    └── logout.case.ts                      # Сценарии использования (Use Cases)
 ```
 
 ## 4. Взаимодействие модулей

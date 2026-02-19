@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { LogoutUseCase } from './logout.use-case';
-import { AuthApiPort } from '../../domain/ports/auth-api.port';
-import { AuthDataStore } from '../../domain/auth-data.store';
+import { LogoutUseCase } from './logout.case';
+import { AuthPort } from './ext/api/auth.port';
+import { AuthDataStore } from './domain/auth-data.store';
 
 describe('LogoutUseCase', () => {
   let useCase: LogoutUseCase;
-  let authApi: AuthApiPort;
+  let authApi: AuthPort;
   let authDataStore: AuthDataStore;
 
   beforeEach(() => {

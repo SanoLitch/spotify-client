@@ -1,9 +1,9 @@
-import { AuthApiPort } from '../../domain/ports/auth-api.port';
-import { AuthDataStore } from '../../domain/auth-data.store';
+import { AuthPort } from './ext/api/auth.port';
+import { AuthDataStore } from './domain/auth-data.store';
 
 export class CheckAuthUseCase {
   constructor(
-    private readonly authApi: AuthApiPort,
+    private readonly authApi: AuthPort,
     private readonly authDataStore: AuthDataStore,
   ) {}
 

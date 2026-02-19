@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { CheckAuthUseCase } from './check-auth.use-case';
-import { AuthApiPort } from '../../domain/ports/auth-api.port';
-import { AuthDataStore } from '../../domain/auth-data.store';
-import { User } from '../../domain/user.model';
+import { CheckAuthUseCase } from './check-auth.case';
+import { AuthPort } from './ext/api/auth.port';
+import { AuthDataStore } from './domain/auth-data.store';
+import { User } from './domain/user.model';
 
 describe('CheckAuthUseCase', () => {
   let useCase: CheckAuthUseCase;
-  let authApi: AuthApiPort;
+  let authApi: AuthPort;
   let authDataStore: AuthDataStore;
 
   beforeEach(() => {
