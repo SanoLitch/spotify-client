@@ -17,6 +17,7 @@ describe('CheckAuthUseCase', () => {
     authDataStore = {
       setUser: vi.fn(),
       clear: vi.fn(),
+      setLoading: vi.fn(),
     } as any;
     useCase = new CheckAuthUseCase(authApi, authDataStore);
   });
@@ -29,6 +30,8 @@ describe('CheckAuthUseCase', () => {
 
     expect(authApi.getMe).toHaveBeenCalled();
     expect(authDataStore.setUser).toHaveBeenCalledWith(user);
+    expect(authDataStore.setLoading).toHaveBeenCalledWith(true);
+    expect(authDataStore.setLoading).toHaveBeenCalledWith(false);
   });
 
   it('should clear store on failure', async () => {
@@ -37,5 +40,6 @@ describe('CheckAuthUseCase', () => {
     await useCase.execute();
 
     expect(authDataStore.clear).toHaveBeenCalled();
+    expect(authDataStore.setLoading).toHaveBeenCalledWith(false);
   });
 });

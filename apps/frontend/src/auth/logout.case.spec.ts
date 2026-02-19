@@ -16,6 +16,7 @@ describe('LogoutUseCase', () => {
     authDataStore = {
       setUser: vi.fn(),
       clear: vi.fn(),
+      setLoading: vi.fn(),
     } as any;
     useCase = new LogoutUseCase(authApi, authDataStore);
   });
@@ -25,5 +26,7 @@ describe('LogoutUseCase', () => {
 
     expect(authApi.logout).toHaveBeenCalled();
     expect(authDataStore.clear).toHaveBeenCalled();
+    expect(authDataStore.setLoading).toHaveBeenCalledWith(true);
+    expect(authDataStore.setLoading).toHaveBeenCalledWith(false);
   });
 });

@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import {
   Box, CssBaseline, ThemeProvider, createTheme, CircularProgress,
 } from '@mui/material';
-import { authStore } from './auth/model/auth.store';
+import { authRootStore } from './auth';
 import { LoginPage } from './auth/ui/login-page';
 
 const darkTheme = createTheme({
@@ -23,7 +23,7 @@ const darkTheme = createTheme({
 });
 
 const ProtectedRoute = observer(() => {
-  if (!authStore.isAuthenticated) {
+  if (!authRootStore.data.isAuthenticated) {
     return <Navigate replace to="/login" />;
   }
   return <Outlet />;
@@ -31,10 +31,10 @@ const ProtectedRoute = observer(() => {
 
 const App = observer(() => {
   useEffect(() => {
-    authStore.checkAuth();
+    authRootStore.checkAuthUseCase.execute();
   }, []);
 
-  if (authStore.isLoading) {
+  if (authRootStore.data.isLoading) {
     return (
       <Box
         display="flex"
@@ -63,13 +63,13 @@ const App = observer(() => {
               path="/" element={ (
                 <Box p={ 4 }>
                   <h1>Welcome to Spotify Client!</h1>
-                  {authStore.user && (
+                  {authRootStore.data.user && (
                     <p>
                       Logged in as:
-                      {authStore.user.display_name}
+                      {authRootStore.data.user.displayName}
                     </p>
                   )}
-                  <button onClick={ () => authStore.logout() }>Logout</button>
+                  <button onClick={ () => authRootStore.logoutUseCase.execute() }>Logout</button>
                 </Box>
               ) }
             />

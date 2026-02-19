@@ -8,11 +8,14 @@ export class CheckAuthUseCase {
   ) {}
 
   public async execute(): Promise<void> {
+    this.authDataStore.setLoading(true);
     try {
       const user = await this.authApi.getMe();
       this.authDataStore.setUser(user);
     } catch (error) {
       this.authDataStore.clear();
+    } finally {
+      this.authDataStore.setLoading(false);
     }
   }
 }

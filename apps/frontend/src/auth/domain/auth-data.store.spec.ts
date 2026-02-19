@@ -11,6 +11,7 @@ describe('AuthDataStore', () => {
   it('should initialize with default values', () => {
     expect(store.isAuthenticated).toBe(false);
     expect(store.user).toBe(null);
+    expect(store.isLoading).toBe(true);
   });
 
   it('should set user and mark as authenticated', () => {
@@ -22,6 +23,7 @@ describe('AuthDataStore', () => {
     store.setUser(user);
     expect(store.user).toBe(user);
     expect(store.isAuthenticated).toBe(true);
+    expect(store.isLoading).toBe(false);
   });
 
   it('should clear user on logout', () => {
@@ -34,5 +36,6 @@ describe('AuthDataStore', () => {
     store.clear();
     expect(store.user).toBe(null);
     expect(store.isAuthenticated).toBe(false);
+    expect(store.isLoading).toBe(false);
   });
 });

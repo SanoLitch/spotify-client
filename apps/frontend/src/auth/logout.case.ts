@@ -8,10 +8,12 @@ export class LogoutUseCase {
   ) {}
 
   public async execute(): Promise<void> {
+    this.authDataStore.setLoading(true);
     try {
       await this.authApi.logout();
     } finally {
       this.authDataStore.clear();
+      this.authDataStore.setLoading(false);
     }
   }
 }
