@@ -1,12 +1,12 @@
 import { LoginUseCase } from './login.use-case';
-import { AuthProvider } from './auth-provider.interface';
-import { UserRepository } from './user-repository.interface';
+import { AuthPort } from '../ext/spotify/auth.port';
+import { UserRepositoryPort } from '../ext/storage/user-repository.port';
 import { User } from './user.entity';
 
 describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;
-  let authProvider: jest.Mocked<AuthProvider>;
-  let userRepository: jest.Mocked<UserRepository>;
+  let authProvider: jest.Mocked<AuthPort>;
+  let userRepository: jest.Mocked<UserRepositoryPort>;
 
   beforeEach(() => {
     authProvider = {

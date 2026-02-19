@@ -29,12 +29,15 @@ principles and nomenclature.
 - Use vertical slice approach based on feature/entity for modules.
 - Use next folder structure for each module/slice:
   - _api_ contains controller, DTOs and other api/presentation stuff.
-  - _db_ contains database models, repositories and etc.
-  - _domain_ contains domain entities, use-cases if needed and buissness logic.
+  - _ext_ contains external integrations grouped by feature (e.g., _spotify_, _storage_).
+    - Each subfolder in _ext_ should contain its own port definitions and adapters.
+  - _domain_ contains domain entities, use-cases and business logic.
   - _lib_ contains mappers, utility and etc.
 - Incapsulate buissness logic in domain entities/services
-- Use repository pattern for database models
-- Module _db_ in _src/db_ contains base functionality to interact with database:
+- Use repository pattern for storage models
+- Use "port" suffix for interfaces and "adapter" for implementations (e.g., `AuthPort`, `SpotifyAuthAdapter`).
+- Move shared DDD objects (Value Objects like Email, base classes) to `@libs/ddd`.
+- Module _storage_ in _src/ext/storage_ contains base functionality to interact with database:
   - folder _migrations_ used for migration storing
   - folder _schemes_ contains all PrismaORM schemes, one file per entity
 

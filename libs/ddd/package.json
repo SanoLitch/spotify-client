@@ -1,0 +1,16 @@
+{
+  "name": "@libs/ddd",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "pipeline:build": "tsc"
+  },
+  "devDependencies": {
+    "@libs/typescript-config": "*",
+    "typescript": "^5.9.3"
+  }
+}

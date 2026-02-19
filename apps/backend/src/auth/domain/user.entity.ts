@@ -1,4 +1,4 @@
-import { Email } from './email.vo';
+import { Email } from '@libs/ddd';
 
 export interface UserProps {
   id: string;
@@ -31,7 +31,7 @@ export class User {
   }
 
   public get email(): string {
-    return this.props.email.toString;
+    return this.props.email.toString();
   }
 
   public get avatarUrl(): string | undefined {

@@ -7,7 +7,7 @@ export class Email {
     return new Email(email);
   }
 
-  public get toString(): string {
+  public toString(): string {
     return this.value;
   }
 

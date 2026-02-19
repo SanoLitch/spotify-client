@@ -1,5 +1,5 @@
-import { AuthProvider } from './auth-provider.interface';
-import { UserRepository } from './user-repository.interface';
+import { AuthPort } from '../ext/spotify/auth.port';
+import { UserRepositoryPort } from '../ext/storage/user-repository.port';
 import { User } from './user.entity';
 
 export interface LoginInput {
@@ -16,8 +16,8 @@ export interface LoginOutput {
 
 export class LoginUseCase {
   constructor(
-    private readonly authProvider: AuthProvider,
-    private readonly userRepository: UserRepository,
+    private readonly authProvider: AuthPort,
+    private readonly userRepository: UserRepositoryPort,
   ) {}
 
   public async execute(input: LoginInput): Promise<LoginOutput> {
