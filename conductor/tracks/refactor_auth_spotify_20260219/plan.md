@@ -17,7 +17,7 @@ Goal: Implement the concrete Spotify integration and API endpoints.
 - [x] Task: Implement Spotify Auth Adapter [ea0a653]
     - [ ] Write tests for `SpotifyAuthProvider` (using mocks for Spotify API)
     - [ ] Implement `SpotifyAuthProvider` in the infrastructure layer
-- [ ] Task: Refactor Auth Controller
+- [x] Task: Refactor Auth Controller [b79f320]
     - [ ] Write tests for `AuthController`
     - [ ] Refactor Controller to use Use Cases instead of direct service calls
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Backend Infrastructure and API Layers' (Protocol in workflow.md)
