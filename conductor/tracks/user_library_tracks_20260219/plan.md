@@ -6,7 +6,7 @@ Goal: Define the Track entity and core library logic.
 - [x] Task: Define Track Domain Entity and LibraryPort [6be8efd]
     - [ ] Create `Track` entity in `apps/backend/src/library/domain/track.entity.ts`
     - [ ] Define `LibraryPort` interface for fetching saved tracks
-- [ ] Task: Implement GetSavedTracksUseCase [ ]
+- [x] Task: Implement GetSavedTracksUseCase [13e2b71]
     - [ ] Write unit tests for `GetSavedTracksUseCase`
     - [ ] Implement use case to orchestrate track retrieval and pagination
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
