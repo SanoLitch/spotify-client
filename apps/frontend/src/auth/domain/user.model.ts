@@ -1,14 +1,14 @@
-import { Email } from '@libs/ddd';
+import { UserId } from '@libs/ddd';
 
 export interface UserProps {
-  id: string;
+  id: UserId;
   displayName: string;
-  email: Email;
+  email: string;
   avatarUrl?: string;
 }
 
 export class User {
-  private constructor(public readonly props: UserProps) {}
+  private constructor(private readonly props: UserProps) {}
 
   public static create(props: {
     id: string;
@@ -17,12 +17,14 @@ export class User {
     avatarUrl?: string;
   }): User {
     return new User({
-      ...props,
-      email: Email.create(props.email),
+      id: UserId.create(props.id),
+      displayName: props.displayName,
+      email: props.email,
+      avatarUrl: props.avatarUrl,
     });
   }
 
-  public get id(): string {
+  public get id(): UserId {
     return this.props.id;
   }
 
@@ -31,7 +33,7 @@ export class User {
   }
 
   public get email(): string {
-    return this.props.email.toString();
+    return this.props.email;
   }
 
   public get avatarUrl(): string | undefined {

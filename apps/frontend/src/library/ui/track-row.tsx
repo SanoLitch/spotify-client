@@ -1,5 +1,5 @@
-import { Track } from '../domain/track.model';
 import * as styles from './track-row.css';
+import { Track } from '../domain/track.model';
 
 export interface TrackRowProps {
   track: Track;

@@ -1,5 +1,7 @@
+import { TrackId } from '@libs/ddd';
+
 export interface TrackProps {
-  id: string;
+  id: TrackId;
   name: string;
   artists: string[];
   albumName: string;
@@ -10,11 +12,25 @@ export interface TrackProps {
 export class Track {
   private constructor(private readonly props: TrackProps) {}
 
-  public static create(props: TrackProps): Track {
-    return new Track(props);
+  public static create(props: {
+    id: string;
+    name: string;
+    artists: string[];
+    albumName: string;
+    durationMs: number;
+    albumCoverUrl?: string;
+  }): Track {
+    return new Track({
+      id: TrackId.create(props.id),
+      name: props.name,
+      artists: props.artists,
+      albumName: props.albumName,
+      durationMs: props.durationMs,
+      albumCoverUrl: props.albumCoverUrl,
+    });
   }
 
-  public get id(): string {
+  public get id(): TrackId {
     return this.props.id;
   }
 
@@ -44,7 +60,8 @@ export class Track {
   public get formattedDuration(): string {
     const minutes = Math.floor(this.props.durationMs / 60000);
     const seconds = Math.floor((this.props.durationMs % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    return `${ minutes }:${ seconds.toString().padStart(2, '0') }`;
   }
 
   /**
@@ -58,6 +75,6 @@ export class Track {
    * Domain behavior: get combined secondary metadata
    */
   public get displayMetadata(): string {
-    return `${this.artistsString} | ${this.albumName}`;
+    return `${ this.artistsString } | ${ this.albumName }`;
   }
 }

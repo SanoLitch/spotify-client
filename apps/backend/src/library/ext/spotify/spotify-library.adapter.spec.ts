@@ -59,7 +59,7 @@ describe('SpotifyLibraryAdapter', () => {
     expect(spotifyApi.getSavedTracks).toHaveBeenCalledWith('token', 2, 0);
     expect(result.items).toHaveLength(2);
     expect(result.items[0]).toBeInstanceOf(Track);
-    expect(result.items[0].id).toBe('id1');
+    expect(result.items[0].id.getValue()).toBe('id1');
     expect(result.items[0].artists).toEqual(['Artist 1']);
     expect(result.items[0].albumCoverUrl).toBe('cover1.png');
     expect(result.total).toBe(100);

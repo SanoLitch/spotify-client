@@ -1,5 +1,7 @@
+import { TrackId } from '@libs/ddd';
+
 export interface TrackProps {
-  id: string;
+  id: TrackId;
   name: string;
   artists: string[];
   albumName: string;
@@ -14,7 +16,7 @@ export class Track {
     return new Track(props);
   }
 
-  public get id(): string {
+  public get id(): TrackId {
     return this.props.id;
   }
 

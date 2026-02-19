@@ -1,7 +1,9 @@
-import { Email } from '@libs/ddd';
+import {
+  Email, UserId,
+} from '@libs/ddd';
 
 export interface UserProps {
-  id: string;
+  id: UserId;
   displayName: string;
   email: Email;
   avatarUrl?: string;
@@ -17,12 +19,14 @@ export class User {
     avatarUrl?: string;
   }): User {
     return new User({
-      ...props,
+      id: UserId.create(props.id),
+      displayName: props.displayName,
       email: Email.create(props.email),
+      avatarUrl: props.avatarUrl,
     });
   }
 
-  public get id(): string {
+  public get id(): UserId {
     return this.props.id;
   }
 
@@ -31,7 +35,7 @@ export class User {
   }
 
   public get email(): string {
-    return this.props.email.toString();
+    return this.props.email.getValue();
   }
 
   public get avatarUrl(): string | undefined {

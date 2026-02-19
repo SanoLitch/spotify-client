@@ -1,3 +1,4 @@
+import { TrackId } from '@libs/ddd';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
 } from '../../domain/library.port';
@@ -11,7 +12,7 @@ export class SpotifyLibraryAdapter implements LibraryPort {
     const data = await this.spotifyApi.getSavedTracks(params.accessToken, params.limit, params.offset);
 
     const items = data.items.map((item: any) => Track.create({
-      id: item.track.id,
+      id: TrackId.create(item.track.id),
       name: item.track.name,
       artists: item.track.artists.map((a: any) => a.name),
       albumName: item.track.album.name,

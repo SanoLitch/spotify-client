@@ -1,3 +1,4 @@
+import { TrackId } from '@libs/ddd';
 import { GetSavedTracksUseCase } from './get-saved-tracks.use-case';
 import { LibraryPort } from './library.port';
 import { Track } from './track.entity';
@@ -22,7 +23,7 @@ describe('GetSavedTracksUseCase', () => {
     const mockResult = {
       items: [
         Track.create({
-          id: '1',
+          id: TrackId.create('1'),
           name: 'Track 1',
           artists: ['Artist 1'],
           albumName: 'Album 1',

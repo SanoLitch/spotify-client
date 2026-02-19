@@ -47,7 +47,7 @@ describe('SpotifyAuthAdapter', () => {
 
     expect(spotifyApi.getProfile).toHaveBeenCalledWith(accessToken);
     expect(user).toBeInstanceOf(User);
-    expect(user.id).toBe(spotifyProfile.id);
+    expect(user.id.getValue()).toBe(spotifyProfile.id);
     expect(user.displayName).toBe(spotifyProfile.display_name);
     expect(user.email).toBe(spotifyProfile.email);
     expect(user.avatarUrl).toBe('avatar.png');

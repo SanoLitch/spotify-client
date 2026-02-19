@@ -82,7 +82,7 @@ export class AuthController {
     const { user } = await this.meUseCase.execute(req.user.accessToken);
 
     return {
-      id: user.id,
+      id: user.id.getValue(),
       displayName: user.displayName,
       email: user.email,
       avatarUrl: user.avatarUrl,

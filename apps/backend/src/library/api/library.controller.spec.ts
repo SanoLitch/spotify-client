@@ -1,6 +1,7 @@
 import {
   Test, TestingModule,
 } from '@nestjs/testing';
+import { TrackId } from '@libs/ddd';
 import { LibraryController } from './library.controller';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 import { Track } from '../domain/track.entity';
@@ -36,7 +37,7 @@ describe('LibraryController', () => {
       const mockResult = {
         items: [
           Track.create({
-            id: '1',
+            id: TrackId.create('1'),
             name: 'Track 1',
             artists: ['Artist 1'],
             albumName: 'Album 1',

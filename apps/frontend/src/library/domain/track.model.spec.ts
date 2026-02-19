@@ -1,4 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import {
+  describe, it, expect,
+} from 'vitest';
 import { Track } from './track.model';
 
 describe('Track Model', () => {
@@ -14,7 +16,7 @@ describe('Track Model', () => {
 
     const track = Track.create(trackData);
 
-    expect(track.id).toBe(trackData.id);
+    expect(track.id.getValue()).toBe(trackData.id);
     expect(track.name).toBe(trackData.name);
     expect(track.artists).toEqual(trackData.artists);
     expect(track.albumName).toBe(trackData.albumName);
