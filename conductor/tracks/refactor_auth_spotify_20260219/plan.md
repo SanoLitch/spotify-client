@@ -36,7 +36,7 @@ Goal: Structure the frontend authentication logic into reactive stores and use c
 ## Phase 4: Frontend Infrastructure and UI Integration
 Goal: Connect to the backend API and update the UI.
 
-- [ ] Task: Implement Frontend Auth API Adapter
+- [x] Task: Implement Frontend Auth API Adapter [1dd648c]
     - [ ] Write tests for `SpotifyAuthApi` adapter
     - [ ] Implement adapter implementing the `AuthApiPort`
 - [ ] Task: Integrate with React Components
