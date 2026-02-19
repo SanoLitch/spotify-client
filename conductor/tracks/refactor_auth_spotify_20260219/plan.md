@@ -14,7 +14,7 @@ Goal: Define the core business logic and interfaces for authentication.
 ## Phase 2: Backend Infrastructure and API Layers
 Goal: Implement the concrete Spotify integration and API endpoints.
 
-- [ ] Task: Implement Spotify Auth Provider
+- [x] Task: Implement Spotify Auth Adapter [ea0a653]
     - [ ] Write tests for `SpotifyAuthProvider` (using mocks for Spotify API)
     - [ ] Implement `SpotifyAuthProvider` in the infrastructure layer
 - [ ] Task: Refactor Auth Controller
