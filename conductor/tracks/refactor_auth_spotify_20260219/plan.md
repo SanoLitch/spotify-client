@@ -39,7 +39,7 @@ Goal: Connect to the backend API and update the UI.
 - [x] Task: Implement Frontend Auth API Adapter [1dd648c]
     - [ ] Write tests for `SpotifyAuthApi` adapter
     - [ ] Implement adapter implementing the `AuthApiPort`
-- [ ] Task: Integrate with React Components
+- [x] Task: Integrate with React Components [e8a04db]
     - [ ] Refactor `LoginPage` and `App` to use the new Use Cases/Stores
     - [ ] Verify the end-to-end OAuth2 flow
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Frontend Infrastructure and UI Integration' (Protocol in workflow.md)
