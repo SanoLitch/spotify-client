@@ -3,7 +3,7 @@
 ## Phase 1: Backend Domain and Application Layers
 Goal: Define the core business logic and interfaces for authentication.
 
-- [ ] Task: Define Auth Domain Entities and Port Interfaces
+- [x] Task: Define Auth Domain Entities and Port Interfaces [70cef07]
     - [ ] Write tests for `User` entity and domain logic
     - [ ] Implement `User` entity and `AuthProvider` / `UserRepository` interfaces
 - [ ] Task: Implement Authentication Use Cases
