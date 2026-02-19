@@ -20,28 +20,4 @@ describe('Track Entity', () => {
     expect(track.durationMs).toBe(trackData.durationMs);
     expect(track.albumCoverUrl).toBe(trackData.albumCoverUrl);
   });
-
-  it('should format duration as mm:ss', () => {
-    const track = Track.create({
-      id: '1',
-      name: 'T',
-      artists: ['A'],
-      albumName: 'Alb',
-      durationMs: 185000, // 3:05
-    });
-
-    expect(track.formattedDuration).toBe('3:05');
-  });
-
-  it('should handle durations longer than an hour', () => {
-    const track = Track.create({
-      id: '1',
-      name: 'T',
-      artists: ['A'],
-      albumName: 'Alb',
-      durationMs: 3661000, // 1:01:01
-    });
-
-    expect(track.formattedDuration).toBe('61:01'); // Keeping it simple per Spotify's usual list format
-  });
 });

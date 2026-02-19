@@ -1,5 +1,5 @@
-import * as styles from './track-row.css';
 import { Track } from '../domain/track.model';
+import * as styles from './track-row.css';
 
 export interface TrackRowProps {
   track: Track;
@@ -19,10 +19,7 @@ export const TrackRow = ({ track }: TrackRowProps) => {
           <span className={ styles.duration }>{ track.formattedDuration }</span>
         </div>
         <div className={ styles.metadata }>
-          { track.artists.join(', ') }
-          {' '}
-          |
-          { track.albumName }
+          { track.displayMetadata }
         </div>
       </div>
     </div>

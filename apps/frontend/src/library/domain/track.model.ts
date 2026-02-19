@@ -5,7 +5,6 @@ export interface TrackProps {
   albumName: string;
   durationMs: number;
   albumCoverUrl?: string;
-  formattedDuration: string;
 }
 
 export class Track {
@@ -39,7 +38,26 @@ export class Track {
     return this.props.albumCoverUrl;
   }
 
+  /**
+   * Domain behavior: format duration for display (mm:ss)
+   */
   public get formattedDuration(): string {
-    return this.props.formattedDuration;
+    const minutes = Math.floor(this.props.durationMs / 60000);
+    const seconds = Math.floor((this.props.durationMs % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  /**
+   * Domain behavior: format artists as a single string
+   */
+  public get artistsString(): string {
+    return this.props.artists.join(', ');
+  }
+
+  /**
+   * Domain behavior: get combined secondary metadata
+   */
+  public get displayMetadata(): string {
+    return `${this.artistsString} | ${this.albumName}`;
   }
 }
