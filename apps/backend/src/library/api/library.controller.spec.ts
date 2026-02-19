@@ -1,4 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import {
+  Test, TestingModule,
+} from '@nestjs/testing';
 import { LibraryController } from './library.controller';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 import { Track } from '../domain/track.entity';
@@ -32,13 +34,15 @@ describe('LibraryController', () => {
   describe('getTracks', () => {
     it('should return tracks from use case', async () => {
       const mockResult = {
-        items: [Track.create({
-          id: '1',
-          name: 'Track 1',
-          artists: ['Artist 1'],
-          albumName: 'Album 1',
-          durationMs: 1000,
-        })],
+        items: [
+          Track.create({
+            id: '1',
+            name: 'Track 1',
+            artists: ['Artist 1'],
+            albumName: 'Album 1',
+            durationMs: 1000,
+          }),
+        ],
         total: 1,
         limit: 20,
         offset: 0,

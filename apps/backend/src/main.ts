@@ -34,7 +34,7 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT || 3001;
+  const port = process.env.APP_PORT || 3001;
 
   await app.listen(port);
   logger.log(`Backend is running on: http://localhost:${ port }/api`);

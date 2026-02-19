@@ -1,7 +1,9 @@
 import {
   Controller, Get, Query, Res, Req, UnauthorizedException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags, ApiOperation, ApiQuery, ApiResponse,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware';
@@ -43,7 +45,10 @@ export class AuthController {
 
   @Get('callback')
   @ApiOperation({ summary: 'Spotify OAuth callback' })
-  @ApiQuery({ name: 'code', description: 'Authorization code from Spotify' })
+  @ApiQuery({
+    name: 'code',
+    description: 'Authorization code from Spotify',
+  })
   public async callback(@Query('code') code: string, @Res() res: Response): Promise<void> {
     const { tokens } = await this.loginUseCase.execute({ code });
 
@@ -65,7 +70,10 @@ export class AuthController {
 
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
-  @ApiResponse({ status: 200, type: UserDto })
+  @ApiResponse({
+    status: 200,
+    type: UserDto,
+  })
   public async me(@Req() req: AuthenticatedRequest): Promise<UserDto> {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
