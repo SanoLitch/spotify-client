@@ -17,6 +17,7 @@
 ## Frontend - Reference Implementation (apps/frontend)
 - **Framework:** React (v19+)
 - **State Management:** MobX (v6+) - used within the domain layer for reactivity
+- **Networking:** ky - modern fetch-based HTTP client
 - **Build Tool:** Vite
 - **Routing:** React Router (v7+)
 - **Testing:** Vitest / Jest
