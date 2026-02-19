@@ -3,7 +3,7 @@
 ## Phase 1: Backend Domain and Application Layers
 Goal: Define the Track entity and core library logic.
 
-- [ ] Task: Define Track Domain Entity and LibraryPort [ ]
+- [x] Task: Define Track Domain Entity and LibraryPort [6be8efd]
     - [ ] Create `Track` entity in `apps/backend/src/library/domain/track.entity.ts`
     - [ ] Define `LibraryPort` interface for fetching saved tracks
 - [ ] Task: Implement GetSavedTracksUseCase [ ]
