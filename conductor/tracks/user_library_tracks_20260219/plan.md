@@ -14,7 +14,7 @@ Goal: Define the Track entity and core library logic.
 ## Phase 2: Backend Infrastructure and API Layers
 Goal: Integrate with Spotify API and expose the endpoint.
 
-- [ ] Task: Implement Spotify Library Adapter [ ]
+- [x] Task: Implement Spotify Library Adapter [8417e3b]
     - [ ] Extend `SpotifyApiService` if needed or use it within `SpotifyLibraryAdapter`
     - [ ] Implement `SpotifyLibraryAdapter` mapping Spotify DTOs to `Track` entities
 - [ ] Task: Create Library Controller [ ]
