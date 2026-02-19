@@ -21,6 +21,8 @@ export const spinner = style({
   animation: 'spin 1s linear infinite',
 });
 
-// We can use global style for animation if needed or just inline it in another way
-// but for simplicity here's a local class.
-// Note: animations are usually defined in a global styles file.
+/*
+ * We can use global style for animation if needed or just inline it in another way
+ * but for simplicity here's a local class.
+ * Note: animations are usually defined in a global styles file.
+ */

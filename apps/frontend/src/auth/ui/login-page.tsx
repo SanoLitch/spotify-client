@@ -2,8 +2,7 @@ import * as styles from './login-page.css';
 
 export const LoginPage = () => {
   const handleLogin = () => {
-    // Note: In production this would be handled via configuration/env
-    window.location.href = 'http://localhost:3001/auth/login';
+    window.location.href = '/api/auth/login';
   };
 
   return (
