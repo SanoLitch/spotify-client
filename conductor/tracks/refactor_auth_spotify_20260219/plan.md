@@ -11,7 +11,7 @@ Goal: Define the core business logic and interfaces for authentication.
     - [ ] Implement Use Cases orchestrating the ports
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Backend Domain and Application Layers' (Protocol in workflow.md)
 
-## Phase 2: Backend Infrastructure and API Layers
+## Phase 2: Backend Infrastructure and API Layers [checkpoint: 954fd67]
 Goal: Implement the concrete Spotify integration and API endpoints.
 
 - [x] Task: Implement Spotify Auth Adapter [ea0a653]
