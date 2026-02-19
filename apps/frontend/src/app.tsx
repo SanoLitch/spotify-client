@@ -53,6 +53,7 @@ export const App = observer(() => {
                 )}
                 <button
                   type="button"
+                  className={ styles.logoutButton }
                   onClick={ () => authRootStore.logoutUseCase.execute() }
                 >
                   Logout

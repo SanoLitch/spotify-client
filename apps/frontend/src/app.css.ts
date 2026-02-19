@@ -1,7 +1,8 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from './shared/ui/theme.css';
 
 export const appContainer = style({
-  padding: '2rem',
+  padding: vars.spacing.xl,
 });
 
 export const loadingContainer = style({
@@ -9,20 +10,27 @@ export const loadingContainer = style({
   justifyContent: 'center',
   alignItems: 'center',
   minHeight: '100vh',
-  backgroundColor: '#121212',
+  backgroundColor: vars.colors.background,
 });
 
 export const spinner = style({
   width: '40px',
   height: '40px',
-  border: '4px solid rgba(29, 185, 84, 0.1)',
-  borderLeftColor: '#1db954',
-  borderRadius: '50%',
+  border: `4px solid ${ vars.colors.surface }`,
+  borderLeftColor: vars.colors.brand,
+  borderRadius: vars.borderRadius.full,
   animation: 'spin 1s linear infinite',
 });
 
-/*
- * We can use global style for animation if needed or just inline it in another way
- * but for simplicity here's a local class.
- * Note: animations are usually defined in a global styles file.
- */
+export const logoutButton = style({
+  backgroundColor: vars.colors.surface,
+  color: vars.colors.text,
+  border: 'none',
+  padding: `${ vars.spacing.sm } ${ vars.spacing.md }`,
+  borderRadius: vars.borderRadius.sm,
+  cursor: 'pointer',
+  marginTop: vars.spacing.md,
+  ':hover': {
+    backgroundColor: vars.colors.surfaceHover,
+  },
+});
