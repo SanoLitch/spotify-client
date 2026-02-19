@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '../../shared/ui/theme.css';
+import { vars } from '@shared/ui/theme.css';
 
 export const container = style({
   display: 'flex',

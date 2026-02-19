@@ -1,23 +1,9 @@
 import { useEffect } from 'react';
-import {
-  BrowserRouter, Routes, Route, Navigate, Outlet,
-} from 'react-router';
+import { RouterProvider } from 'react-router';
 import { observer } from 'mobx-react-lite';
+import { router } from '@shared/routing';
 import { authRootStore } from './auth';
-import { LoginPage } from './auth/ui/login-page';
 import * as styles from './app.css';
-
-const ProtectedRoute = observer(() => {
-  if (authRootStore.data.isLoading) {
-    return null;
-  }
-
-  if (!authRootStore.data.isAuthenticated) {
-    return <Navigate replace to="/login" />;
-  }
-
-  return <Outlet />;
-});
 
 export const App = observer(() => {
   useEffect(() => {
@@ -33,38 +19,6 @@ export const App = observer(() => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={ <LoginPage /> } />
-
-        {/* Redirect old callback path to root just in case */}
-        <Route path="/auth/callback" element={ <Navigate replace to="/" /> } />
-
-        <Route element={ <ProtectedRoute /> }>
-          <Route
-            path="/" element={ (
-              <div className={ styles.appContainer }>
-                <h1>Welcome to Spotify Client!</h1>
-                {authRootStore.data.user && (
-                  <p>
-                    Logged in as:
-                    {authRootStore.data.user.displayName}
-                  </p>
-                )}
-                <button
-                  type="button"
-                  className={ styles.logoutButton }
-                  onClick={ () => authRootStore.logoutUseCase.execute() }
-                >
-                  Logout
-                </button>
-              </div>
-            ) }
-          />
-        </Route>
-
-        <Route path="*" element={ <Navigate replace to="/" /> } />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={ router } />
   );
 });

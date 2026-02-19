@@ -1,3 +1,9 @@
 {
-  "extends": "@libs/typescript-config/vite.json"
+  "extends": "@libs/typescript-config/vite.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["src/shared/*"]
+    }
+  }
 }

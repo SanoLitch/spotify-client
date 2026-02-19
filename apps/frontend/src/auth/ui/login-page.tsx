@@ -1,6 +1,9 @@
+import {
+  PageRoute, ROUTES,
+} from '@shared/routing';
 import * as styles from './login-page.css';
 
-export const LoginPage = () => {
+export const LoginPageView = () => {
   const handleLogin = () => {
     window.location.href = '/api/auth/login';
   };
@@ -20,4 +23,9 @@ export const LoginPage = () => {
       </div>
     </div>
   );
+};
+
+export const LoginPage: PageRoute = {
+  route: ROUTES.LOGIN,
+  view: LoginPageView,
 };

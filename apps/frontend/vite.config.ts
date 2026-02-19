@@ -3,6 +3,7 @@ import {
 } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import { resolve } from 'path';
 
 export default defineConfig(({ mode }) => {
   const cwd = process.cwd();
@@ -14,6 +15,11 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), vanillaExtractPlugin()],
+    resolve: {
+      alias: {
+        '@shared': resolve(cwd, 'src/shared'),
+      },
+    },
     server: {
       host: '127.0.0.1',
       port: appPort,

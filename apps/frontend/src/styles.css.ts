@@ -1,7 +1,7 @@
 import {
   globalStyle, globalKeyframes,
 } from '@vanilla-extract/css';
-import { vars } from './shared/ui/theme.css';
+import { vars } from '@shared/ui/theme.css';
 
 globalStyle('html, body', {
   margin: 0,
