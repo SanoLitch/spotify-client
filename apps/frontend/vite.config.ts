@@ -14,6 +14,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react({ plugins: [] })],
+    test: {
+      globals: true,
+    },
     server: {
       host: '127.0.0.1',
       port: appPort,

@@ -15,6 +15,7 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
+    "types": ["vitest/globals"],
     "strict": true,
     "outDir": "${configDir}/dist",
     "rootDir": "${configDir}/src"
