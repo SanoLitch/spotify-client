@@ -1,16 +1,43 @@
 import { NestFactory } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
+import {
+  DocumentBuilder, SwaggerModule,
+} from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
-  app.enableCors({
-    origin: process.env.FE_URI,
-    credentials: true,
-  });
+  app.setGlobalPrefix('api');
 
-  await app.listen(process.env.APP_PORT ?? 4000);
+  // OpenAPI / Swagger Setup
+  const config = new DocumentBuilder()
+    .setTitle('Spotify Client API')
+    .setDescription('The Spotify Client application API description')
+    .setVersion('1.0')
+    .addTag('spotify')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  // Scalar API Reference
+  app.use(
+    '/reference',
+    apiReference({
+      spec: {
+        content: document,
+      },
+    }),
+  );
+
+  const port = process.env.PORT || 3001;
+
+  await app.listen(port);
+  logger.log(`Backend is running on: http://localhost:${ port }/api`);
+  logger.log(`API Reference is available at: http://localhost:${ port }/reference`);
 }
 bootstrap();

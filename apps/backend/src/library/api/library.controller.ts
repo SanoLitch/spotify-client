@@ -1,31 +1,57 @@
 import {
   Controller, Get, Query, Req, UnauthorizedException,
 } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '../../auth/api/auth.middleware';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 
-export interface TrackDto {
+export class TrackDto {
+  @ApiProperty()
   id: string;
+
+  @ApiProperty()
   name: string;
+
+  @ApiProperty({ type: [String] })
   artists: string[];
-  album_name: string;
-  duration_ms: number;
-  album_cover_url?: string;
-  formatted_duration: string;
+
+  @ApiProperty()
+  albumName: string;
+
+  @ApiProperty()
+  durationMs: number;
+
+  @ApiProperty({ required: false })
+  albumCoverUrl?: string;
+
+  @ApiProperty()
+  formattedDuration: string;
 }
 
-export interface GetTracksResponseDto {
+export class GetTracksResponseDto {
+  @ApiProperty({ type: [TrackDto] })
   items: TrackDto[];
+
+  @ApiProperty()
   total: number;
+
+  @ApiProperty()
   limit: number;
+
+  @ApiProperty()
   offset: number;
 }
 
+@ApiTags('library')
 @Controller('library')
 export class LibraryController {
   constructor(private readonly getSavedTracksUseCase: GetSavedTracksUseCase) {}
 
   @Get('tracks')
+  @ApiOperation({ summary: 'Get user saved tracks' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 20 })
+  @ApiQuery({ name: 'offset', required: false, type: Number, example: 0 })
+  @ApiResponse({ status: 200, type: GetTracksResponseDto })
   public async getTracks(
     @Req() req: AuthenticatedRequest,
     @Query('limit') limit: number = 20,
@@ -46,10 +72,10 @@ export class LibraryController {
         id: track.id,
         name: track.name,
         artists: track.artists,
-        album_name: track.albumName,
-        duration_ms: track.durationMs,
-        album_cover_url: track.albumCoverUrl,
-        formatted_duration: track.formattedDuration,
+        albumName: track.albumName,
+        durationMs: track.durationMs,
+        albumCoverUrl: track.albumCoverUrl,
+        formattedDuration: track.formattedDuration,
       })),
       total: result.total,
       limit: result.limit,

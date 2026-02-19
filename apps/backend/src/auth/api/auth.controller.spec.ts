@@ -85,7 +85,7 @@ describe('AuthController', () => {
       const result = await controller.me(req);
 
       expect(result.id).toBe('1');
-      expect(result.display_name).toBe('Test');
+      expect(result.displayName).toBe('Test');
     });
   });
 });

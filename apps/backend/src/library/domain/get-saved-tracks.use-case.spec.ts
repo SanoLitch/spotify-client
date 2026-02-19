@@ -20,13 +20,15 @@ describe('GetSavedTracksUseCase', () => {
       offset: 0,
     };
     const mockResult = {
-      items: [Track.create({
-        id: '1',
-        name: 'Track 1',
-        artists: ['Artist 1'],
-        albumName: 'Album 1',
-        durationMs: 1000,
-      })],
+      items: [
+        Track.create({
+          id: '1',
+          name: 'Track 1',
+          artists: ['Artist 1'],
+          albumName: 'Album 1',
+          durationMs: 1000,
+        }),
+      ],
       total: 100,
       limit: 20,
       offset: 0,

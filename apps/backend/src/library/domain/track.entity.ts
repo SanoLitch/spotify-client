@@ -41,6 +41,7 @@ export class Track {
   public get formattedDuration(): string {
     const minutes = Math.floor(this.props.durationMs / 60000);
     const seconds = Math.floor((this.props.durationMs % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    return `${ minutes }:${ seconds.toString().padStart(2, '0') }`;
   }
 }

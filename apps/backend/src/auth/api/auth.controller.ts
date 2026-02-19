@@ -1,6 +1,7 @@
 import {
   Controller, Get, Query, Res, Req, UnauthorizedException,
 } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware';
@@ -9,6 +10,7 @@ import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
 import { MeUseCase } from '../domain/me.use-case';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -19,6 +21,7 @@ export class AuthController {
   ) {}
 
   @Get('login')
+  @ApiOperation({ summary: 'Redirect to Spotify login' })
   public login(@Res() res: Response): void {
     const clientId = this.configService.getOrThrow<string>('SPOTIFY_CLIENT_ID');
     const redirectUri = this.configService.getOrThrow<string>('SPOTIFY_REDIRECT_URI');
@@ -39,6 +42,8 @@ export class AuthController {
   }
 
   @Get('callback')
+  @ApiOperation({ summary: 'Spotify OAuth callback' })
+  @ApiQuery({ name: 'code', description: 'Authorization code from Spotify' })
   public async callback(@Query('code') code: string, @Res() res: Response): Promise<void> {
     const { tokens } = await this.loginUseCase.execute({ code });
 
@@ -59,6 +64,8 @@ export class AuthController {
   }
 
   @Get('me')
+  @ApiOperation({ summary: 'Get current user profile' })
+  @ApiResponse({ status: 200, type: UserDto })
   public async me(@Req() req: AuthenticatedRequest): Promise<UserDto> {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
@@ -68,13 +75,14 @@ export class AuthController {
 
     return {
       id: user.id,
-      display_name: user.displayName,
+      displayName: user.displayName,
       email: user.email,
-      avatar_url: user.avatarUrl,
+      avatarUrl: user.avatarUrl,
     };
   }
 
   @Get('logout')
+  @ApiOperation({ summary: 'Logout and clear cookies' })
   public async logout(@Res() res: Response) {
     await this.logoutUseCase.execute();
     res.clearCookie('access_token');

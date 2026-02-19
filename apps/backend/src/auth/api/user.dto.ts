@@ -1,6 +1,15 @@
-export interface UserDto {
+import { ApiProperty } from '@nestjs/swagger';
+
+export class UserDto {
+  @ApiProperty()
   id: string;
-  display_name: string;
+
+  @ApiProperty()
+  displayName: string;
+
+  @ApiProperty()
   email: string;
-  avatar_url?: string;
+
+  @ApiProperty({ required: false })
+  avatarUrl?: string;
 }

@@ -1,4 +1,6 @@
-import { LibraryPort, GetSavedTracksParams, GetSavedTracksResult } from './library.port';
+import {
+  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
+} from './library.port';
 
 export class GetSavedTracksUseCase {
   constructor(private readonly libraryPort: LibraryPort) {}

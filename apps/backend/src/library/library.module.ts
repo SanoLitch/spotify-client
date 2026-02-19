@@ -1,4 +1,6 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer, Module, NestModule, RequestMethod,
+} from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { LibraryController } from './api/library.controller';
@@ -15,12 +17,12 @@ import { AuthMiddleware } from '../auth/api/auth.middleware';
     {
       provide: GetSavedTracksUseCase,
       inject: ['LibraryPort'],
-      useFactory: (libraryPort) => new GetSavedTracksUseCase(libraryPort),
+      useFactory: libraryPort => new GetSavedTracksUseCase(libraryPort),
     },
     {
       provide: 'LibraryPort',
       inject: [SpotifyApiService],
-      useFactory: (api) => new SpotifyLibraryAdapter(api),
+      useFactory: api => new SpotifyLibraryAdapter(api),
     },
   ],
 })
