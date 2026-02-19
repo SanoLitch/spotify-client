@@ -28,7 +28,7 @@ Goal: Structure the frontend authentication logic into reactive stores and use c
 - [x] Task: Define Frontend Auth Stores (MobX) [9cd300d]
     - [ ] Write tests for `AuthDataStore`
     - [ ] Implement `AuthDataStore` and `AuthRootStore`
-- [x] Task: Implement Frontend Auth Use Cases [dc18fff]
+- [x] Task: Implement Frontend Auth Use Cases [dc18fff -> 9dcdba5]
     - [ ] Write tests for `LoginUseCase` (frontend)
     - [ ] Implement Use Cases interacting with the stores
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Frontend Domain and Application Layers' (Protocol in workflow.md)
