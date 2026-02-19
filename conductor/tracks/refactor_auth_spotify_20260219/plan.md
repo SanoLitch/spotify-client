@@ -25,7 +25,7 @@ Goal: Implement the concrete Spotify integration and API endpoints.
 ## Phase 3: Frontend Domain and Application Layers
 Goal: Structure the frontend authentication logic into reactive stores and use cases.
 
-- [ ] Task: Define Frontend Auth Stores (MobX)
+- [x] Task: Define Frontend Auth Stores (MobX) [9cd300d]
     - [ ] Write tests for `AuthDataStore`
     - [ ] Implement `AuthDataStore` and `AuthRootStore`
 - [ ] Task: Implement Frontend Auth Use Cases
