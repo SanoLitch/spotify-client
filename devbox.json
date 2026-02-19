@@ -11,7 +11,9 @@
     "init_hook": ["npm install"],
     "scripts": {
       "init": ["echo \"Init started...\""],
-      "dev": ["turbo run start:dev"]
+      "dev": ["turbo run start:dev"],
+      "test": ["turbo run test"],
+      "lint:fix": ["turbo run lint:fix"]
     }
   }
 }

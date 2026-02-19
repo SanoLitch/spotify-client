@@ -16,13 +16,20 @@ describe('SpotifyAuthAdapter', () => {
 
   it('should exchange code for tokens', async () => {
     const code = 'code';
-    const tokens = { access_token: 'at', refresh_token: 'rt' };
+    const tokens = {
+      access_token: 'at',
+      refresh_token: 'rt',
+    };
+
     spotifyApi.exchangeCodeForTokens.mockResolvedValue(tokens);
 
     const result = await adapter.exchangeCodeForTokens(code);
 
     expect(spotifyApi.exchangeCodeForTokens).toHaveBeenCalledWith(code);
-    expect(result).toEqual({ accessToken: 'at', refreshToken: 'rt' });
+    expect(result).toEqual({
+      accessToken: 'at',
+      refreshToken: 'rt',
+    });
   });
 
   it('should get profile and map to User entity', async () => {
@@ -33,6 +40,7 @@ describe('SpotifyAuthAdapter', () => {
       email: 'sp@example.com',
       images: [{ url: 'avatar.png' }],
     };
+
     spotifyApi.getProfile.mockResolvedValue(spotifyProfile);
 
     const user = await adapter.getProfile(accessToken);

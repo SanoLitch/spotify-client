@@ -43,9 +43,11 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
-      // We don't have expires_in here yet from the domain output, 
-      // let's use a default or update domain output if needed.
-      maxAge: 3600 * 1000, 
+      /*
+       * We don't have expires_in here yet from the domain output,
+       * let's use a default or update domain output if needed.
+       */
+      maxAge: 3600 * 1000,
     });
 
     res.cookie('refresh_token', tokens.refreshToken, {
@@ -62,10 +64,12 @@ export class AuthController {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
     }
-    // We need a GetMeUseCase here to follow the pattern. 
-    // For now, let's keep it simple or implement it if it's in the spec.
-    // Spec says: Implement Use Cases for "Login", "Logout", and "Refresh Token".
-    // "me" probably needs its own use case.
+    /*
+     * We need a GetMeUseCase here to follow the pattern.
+     * For now, let's keep it simple or implement it if it's in the spec.
+     * Spec says: Implement Use Cases for "Login", "Logout", and "Refresh Token".
+     * "me" probably needs its own use case.
+     */
     return { message: 'Not fully implemented with use case yet' };
   }
 

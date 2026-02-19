@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Refactor Authentication and Spotify API Integration**
+- [~] **Track: Refactor Authentication and Spotify API Integration**
   *Link: [./tracks/refactor_auth_spotify_20260219/](./tracks/refactor_auth_spotify_20260219/)*

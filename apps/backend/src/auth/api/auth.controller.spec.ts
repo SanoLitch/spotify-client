@@ -1,9 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import {
+  Test, TestingModule,
+} from '@nestjs/testing';
+import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import { AuthController } from './auth.controller';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
-import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -19,9 +21,18 @@ describe('AuthController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
       providers: [
-        { provide: LoginUseCase, useValue: loginUseCase },
-        { provide: LogoutUseCase, useValue: logoutUseCase },
-        { provide: ConfigService, useValue: configService },
+        {
+          provide: LoginUseCase,
+          useValue: loginUseCase,
+        },
+        {
+          provide: LogoutUseCase,
+          useValue: logoutUseCase,
+        },
+        {
+          provide: ConfigService,
+          useValue: configService,
+        },
       ],
     }).compile();
 

@@ -6,6 +6,28 @@
       "dependsOn": ["^pipeline:build", "^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"]
     },
+    "test": {
+      "dependsOn": ["^pipeline:build"],
+      "cache": false,
+      "persistent": false
+    },
+    "test:back": {
+      "dependsOn": ["^pipeline:build"],
+      "with": ["backend#test"],
+      "cache": false,
+      "persistent": true
+    },
+    "test:front": {
+      "dependsOn": ["^pipeline:build"],
+      "with": ["frontend#test"],
+      "cache": false,
+      "persistent": true
+    },
+    "test:all": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^test"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
