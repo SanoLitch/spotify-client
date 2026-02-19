@@ -1,3 +1,2 @@
-export * from './route-paths';
-export * from './route-config';
-export * from './router';
+export * from './routes';
+export * from './types';

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { observer } from 'mobx-react-lite';
-import { router } from '@shared/routing';
-import { authRootStore } from './auth';
+import { router } from './router';
 import * as styles from './app.css';
+import { authRootStore } from '../auth';
 
 export const App = observer(() => {
   useEffect(() => {

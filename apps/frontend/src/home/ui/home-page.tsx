@@ -5,7 +5,6 @@ import {
 import { vars } from '@shared/ui/theme.css';
 import * as styles from './home-page.css';
 import { authRootStore } from '../../auth';
-import { logoutButton } from '../../app.css';
 
 export const HomePageView = observer(() => {
   const { user } = authRootStore.data;
@@ -22,7 +21,7 @@ export const HomePageView = observer(() => {
       )}
       <button
         type="button"
-        className={ logoutButton }
+        className={ styles.logoutButton }
         onClick={ () => authRootStore.logoutUseCase.execute() }
       >
         Logout
