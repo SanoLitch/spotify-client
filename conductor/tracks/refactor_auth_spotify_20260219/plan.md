@@ -1,6 +1,6 @@
 # Implementation Plan - Refactor Authentication and Spotify API Integration
 
-## Phase 1: Backend Domain and Application Layers
+## Phase 1: Backend Domain and Application Layers [checkpoint: 941ceed]
 Goal: Define the core business logic and interfaces for authentication.
 
 - [x] Task: Define Auth Domain Entities and Port Interfaces [70cef07]
