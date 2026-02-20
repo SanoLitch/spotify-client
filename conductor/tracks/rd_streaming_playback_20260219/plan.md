@@ -1,6 +1,6 @@
 # Implementation Plan - Architecture Stress Test: Cross-Module Playback
 
-## Phase 1: Shared Event Infrastructure
+## Phase 1: Shared Event Infrastructure [checkpoint: e2ac2ba]
 Goal: Setup the communication channel between modules.
 
 - [x] Task: Install mitt and Setup UIEventBus [6bc56ed]
