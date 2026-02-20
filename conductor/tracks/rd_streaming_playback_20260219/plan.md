@@ -24,7 +24,7 @@ Goal: Create the player module that reacts to events.
 
 - [x] Task: Implement PlayerStore [ebdaf30]
     - [ ] Create `PlayerStore` listening to `UIEventBus`
-- [ ] Task: Create PlayerView Component [ ]
+- [x] Task: Create PlayerView Component [ec71af6]
     - [ ] Implement UI using Radix/Vanilla Extract
     - [ ] Connect to store and `<audio>` element
 - [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
