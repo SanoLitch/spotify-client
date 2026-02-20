@@ -3,7 +3,7 @@
 ## Phase 1: Shared Event Infrastructure
 Goal: Setup the communication channel between modules.
 
-- [ ] Task: Install mitt and Setup UIEventBus [ ]
+- [x] Task: Install mitt and Setup UIEventBus [6bc56ed]
     - [ ] Install `mitt` in frontend
     - [ ] Create `@shared/events` with typed event definitions
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
