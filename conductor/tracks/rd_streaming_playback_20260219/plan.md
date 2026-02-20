@@ -22,7 +22,7 @@ Goal: Implement the ability to stream audio data via HTTP.
 ## Phase 3: Frontend Player implementation
 Goal: Create the player module that reacts to events.
 
-- [ ] Task: Implement PlayerStore [ ]
+- [x] Task: Implement PlayerStore [ebdaf30]
     - [ ] Create `PlayerStore` listening to `UIEventBus`
 - [ ] Task: Create PlayerView Component [ ]
     - [ ] Implement UI using Radix/Vanilla Extract
