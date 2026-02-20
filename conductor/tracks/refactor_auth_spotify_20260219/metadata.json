@@ -1,8 +1,0 @@
-{
-  "track_id": "refactor_auth_spotify_20260219",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-02-19T14:45:00Z",
-  "updated_at": "2026-02-19T14:45:00Z",
-  "description": "Refactor Authentication and Spotify API Integration to align with Clean Architecture and DDD principles."
-}
