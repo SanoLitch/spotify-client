@@ -1,4 +1,6 @@
-import { TrackId, Time } from '@libs/ddd';
+import {
+  TrackId, Time,
+} from '@libs/ddd';
 
 export interface TrackProps {
   id: TrackId;
@@ -72,6 +74,6 @@ export class Track {
    * Domain behavior: get combined secondary metadata
    */
   public get displayMetadata(): string {
-    return `${this.artistsString} | ${this.albumName}`;
+    return `${ this.artistsString } | ${ this.albumName }`;
   }
 }

@@ -1,4 +1,6 @@
-import { TrackId, Time } from '@libs/ddd';
+import {
+  TrackId, Time,
+} from '@libs/ddd';
 
 export interface TrackProps {
   id: TrackId;

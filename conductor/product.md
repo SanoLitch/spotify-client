@@ -15,6 +15,7 @@ Spotify client example using modern NestJS/React monorepo.
 
 ## Key Features
 - **Robust Authentication:** Implementation of Spotify OAuth2 flow to handle secure user access.
+- **User Library Management:** Display and management of user's saved tracks with infinite scrolling and rich domain modeling.
 - **Framework-Agnostic Core:** Decoupled domain and application layers that can be shared across different frontend implementations.
 - **DDD Backend Implementation:** A backend structured around domain entities, use cases, and repositories, separating business logic from infrastructure.
 

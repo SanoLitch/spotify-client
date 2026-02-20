@@ -1,4 +1,6 @@
-import { TrackId, Time } from '@libs/ddd';
+import {
+  TrackId, Time,
+} from '@libs/ddd';
 import { Track } from './track.entity';
 
 describe('Track Entity', () => {

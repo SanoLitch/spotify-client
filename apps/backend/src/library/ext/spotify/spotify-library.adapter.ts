@@ -1,5 +1,9 @@
-import { TrackId, Time } from '@libs/ddd';
-import { LibraryPort, GetSavedTracksParams, GetSavedTracksResult } from '../../domain/library.port';
+import {
+  TrackId, Time,
+} from '@libs/ddd';
+import {
+  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
+} from '../../domain/library.port';
 import { Track } from '../../domain/track.entity';
 import { SpotifyApiService } from '../../../auth/lib/spotify-api.service';
 

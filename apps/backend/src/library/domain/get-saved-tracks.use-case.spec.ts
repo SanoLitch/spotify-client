@@ -1,4 +1,6 @@
-import { TrackId, Time } from '@libs/ddd';
+import {
+  TrackId, Time,
+} from '@libs/ddd';
 import { GetSavedTracksUseCase } from './get-saved-tracks.use-case';
 import { LibraryPort } from './library.port';
 import { Track } from './track.entity';
@@ -21,13 +23,15 @@ describe('GetSavedTracksUseCase', () => {
       offset: 0,
     };
     const mockResult = {
-      items: [Track.create({
-        id: TrackId.create('1'),
-        name: 'Track 1',
-        artists: ['Artist 1'],
-        albumName: 'Album 1',
-        duration: Time.fromMilliseconds(1000),
-      })],
+      items: [
+        Track.create({
+          id: TrackId.create('1'),
+          name: 'Track 1',
+          artists: ['Artist 1'],
+          albumName: 'Album 1',
+          duration: Time.fromMilliseconds(1000),
+        }),
+      ],
       total: 100,
       limit: 20,
       offset: 0,
