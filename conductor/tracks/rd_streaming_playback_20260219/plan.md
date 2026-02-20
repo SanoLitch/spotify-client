@@ -8,7 +8,7 @@ Goal: Setup the communication channel between modules.
     - [ ] Create `@shared/events` with typed event definitions
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
-## Phase 2: Backend Streaming Implementation
+## Phase 2: Backend Streaming Implementation [checkpoint: fb3f492]
 Goal: Implement the ability to stream audio data via HTTP.
 
 - [x] Task: Create Streaming Module and Use Case [e358c3b]
