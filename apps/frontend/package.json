@@ -19,6 +19,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@vanilla-extract/css": "^1.18.0",
     "ky": "^1.14.3",
+    "mitt": "^3.0.1",
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.1",
     "mobx-react-observer": "^1.1.0",
