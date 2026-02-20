@@ -14,7 +14,7 @@ Goal: Implement the ability to stream audio data via HTTP.
 - [x] Task: Create Streaming Module and Use Case [e358c3b]
     - [ ] Define `StreamingPort` and domain logic
     - [ ] Implement `StreamTrackUseCase`
-- [ ] Task: Implement Streaming Controller [ ]
+- [x] Task: Implement Streaming Controller [bd5f957]
     - [ ] Create `GET /streaming/:trackId` endpoint
     - [ ] Pipe data from Use Case to Response
 - [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
