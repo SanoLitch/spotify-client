@@ -11,7 +11,7 @@ describe('User Entity', () => {
 
     const user = User.create(userData);
 
-    expect(user.id).toBe(userData.id);
+    expect(user.id.getValue()).toBe(userData.id);
     expect(user.displayName).toBe(userData.displayName);
     expect(user.email).toBe(userData.email);
     expect(user.avatarUrl).toBe(userData.avatarUrl);

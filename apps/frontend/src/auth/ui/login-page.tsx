@@ -1,6 +1,7 @@
 import {
   PageRoute, ROUTES,
 } from '@shared/routing';
+import { primaryButton } from '@shared/ui';
 import * as styles from './login-page.css';
 
 export const LoginPageView = () => {
@@ -15,7 +16,7 @@ export const LoginPageView = () => {
         <p className={ styles.subtitle }>Please login to continue</p>
         <button
           type="button"
-          className={ styles.loginButton }
+          className={ primaryButton }
           onClick={ handleLogin }
         >
           Login with Spotify

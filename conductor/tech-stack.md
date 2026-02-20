@@ -11,6 +11,7 @@
 - **Framework:** NestJS (v11+)
 - **Networking:** Axios (via @nestjs/axios)
 - **Validation:** class-validator, class-transformer
+- **API Documentation:** Scalar (via @nestjs/swagger)
 - **Tooling:** Nest CLI
 - **Testing:** Jest
 

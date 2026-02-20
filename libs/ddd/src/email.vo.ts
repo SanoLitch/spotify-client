@@ -7,6 +7,10 @@ export class Email {
     return new Email(email);
   }
 
+  public getValue(): string {
+    return this.value;
+  }
+
   public toString(): string {
     return this.value;
   }
