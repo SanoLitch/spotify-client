@@ -1,11 +1,11 @@
-import { TrackId } from '@libs/ddd';
+import { TrackId, Time } from '@libs/ddd';
 
 export interface TrackProps {
   id: TrackId;
   name: string;
   artists: string[];
   albumName: string;
-  durationMs: number;
+  duration: Time;
   albumCoverUrl?: string;
 }
 
@@ -32,8 +32,8 @@ export class Track {
     return this.props.albumName;
   }
 
-  public get durationMs(): number {
-    return this.props.durationMs;
+  public get duration(): Time {
+    return this.props.duration;
   }
 
   public get albumCoverUrl(): string | undefined {

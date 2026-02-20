@@ -1,4 +1,4 @@
-import { TrackId } from '@libs/ddd';
+import { TrackId, Time } from '@libs/ddd';
 import { Track } from './track.entity';
 
 describe('Track Entity', () => {
@@ -8,7 +8,7 @@ describe('Track Entity', () => {
       name: 'Test Track',
       artists: ['Artist A', 'Artist B'],
       albumName: 'Test Album',
-      durationMs: 180000,
+      duration: Time.fromMilliseconds(180000),
       albumCoverUrl: 'https://example.com/cover.png',
     };
 
@@ -18,7 +18,7 @@ describe('Track Entity', () => {
     expect(track.name).toBe(trackData.name);
     expect(track.artists).toEqual(trackData.artists);
     expect(track.albumName).toBe(trackData.albumName);
-    expect(track.durationMs).toBe(trackData.durationMs);
+    expect(track.duration.equals(trackData.duration)).toBe(true);
     expect(track.albumCoverUrl).toBe(trackData.albumCoverUrl);
   });
 });

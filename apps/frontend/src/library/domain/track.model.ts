@@ -1,11 +1,11 @@
-import { TrackId } from '@libs/ddd';
+import { TrackId, Time } from '@libs/ddd';
 
 export interface TrackProps {
   id: TrackId;
   name: string;
   artists: string[];
   albumName: string;
-  durationMs: number;
+  duration: Time;
   albumCoverUrl?: string;
 }
 
@@ -25,7 +25,7 @@ export class Track {
       name: props.name,
       artists: props.artists,
       albumName: props.albumName,
-      durationMs: props.durationMs,
+      duration: Time.fromMilliseconds(props.durationMs),
       albumCoverUrl: props.albumCoverUrl,
     });
   }
@@ -46,8 +46,8 @@ export class Track {
     return this.props.albumName;
   }
 
-  public get durationMs(): number {
-    return this.props.durationMs;
+  public get duration(): Time {
+    return this.props.duration;
   }
 
   public get albumCoverUrl(): string | undefined {
@@ -55,13 +55,10 @@ export class Track {
   }
 
   /**
-   * Domain behavior: format duration for display (mm:ss)
+   * Domain behavior: delegate formatting to Time VO
    */
   public get formattedDuration(): string {
-    const minutes = Math.floor(this.props.durationMs / 60000);
-    const seconds = Math.floor((this.props.durationMs % 60000) / 1000);
-
-    return `${ minutes }:${ seconds.toString().padStart(2, '0') }`;
+    return this.props.duration.toFormattedString();
   }
 
   /**
@@ -75,6 +72,6 @@ export class Track {
    * Domain behavior: get combined secondary metadata
    */
   public get displayMetadata(): string {
-    return `${ this.artistsString } | ${ this.albumName }`;
+    return `${this.artistsString} | ${this.albumName}`;
   }
 }

@@ -1,7 +1,5 @@
-import { TrackId } from '@libs/ddd';
-import {
-  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
-} from '../../domain/library.port';
+import { TrackId, Time } from '@libs/ddd';
+import { LibraryPort, GetSavedTracksParams, GetSavedTracksResult } from '../../domain/library.port';
 import { Track } from '../../domain/track.entity';
 import { SpotifyApiService } from '../../../auth/lib/spotify-api.service';
 
@@ -16,7 +14,7 @@ export class SpotifyLibraryAdapter implements LibraryPort {
       name: item.track.name,
       artists: item.track.artists.map((a: any) => a.name),
       albumName: item.track.album.name,
-      durationMs: item.track.duration_ms,
+      duration: Time.fromMilliseconds(item.track.duration_ms),
       albumCoverUrl: item.track.album.images?.[0]?.url,
     }));
 

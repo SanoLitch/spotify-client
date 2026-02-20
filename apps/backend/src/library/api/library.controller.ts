@@ -1,9 +1,7 @@
 import {
   Controller, Get, Query, Req, UnauthorizedException,
 } from '@nestjs/common';
-import {
-  ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '../../auth/api/auth.middleware';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 
@@ -48,22 +46,9 @@ export class LibraryController {
 
   @Get('tracks')
   @ApiOperation({ summary: 'Get user saved tracks' })
-  @ApiQuery({
-    name: 'limit',
-    required: false,
-    type: Number,
-    example: 20,
-  })
-  @ApiQuery({
-    name: 'offset',
-    required: false,
-    type: Number,
-    example: 0,
-  })
-  @ApiResponse({
-    status: 200,
-    type: GetTracksResponseDto,
-  })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 20 })
+  @ApiQuery({ name: 'offset', required: false, type: Number, example: 0 })
+  @ApiResponse({ status: 200, type: GetTracksResponseDto })
   public async getTracks(
     @Req() req: AuthenticatedRequest,
     @Query('limit') limit: number = 20,
@@ -80,12 +65,12 @@ export class LibraryController {
     });
 
     return {
-      items: result.items.map(track => ({
+      items: result.items.map((track) => ({
         id: track.id.getValue(),
         name: track.name,
         artists: track.artists,
         albumName: track.albumName,
-        durationMs: track.durationMs,
+        durationMs: track.duration.getMilliseconds(),
         albumCoverUrl: track.albumCoverUrl,
       })),
       total: result.total,

@@ -1,6 +1,4 @@
-import {
-  describe, it, expect,
-} from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { Track } from './track.model';
 
 describe('Track Model', () => {
@@ -20,10 +18,10 @@ describe('Track Model', () => {
     expect(track.name).toBe(trackData.name);
     expect(track.artists).toEqual(trackData.artists);
     expect(track.albumName).toBe(trackData.albumName);
-    expect(track.durationMs).toBe(trackData.durationMs);
+    expect(track.duration.getMilliseconds()).toBe(trackData.durationMs);
   });
 
-  it('should format duration correctly', () => {
+  it('should format duration correctly via Time VO', () => {
     const track = Track.create({
       id: '1',
       name: 'T',
