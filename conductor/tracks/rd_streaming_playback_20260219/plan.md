@@ -11,7 +11,7 @@ Goal: Setup the communication channel between modules.
 ## Phase 2: Backend Streaming Implementation
 Goal: Implement the ability to stream audio data via HTTP.
 
-- [ ] Task: Create Streaming Module and Use Case [ ]
+- [x] Task: Create Streaming Module and Use Case [e358c3b]
     - [ ] Define `StreamingPort` and domain logic
     - [ ] Implement `StreamTrackUseCase`
 - [ ] Task: Implement Streaming Controller [ ]
