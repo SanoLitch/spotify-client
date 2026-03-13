@@ -1,0 +1,9 @@
+import { {{EntityName}} } from './{{entity-name}}.entity';
+import { Uuid } from '@libs/ddd';
+
+export interface {{RepositoryPortName}} {
+  findById(id: Uuid): Promise<{{EntityName}}>;
+  save(entity: {{EntityName}}): Promise<void>;
+  delete(id: Uuid): Promise<void>;
+  findAll(): Promise<{{EntityName}}[]>;
+}

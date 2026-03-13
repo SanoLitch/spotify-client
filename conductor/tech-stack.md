@@ -6,6 +6,7 @@
 - **Package Manager:** NPM (Workspaces)
 - **Environment Management:** Devbox, Docker (Local services)
 - **Architecture:** Clean Architecture, Domain-Driven Design (DDD)
+- **Architectural Testing:** `dependency-cruiser` (Enforcing layer boundaries)
 
 ## Backend (apps/backend)
 - **Framework:** NestJS (v11+)
@@ -33,5 +34,5 @@
 
 ## Code Quality & Tooling
 - **Linting:** ESLint (Custom monorepo config)
-- **Formatting:** Prettier
+- **Formatting:** ESLint Stylistic + Prettier (only for doc)
 - **Configuration:** TypeScript Project References (via libs/typescript-config)
