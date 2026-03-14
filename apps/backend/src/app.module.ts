@@ -4,8 +4,8 @@ import {
 } from '@nestjs/config';
 import { LoggerModule } from '@libs/logger';
 import { AuthModule } from './auth';
-import { LibraryModule } from './library/library.module';
-import { StreamingModule } from './streaming/streaming.module';
+import { LibraryModule } from './library';
+import { StreamingModule } from './streaming';
 
 @Module({
   imports: [

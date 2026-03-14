@@ -6,12 +6,12 @@ import {
   ApiTags, ApiOperation,
 } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '@shared/auth';
-import { StreamTrackUseCase } from '../domain/stream-track.use-case';
+import { StreamTrackCase } from '../stream-track.case';
 
 @ApiTags('streaming')
 @Controller('streaming')
 export class StreamingController {
-  constructor(private readonly streamTrackUseCase: StreamTrackUseCase) {}
+  constructor(private readonly streamTrackUseCase: StreamTrackCase) {}
 
   @Get(':trackId')
   @ApiOperation({ summary: 'Stream track audio data' })

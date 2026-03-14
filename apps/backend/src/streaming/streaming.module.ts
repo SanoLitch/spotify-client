@@ -6,24 +6,19 @@ import {
   AuthMiddleware, IdentityModule,
 } from '@shared/auth';
 import { StreamingController } from './api/streaming.controller';
-import { StreamTrackUseCase } from './domain/stream-track.use-case';
-import { SpotifyStreamingAdapter } from './ext/spotify-streaming.adapter';
-import { SpotifyStreamingApiService } from './ext/spotify/spotify-streaming-api.service';
+import { StreamTrackCase } from './stream-track.case';
+import { SpotifyStreamingAdapter } from './ext/spotify/spotify-streaming.adapter';
+import { STREAMING_PORT } from './domain/streaming.port';
 
 @Module({
   imports: [HttpModule, IdentityModule],
   controllers: [StreamingController],
   providers: [
-    SpotifyStreamingApiService,
+    SpotifyStreamingAdapter,
+    StreamTrackCase,
     {
-      provide: StreamTrackUseCase,
-      inject: ['StreamingPort'],
-      useFactory: port => new StreamTrackUseCase(port),
-    },
-    {
-      provide: 'StreamingPort',
-      inject: [SpotifyStreamingApiService],
-      useFactory: api => new SpotifyStreamingAdapter(api),
+      provide: STREAMING_PORT,
+      useExisting: SpotifyStreamingAdapter,
     },
   ],
 })

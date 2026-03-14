@@ -1,16 +1,16 @@
 import { Readable } from 'stream';
-import { StreamTrackUseCase } from './stream-track.use-case';
-import { StreamingPort } from './streaming.port';
+import { StreamTrackCase } from './stream-track.case';
+import { StreamingPort } from './domain/streaming.port';
 
-describe('StreamTrackUseCase', () => {
-  let useCase: StreamTrackUseCase;
+describe('StreamTrackCase', () => {
+  let useCase: StreamTrackCase;
   let streamingPort: jest.Mocked<StreamingPort>;
 
   beforeEach(() => {
     streamingPort = {
       getTrackStream: jest.fn(),
-    };
-    useCase = new StreamTrackUseCase(streamingPort);
+    } as any;
+    useCase = new StreamTrackCase(streamingPort);
   });
 
   it('should request a track stream from the port', async () => {
