@@ -37,11 +37,7 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       setupFiles: ['./vitest.setup.ts'],
       include: ['src/**/*.spec.{ts,tsx}'],
-      exclude: [
-        'node_modules',
-        'dist',
-        '../../apps/backend/**',
-      ],
+      exclude: ['node_modules', 'dist'],
       coverage: {
         include: ['src/**/*.{ts,tsx}'],
         exclude: ['src/**/*.css.{ts,tsx}'],

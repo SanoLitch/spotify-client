@@ -144,7 +144,6 @@ Before marking any task complete, verify:
 - [ ] Code coverage meets requirements (>80%).
 - [ ] **Architectural Integrity**: No violations in `dependency-cruiser` reports.
 - [ ] Code follows project's nomenclature and style guidelines.
-- [ ] All public functions/methods are documented (JSDoc).
 - [ ] Type safety is enforced (e.g., TypeScript types).
 - [ ] No linting or static analysis errors.
 - [ ] Works correctly on mobile (if applicable)
