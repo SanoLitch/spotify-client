@@ -5,9 +5,9 @@ import {
   ApiTags, ApiOperation, ApiQuery, ApiResponse,
 } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '@shared/auth';
-import { GetTracksResponseDto } from './get-tracks.dto';
+import { Pageable } from '@libs/types';
+import { TrackDto } from './get-tracks.dto';
 import { GetSavedTracksCase } from '../get-saved-tracks.case';
-import { TrackMapper } from '../lib/track.mapper';
 
 @ApiTags('library')
 @Controller('library')
@@ -30,13 +30,12 @@ export class LibraryController {
   })
   @ApiResponse({
     status: 200,
-    type: GetTracksResponseDto,
   })
   public async getTracks(
     @Req() req: AuthenticatedRequest,
     @Query('limit') limit: number = 20,
     @Query('offset') offset: number = 0,
-  ): Promise<GetTracksResponseDto> {
+  ): Promise<Pageable<TrackDto>> {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
     }
@@ -47,6 +46,6 @@ export class LibraryController {
       offset: Number(offset),
     });
 
-    return TrackMapper.toResponseDto(result);
+    return result;
   }
 }

@@ -1,3 +1,4 @@
+import { Pageable } from '@libs/types';
 import { Track } from '../domain/track.entity';
 
 export const LIBRARY_PORT = Symbol('LIBRARY_PORT');
@@ -8,13 +9,6 @@ export interface GetSavedTracksParams {
   offset: number;
 }
 
-export interface GetSavedTracksResult {
-  items: Track[];
-  total: number;
-  limit: number;
-  offset: number;
-}
-
 export interface LibraryPort {
-  getSavedTracks(params: GetSavedTracksParams): Promise<GetSavedTracksResult>;
+  getSavedTracks(params: GetSavedTracksParams): Promise<Pageable<Track>>;
 }

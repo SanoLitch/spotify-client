@@ -2,23 +2,8 @@ import {
   TrackId, Time,
 } from '@libs/ddd';
 import { Track } from '../domain/track.entity';
-import {
-  TrackDto, GetTracksResponseDto,
-} from '../api/get-tracks.dto';
-import { GetSavedTracksResult } from '../ext/library.port';
-
-export interface SpotifyTrackItem {
-  track: {
-    id: string;
-    name: string;
-    artists: { name: string }[];
-    album: {
-      name: string;
-      images: { url: string }[];
-    };
-    duration_ms: number;
-  };
-}
+import { TrackDto } from '../api/get-tracks.dto';
+import { SpotifyTrackItem } from '../ext/spotify/types';
 
 export class TrackMapper {
   public static toEntity(item: SpotifyTrackItem): Track {
@@ -40,15 +25,6 @@ export class TrackMapper {
       albumName: track.albumName,
       durationMs: track.duration.getMilliseconds(),
       albumCoverUrl: track.albumCoverUrl,
-    };
-  }
-
-  public static toResponseDto(result: GetSavedTracksResult): GetTracksResponseDto {
-    return {
-      items: result.items.map(track => this.toDto(track)),
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
     };
   }
 }

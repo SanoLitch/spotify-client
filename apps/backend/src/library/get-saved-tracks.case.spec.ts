@@ -4,6 +4,7 @@ import {
 import { GetSavedTracksCase } from './get-saved-tracks.case';
 import { LibraryPort } from './ext/library.port';
 import { Track } from './domain/track.entity';
+import { TrackMapper } from './lib/track.mapper';
 
 describe('GetSavedTracksCase', () => {
   let useCase: GetSavedTracksCase;
@@ -37,11 +38,16 @@ describe('GetSavedTracksCase', () => {
       offset: 0,
     };
 
+    const expected = {
+      ...mockResult,
+      items: mockResult.items.map(item => TrackMapper.toDto(item)),
+    };
+
     libraryPort.getSavedTracks.mockResolvedValue(mockResult);
 
     const result = await useCase.execute(params);
 
     expect(libraryPort.getSavedTracks).toHaveBeenCalledWith(params);
-    expect(result).toEqual(mockResult);
+    expect(result).toEqual(expected);
   });
 });

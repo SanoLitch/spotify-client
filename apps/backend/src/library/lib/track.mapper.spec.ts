@@ -1,10 +1,9 @@
 import {
   TrackId, Time,
 } from '@libs/ddd';
-import {
-  TrackMapper, SpotifyTrackItem,
-} from './track.mapper';
+import { TrackMapper } from './track.mapper';
 import { Track } from '../domain/track.entity';
+import { SpotifyTrackItem } from '../ext/spotify/types';
 
 describe('TrackMapper', () => {
   const mockSpotifyItem: SpotifyTrackItem = {
@@ -53,25 +52,6 @@ describe('TrackMapper', () => {
       expect(result.albumName).toBe(mockTrack.albumName);
       expect(result.durationMs).toBe(mockTrack.duration.getMilliseconds());
       expect(result.albumCoverUrl).toBe(mockTrack.albumCoverUrl);
-    });
-  });
-
-  describe('toResponseDto', () => {
-    it('should map GetSavedTracksResult to GetTracksResponseDto', () => {
-      const mockResult = {
-        items: [mockTrack],
-        total: 1,
-        limit: 20,
-        offset: 0,
-      };
-
-      const result = TrackMapper.toResponseDto(mockResult);
-
-      expect(result.items).toHaveLength(1);
-      expect(result.items[0]).toEqual(TrackMapper.toDto(mockTrack));
-      expect(result.total).toBe(mockResult.total);
-      expect(result.limit).toBe(mockResult.limit);
-      expect(result.offset).toBe(mockResult.offset);
     });
   });
 });

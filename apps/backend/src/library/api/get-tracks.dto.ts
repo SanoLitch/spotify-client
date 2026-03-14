@@ -19,17 +19,3 @@ export class TrackDto {
   @ApiProperty({ required: false })
   albumCoverUrl?: string;
 }
-
-export class GetTracksResponseDto {
-  @ApiProperty({ type: [TrackDto] })
-  items: TrackDto[];
-
-  @ApiProperty()
-  total: number;
-
-  @ApiProperty()
-  limit: number;
-
-  @ApiProperty()
-  offset: number;
-}

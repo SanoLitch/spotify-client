@@ -3,12 +3,13 @@ import {
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { Pageable } from '@libs/types';
+import { SpotifyTrackItem } from './types';
+import type { Track } from '../../domain/track.entity';
 import {
-  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
+  LibraryPort, GetSavedTracksParams,
 } from '../library.port';
-import {
-  TrackMapper, SpotifyTrackItem,
-} from '../../lib/track.mapper';
+import { TrackMapper } from '../../lib/track.mapper';
 
 @Injectable()
 export class SpotifyLibraryAdapter implements LibraryPort {
@@ -16,7 +17,7 @@ export class SpotifyLibraryAdapter implements LibraryPort {
 
   constructor(private readonly httpService: HttpService) {}
 
-  public async getSavedTracks(params: GetSavedTracksParams): Promise<GetSavedTracksResult> {
+  public async getSavedTracks(params: GetSavedTracksParams): Promise<Pageable<Track>> {
     try {
       const response = await firstValueFrom(
         this.httpService.get('https://api.spotify.com/v1/me/tracks', {
