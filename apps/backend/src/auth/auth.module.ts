@@ -49,7 +49,7 @@ import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
       },
     },
   ],
-  exports: [SpotifyApiService],
+  exports: [SpotifyApiService, 'IdentityPort'],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

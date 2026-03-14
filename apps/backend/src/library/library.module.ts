@@ -8,12 +8,12 @@ import { GetSavedTracksUseCase } from './domain/get-saved-tracks.use-case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
 import { SpotifyApiService } from '../auth/lib/spotify-api.service';
 import { AuthMiddleware } from '../auth/api/auth.middleware';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [ConfigModule, HttpModule],
+  imports: [ConfigModule, HttpModule, AuthModule],
   controllers: [LibraryController],
   providers: [
-    SpotifyApiService,
     {
       provide: GetSavedTracksUseCase,
       inject: ['LibraryPort'],
