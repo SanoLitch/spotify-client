@@ -27,7 +27,7 @@ Goal: Standardize provider definitions and clean up `LibraryModule`.
 ## Phase 4: Verification & Validation
 Goal: Final check of architectural integrity and test coverage.
 
-- [ ] Task: Run `dependency-cruiser` to ensure no layer violations exist in the `library` module.
-- [ ] Task: Run all tests in the `library` module with coverage report and ensure >80% coverage.
-- [ ] Task: Perform a final code review to ensure compliance with `be-rules.md` and `nest-hexagonal-architect` skill.
+- [x] Task: Run `dependency-cruiser` to ensure no layer violations exist in the `library` module.
+- [x] Task: Run all tests in the `library` module with coverage report and ensure >80% coverage. [7888db0]
+- [~] Task: Perform a final code review to ensure compliance with `be-rules.md` and `nest-hexagonal-architect` skill.
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Verification & Validation' (Protocol in workflow.md)
