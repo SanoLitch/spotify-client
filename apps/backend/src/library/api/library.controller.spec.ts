@@ -67,5 +67,13 @@ describe('LibraryController', () => {
       expect(result.items).toHaveLength(1);
       expect(result.items[0].id).toBe('1');
     });
+
+    it('should throw UnauthorizedException if no user or accessToken', async () => {
+      const req = { user: null } as any;
+
+      await expect(controller.getTracks(req, 20, 0)).rejects.toThrow(
+        'No access token found',
+      );
+    });
   });
 });
