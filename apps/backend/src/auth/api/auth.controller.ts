@@ -6,7 +6,7 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { AuthenticatedRequest } from './auth.middleware';
+import { AuthenticatedRequest } from './auth.middleware.types';
 import { UserDto } from './user.dto';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';

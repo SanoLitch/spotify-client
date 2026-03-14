@@ -1,30 +1,27 @@
 import {
-  Injectable, NestMiddleware, UnauthorizedException,
+  Injectable, NestMiddleware, UnauthorizedException, Inject,
 } from '@nestjs/common';
 import {
-  Request, Response, NextFunction,
+  Response, NextFunction,
 } from 'express';
-
-export interface AuthenticatedRequest extends Request {
-  user?: {
-    accessToken: string;
-    refreshToken: string;
-  };
-}
+import { AuthenticatedRequest } from './auth.middleware.types';
+import { IdentityPort } from '../domain/identity.port';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  use(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-    const accessToken = req.cookies['access_token'];
-    const refreshToken = req.cookies['refresh_token'];
+  constructor(
+    @Inject('IdentityPort')
+    private readonly identityPort: IdentityPort,
+  ) {}
 
-    if (!accessToken) {
+  use(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const tokens = this.identityPort.extractTokens(req);
+
+    if (!tokens) {
       throw new UnauthorizedException('No access token found');
     }
-    req.user = {
-      accessToken,
-      refreshToken,
-    };
+
+    req.user = tokens;
     next();
   }
 }

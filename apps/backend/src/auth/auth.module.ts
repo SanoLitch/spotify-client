@@ -10,6 +10,7 @@ import { LoginUseCase } from './domain/login.use-case';
 import { LogoutUseCase } from './domain/logout.use-case';
 import { MeUseCase } from './domain/me.use-case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
+import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
 
 @Module({
   imports: [ConfigModule, HttpModule],
@@ -34,6 +35,10 @@ import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
       provide: 'AuthPort',
       inject: [SpotifyApiService],
       useFactory: api => new SpotifyAuthAdapter(api),
+    },
+    {
+      provide: 'IdentityPort',
+      useClass: CookieIdentityAdapter,
     },
     {
       provide: 'UserRepositoryPort',
