@@ -1,6 +1,6 @@
 # Implementation Plan - Refactor Auth Module Architecture
 
-## Phase 1: Port and Domain Layer Refinement
+## Phase 1: Port and Domain Layer Refinement [checkpoint: 9c13598]
 Goal: Establish the new ports and refine domain interfaces.
 
 - [x] Task: Define `IdentityPort` and its cookie implementation [8a4da00]
@@ -9,7 +9,7 @@ Goal: Establish the new ports and refine domain interfaces.
 - [x] Task: Update `AuthMiddleware` to use `IdentityPort` [8a4da00]
     - [x] Inject `IdentityPort` into `AuthMiddleware`
     - [x] Delegate token extraction to the port
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: Infrastructure Service Decoupling
 Goal: Remove non-auth logic from the auth module and clean up the Spotify API service.
