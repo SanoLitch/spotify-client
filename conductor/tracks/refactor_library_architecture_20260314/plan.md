@@ -3,7 +3,7 @@
 ## Phase 1: Preparation & Extraction (DTOs, Mappers)
 Goal: Move DTOs out of the controller and introduce a Mapper to handle data transformations.
 
-- [ ] Task: Create `apps/backend/src/library/api/dtos/get-tracks.dto.ts` and move `TrackDto` and `GetTracksResponseDto` from `library.controller.ts`.
+- [x] Task: Create `apps/backend/src/library/api/dtos/get-tracks.dto.ts` and move `TrackDto` and `GetTracksResponseDto` from `library.controller.ts`. [bb9d5a1]
 - [ ] Task: Create `apps/backend/src/library/lib/track.mapper.ts` to handle mapping between Spotify API response, Domain Entity, and Presentation DTO.
 - [ ] Task: Write unit tests for `TrackMapper` in `apps/backend/src/library/lib/track.mapper.spec.ts`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Extraction' (Protocol in workflow.md)
