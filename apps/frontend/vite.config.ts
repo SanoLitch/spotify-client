@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           secure: false,
           changeOrigin: true,
-          rewrite: path => path.replace(new RegExp('/api'), ''),
+          // rewrite: path => path.replace(new RegExp('/api'), ''),
         },
       },
     },
