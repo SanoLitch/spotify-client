@@ -1,11 +1,15 @@
-import { AuthPort } from './auth.port';
-import { SpotifyApiService } from '../../lib/spotify-api.service';
-import { User } from '../../domain/user.entity';
+import {
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { firstValueFrom } from 'rxjs';
+import { AuthPort } from './auth.port';
+import { User } from '../../domain/user.entity';
 
 export class SpotifyAuthAdapter implements AuthPort {
   constructor(
-    private readonly spotifyApi: SpotifyApiService,
+    private readonly httpService: HttpService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -27,22 +31,57 @@ export class SpotifyAuthAdapter implements AuthPort {
   }
 
   public async exchangeCodeForTokens(code: string): Promise<{ accessToken: string; refreshToken: string }> {
-    const data = await this.spotifyApi.exchangeCodeForTokens(code);
+    const clientId = this.configService.getOrThrow<string>('SPOTIFY_CLIENT_ID');
+    const clientSecret = this.configService.getOrThrow<string>('SPOTIFY_CLIENT_SECRET');
+    const redirectUri = this.configService.getOrThrow<string>('SPOTIFY_REDIRECT_URI');
 
-    return {
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token,
+    const params = new URLSearchParams();
+
+    params.append('grant_type', 'authorization_code');
+    params.append('code', code);
+    params.append('redirect_uri', redirectUri);
+
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Basic ${ Buffer.from(`${ clientId }:${ clientSecret }`).toString('base64') }`,
     };
+
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post('https://accounts.spotify.com/api/token', params, { headers }),
+      );
+
+      return {
+        accessToken: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      };
+    } catch (error) {
+      console.error('Spotify Token Exchange Error:', error?.response?.data || error.message);
+      throw new InternalServerErrorException('Failed to exchange code for tokens');
+    }
   }
 
   public async getProfile(accessToken: string): Promise<User> {
-    const data = await this.spotifyApi.getProfile(accessToken);
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get('https://api.spotify.com/v1/me', {
+          headers: {
+            Authorization: `Bearer ${ accessToken }`,
+          },
+        }),
+      );
 
-    return User.create({
-      id: data.id,
-      displayName: data.display_name,
-      email: data.email,
-      avatarUrl: data.images?.[0]?.url,
-    });
+      const data = response.data;
+
+      return User.create({
+        id: data.id,
+        displayName: data.display_name,
+        email: data.email,
+        avatarUrl: data.images?.[0]?.url,
+      });
+    } catch (error) {
+      console.error('Spotify Profile Error:', error?.response?.data || error.message);
+      throw new InternalServerErrorException('Failed to fetch user profile');
+    }
   }
 }
