@@ -13,18 +13,18 @@ Goal: Consolidate external logic inside the adapter, replacing the redundant ser
 ## Phase 2: Use Case Refactoring (Moving, Renaming)
 Goal: Align Use Case naming and location with architectural standards.
 
-- [ ] Task: Move `apps/backend/src/streaming/domain/stream-track.use-case.ts` to `apps/backend/src/streaming/stream-track.case.ts`.
-- [ ] Task: Rename `StreamTrackUseCase` to `StreamTrackCase` and apply `@Injectable()` decorator.
-- [ ] Task: Move and update `stream-track.use-case.spec.ts` to `stream-track.case.spec.ts`, reflecting the new class name and location.
+- [x] Task: Move `apps/backend/src/streaming/domain/stream-track.use-case.ts` to `apps/backend/src/streaming/stream-track.case.ts`. [83179a1]
+- [x] Task: Rename `StreamTrackUseCase` to `StreamTrackCase` and apply `@Injectable()` decorator. [83179a1]
+- [x] Task: Move and update `stream-track.use-case.spec.ts` to `stream-track.case.spec.ts`, reflecting the new class name and location. [83179a1]
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md)
 
 ## Phase 3: Module & Dependency Injection Cleanup
 Goal: Standardize provider definitions and clean up `StreamingModule`.
 
-- [ ] Task: Update `apps/backend/src/streaming/domain/streaming.port.ts` to export a `STREAMING_PORT` symbol token.
-- [ ] Task: Refactor `apps/backend/src/streaming/streaming.module.ts` to use standard NestJS provider definitions with the `STREAMING_PORT` token.
-- [ ] Task: Update `apps/backend/src/streaming/api/streaming.controller.ts` to use `StreamTrackCase` and verify its specs.
-- [ ] Task: Verify that all internal imports within the `streaming` module are correct and follow the kebab-case convention.
+- [x] Task: Update `apps/backend/src/streaming/domain/streaming.port.ts` to export a `STREAMING_PORT` symbol token. [83179a1]
+- [x] Task: Refactor `apps/backend/src/streaming/streaming.module.ts` to use standard NestJS provider definitions with the `STREAMING_PORT` token. [1f4872d]
+- [x] Task: Update `apps/backend/src/streaming/api/streaming.controller.ts` to use `StreamTrackCase` and verify its specs. [1f4872d]
+- [~] Task: Verify that all internal imports within the `streaming` module are correct and follow the kebab-case convention.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
 
 ## Phase 4: Verification & Validation
