@@ -1,6 +1,8 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { PlayerStore } from './player.store';
+import {
+  describe, it, expect, beforeEach, afterEach,
+} from 'vitest';
 import { uiEventBus } from '@shared/events';
+import { PlayerStore } from './player.store';
 
 describe('PlayerStore', () => {
   let store: PlayerStore;
