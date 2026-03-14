@@ -1,6 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { InternalServerErrorException } from '@nestjs/common';
-import { of, throwError } from 'rxjs';
+import {
+  of, throwError,
+} from 'rxjs';
 import { SpotifyStreamingAdapter } from './spotify-streaming.adapter';
 
 describe('SpotifyStreamingAdapter', () => {
@@ -32,7 +34,8 @@ describe('SpotifyStreamingAdapter', () => {
 
       expect(result).toBe(mockStream);
       expect(httpService.get).toHaveBeenCalledTimes(2);
-      expect(httpService.get).toHaveBeenCalledWith(`https://api.spotify.com/v1/tracks/${ trackId }`, expect.any(Object));
+      expect(httpService.get)
+        .toHaveBeenCalledWith(`https://api.spotify.com/v1/tracks/${ trackId }`, expect.any(Object));
       expect(httpService.get).toHaveBeenCalledWith(mockTrack.preview_url, expect.any(Object));
     });
 

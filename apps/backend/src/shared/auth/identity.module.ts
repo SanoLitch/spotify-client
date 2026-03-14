@@ -6,6 +6,7 @@ import { IDENTITY_PORT } from './identity.port';
 
 @Module({
   providers: [
+    CookieIdentityAdapter,
     {
       provide: IDENTITY_PORT,
       useExisting: CookieIdentityAdapter,
