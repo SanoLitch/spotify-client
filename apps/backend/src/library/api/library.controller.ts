@@ -2,44 +2,11 @@ import {
   Controller, Get, Query, Req, UnauthorizedException,
 } from '@nestjs/common';
 import {
-  ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty,
+  ApiTags, ApiOperation, ApiQuery, ApiResponse,
 } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '@shared/auth';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
-
-export class TrackDto {
-  @ApiProperty()
-  id: string;
-
-  @ApiProperty()
-  name: string;
-
-  @ApiProperty({ type: [String] })
-  artists: string[];
-
-  @ApiProperty()
-  albumName: string;
-
-  @ApiProperty()
-  durationMs: number;
-
-  @ApiProperty({ required: false })
-  albumCoverUrl?: string;
-}
-
-export class GetTracksResponseDto {
-  @ApiProperty({ type: [TrackDto] })
-  items: TrackDto[];
-
-  @ApiProperty()
-  total: number;
-
-  @ApiProperty()
-  limit: number;
-
-  @ApiProperty()
-  offset: number;
-}
+import { GetTracksResponseDto } from './dtos/get-tracks.dto';
 
 @ApiTags('library')
 @Controller('library')
