@@ -5,14 +5,14 @@ import {
   ApiTags, ApiOperation, ApiQuery, ApiResponse,
 } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '@shared/auth';
-import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
+import { GetSavedTracksCase } from '../get-saved-tracks.case';
 import { GetTracksResponseDto } from './dtos/get-tracks.dto';
 import { TrackMapper } from '../lib/track.mapper';
 
 @ApiTags('library')
 @Controller('library')
 export class LibraryController {
-  constructor(private readonly getSavedTracksUseCase: GetSavedTracksUseCase) {}
+  constructor(private readonly getSavedTracksUseCase: GetSavedTracksCase) {}
 
   @Get('tracks')
   @ApiOperation({ summary: 'Get user saved tracks' })

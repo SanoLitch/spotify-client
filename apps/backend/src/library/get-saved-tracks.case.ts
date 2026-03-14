@@ -1,11 +1,17 @@
+import { Injectable, Inject } from '@nestjs/common';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
-} from './library.port';
+} from './domain/library.port';
 
-export class GetSavedTracksUseCase {
-  constructor(private readonly libraryPort: LibraryPort) {}
+@Injectable()
+export class GetSavedTracksCase {
+  constructor(
+    @Inject('LibraryPort')
+    private readonly libraryPort: LibraryPort,
+  ) {}
 
   public async execute(params: GetSavedTracksParams): Promise<GetSavedTracksResult> {
     return this.libraryPort.getSavedTracks(params);
   }
 }
+
