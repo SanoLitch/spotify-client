@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LibraryController } from './api/library.controller';
 import { GetSavedTracksUseCase } from './domain/get-saved-tracks.use-case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
-import { SpotifyApiService } from '../auth/lib/spotify-api.service';
+import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
 import { AuthMiddleware } from '../auth/api/auth.middleware';
 import { AuthModule } from '../auth/auth.module';
 
@@ -14,6 +14,7 @@ import { AuthModule } from '../auth/auth.module';
   imports: [ConfigModule, HttpModule, AuthModule],
   controllers: [LibraryController],
   providers: [
+    SpotifyLibraryApiService,
     {
       provide: GetSavedTracksUseCase,
       inject: ['LibraryPort'],
@@ -21,7 +22,7 @@ import { AuthModule } from '../auth/auth.module';
     },
     {
       provide: 'LibraryPort',
-      inject: [SpotifyApiService],
+      inject: [SpotifyLibraryApiService],
       useFactory: api => new SpotifyLibraryAdapter(api),
     },
   ],

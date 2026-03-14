@@ -3,11 +3,11 @@ import {
 } from '@nestjs/common';
 import { Readable } from 'stream';
 import { StreamingPort } from '../domain/streaming.port';
-import { SpotifyApiService } from '../../auth/lib/spotify-api.service';
+import { SpotifyStreamingApiService } from './spotify/spotify-streaming-api.service';
 
 @Injectable()
 export class SpotifyStreamingAdapter implements StreamingPort {
-  constructor(private readonly spotifyApi: SpotifyApiService) {}
+  constructor(private readonly spotifyApi: SpotifyStreamingApiService) {}
 
   public async getTrackStream(trackId: string, accessToken: string): Promise<Readable> {
     const track = await this.spotifyApi.getTrack(accessToken, trackId);

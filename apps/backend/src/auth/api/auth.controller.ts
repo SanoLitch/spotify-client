@@ -11,6 +11,7 @@ import { UserDto } from './user.dto';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
 import { MeUseCase } from '../domain/me.use-case';
+import { GetAuthUrlUseCase } from '../domain/get-auth-url.use-case';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -20,25 +21,13 @@ export class AuthController {
     private readonly loginUseCase: LoginUseCase,
     private readonly logoutUseCase: LogoutUseCase,
     private readonly meUseCase: MeUseCase,
+    private readonly getAuthUrlUseCase: GetAuthUrlUseCase,
   ) {}
 
   @Get('login')
   @ApiOperation({ summary: 'Redirect to Spotify login' })
   public login(@Res() res: Response): void {
-    const clientId = this.configService.getOrThrow<string>('SPOTIFY_CLIENT_ID');
-    const redirectUri = this.configService.getOrThrow<string>('SPOTIFY_REDIRECT_URI');
-    const scopes = [
-      'user-read-private',
-      'user-read-email',
-      'user-library-read',
-      'playlist-read-private',
-    ].join(' ');
-    const authUri = this.configService.getOrThrow<string>('SPOTIFY_AUTH_URI');
-
-    const url = authUri
-      .replace('$CLIENT_ID', clientId)
-      .replace('$SCOPES', encodeURIComponent(scopes))
-      .replace('$REDIRECT_URI', encodeURIComponent(redirectUri));
+    const url = this.getAuthUrlUseCase.execute();
 
     return res.redirect(url);
   }

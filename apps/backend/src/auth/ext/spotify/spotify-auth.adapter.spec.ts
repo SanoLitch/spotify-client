@@ -1,17 +1,36 @@
 import { SpotifyAuthAdapter } from './spotify-auth.adapter';
 import { SpotifyApiService } from '../../lib/spotify-api.service';
 import { User } from '../../domain/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 describe('SpotifyAuthAdapter', () => {
   let adapter: SpotifyAuthAdapter;
   let spotifyApi: jest.Mocked<SpotifyApiService>;
+  let configService: jest.Mocked<ConfigService>;
 
   beforeEach(() => {
     spotifyApi = {
       exchangeCodeForTokens: jest.fn(),
       getProfile: jest.fn(),
     } as unknown as jest.Mocked<SpotifyApiService>;
-    adapter = new SpotifyAuthAdapter(spotifyApi);
+    configService = {
+      getOrThrow: jest.fn(),
+    } as unknown as jest.Mocked<ConfigService>;
+    adapter = new SpotifyAuthAdapter(spotifyApi, configService);
+  });
+
+  it('should return auth url', () => {
+    configService.getOrThrow.mockImplementation((key: string) => {
+      if (key === 'SPOTIFY_CLIENT_ID') return 'client_id';
+      if (key === 'SPOTIFY_REDIRECT_URI') return 'redirect_uri';
+      if (key === 'SPOTIFY_AUTH_URI') return 'https://auth.com?client_id=$CLIENT_ID&scope=$SCOPES&redirect_uri=$REDIRECT_URI';
+      return '';
+    });
+
+    const url = adapter.getAuthUrl();
+
+    expect(url).toContain('client_id=client_id');
+    expect(url).toContain('redirect_uri=redirect_uri');
   });
 
   it('should exchange code for tokens', async () => {

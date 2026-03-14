@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { LoginUseCase } from '../domain/login.use-case';
 import { LogoutUseCase } from '../domain/logout.use-case';
 import { MeUseCase } from '../domain/me.use-case';
+import { GetAuthUrlUseCase } from '../domain/get-auth-url.use-case';
 import { User } from '../domain/user.entity';
 
 describe('AuthController', () => {
@@ -14,12 +15,14 @@ describe('AuthController', () => {
   let loginUseCase: jest.Mocked<LoginUseCase>;
   let logoutUseCase: jest.Mocked<LogoutUseCase>;
   let meUseCase: jest.Mocked<MeUseCase>;
+  let getAuthUrlUseCase: jest.Mocked<GetAuthUrlUseCase>;
   let configService: jest.Mocked<ConfigService>;
 
   beforeEach(async () => {
     loginUseCase = { execute: jest.fn() } as unknown as jest.Mocked<LoginUseCase>;
     logoutUseCase = { execute: jest.fn() } as unknown as jest.Mocked<LogoutUseCase>;
     meUseCase = { execute: jest.fn() } as unknown as jest.Mocked<MeUseCase>;
+    getAuthUrlUseCase = { execute: jest.fn() } as unknown as jest.Mocked<GetAuthUrlUseCase>;
     configService = { getOrThrow: jest.fn() } as unknown as jest.Mocked<ConfigService>;
 
     const module: TestingModule = await Test.createTestingModule({
@@ -36,6 +39,10 @@ describe('AuthController', () => {
         {
           provide: MeUseCase,
           useValue: meUseCase,
+        },
+        {
+          provide: GetAuthUrlUseCase,
+          useValue: getAuthUrlUseCase,
         },
         {
           provide: ConfigService,

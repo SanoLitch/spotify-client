@@ -1,15 +1,15 @@
 import { SpotifyLibraryAdapter } from './spotify-library.adapter';
-import { SpotifyApiService } from '../../../auth/lib/spotify-api.service';
+import { SpotifyLibraryApiService } from './spotify-library-api.service';
 import { Track } from '../../domain/track.entity';
 
 describe('SpotifyLibraryAdapter', () => {
   let adapter: SpotifyLibraryAdapter;
-  let spotifyApi: jest.Mocked<SpotifyApiService>;
+  let spotifyApi: jest.Mocked<SpotifyLibraryApiService>;
 
   beforeEach(() => {
     spotifyApi = {
       getSavedTracks: jest.fn(),
-    } as unknown as jest.Mocked<SpotifyApiService>;
+    } as unknown as jest.Mocked<SpotifyLibraryApiService>;
     adapter = new SpotifyLibraryAdapter(spotifyApi);
   });
 

@@ -10,6 +10,7 @@ describe('LoginUseCase', () => {
 
   beforeEach(() => {
     authProvider = {
+      getAuthUrl: jest.fn(),
       exchangeCodeForTokens: jest.fn(),
       getProfile: jest.fn(),
     };

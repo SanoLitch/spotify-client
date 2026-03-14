@@ -9,6 +9,7 @@ import { AuthMiddleware } from './api/auth.middleware';
 import { LoginUseCase } from './domain/login.use-case';
 import { LogoutUseCase } from './domain/logout.use-case';
 import { MeUseCase } from './domain/me.use-case';
+import { GetAuthUrlUseCase } from './domain/get-auth-url.use-case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
 import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
 
@@ -23,6 +24,11 @@ import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
       useFactory: (authPort, userRepo) => new LoginUseCase(authPort, userRepo),
     },
     {
+      provide: GetAuthUrlUseCase,
+      inject: ['AuthPort'],
+      useFactory: authPort => new GetAuthUrlUseCase(authPort),
+    },
+    {
       provide: LogoutUseCase,
       useFactory: () => new LogoutUseCase(),
     },
@@ -33,8 +39,8 @@ import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
     },
     {
       provide: 'AuthPort',
-      inject: [SpotifyApiService],
-      useFactory: api => new SpotifyAuthAdapter(api),
+      inject: [SpotifyApiService, ConfigService],
+      useFactory: (api, config) => new SpotifyAuthAdapter(api, config),
     },
     {
       provide: 'IdentityPort',

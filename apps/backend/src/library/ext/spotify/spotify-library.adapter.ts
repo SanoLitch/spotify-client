@@ -5,7 +5,7 @@ import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
 } from '../../domain/library.port';
 import { Track } from '../../domain/track.entity';
-import { SpotifyApiService } from '../../../auth/lib/spotify-api.service';
+import { SpotifyLibraryApiService } from './spotify-library-api.service';
 
 interface SpotifyTrackItem {
   track: {
@@ -21,7 +21,7 @@ interface SpotifyTrackItem {
 }
 
 export class SpotifyLibraryAdapter implements LibraryPort {
-  constructor(private readonly spotifyApi: SpotifyApiService) {}
+  constructor(private readonly spotifyApi: SpotifyLibraryApiService) {}
 
   public async getSavedTracks(params: GetSavedTracksParams): Promise<GetSavedTracksResult> {
     const data = await this.spotifyApi.getSavedTracks(params.accessToken, params.limit, params.offset);
