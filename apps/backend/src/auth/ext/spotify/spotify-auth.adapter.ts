@@ -1,4 +1,5 @@
 import {
+  Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
@@ -12,6 +13,7 @@ import {
 import { User } from '../../domain/user.entity';
 import { UserMapper } from '../../lib/user.mapper';
 
+@Injectable()
 export class SpotifyAuthAdapter implements AuthPort {
   private readonly logger = new Logger(SpotifyAuthAdapter.name);
 

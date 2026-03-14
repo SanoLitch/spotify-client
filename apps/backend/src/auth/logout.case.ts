@@ -1,3 +1,6 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
 export class LogoutUseCase {
   public async execute(): Promise<void> {
     // Implementation for logout logic (e.g., token invalidation) goes here.

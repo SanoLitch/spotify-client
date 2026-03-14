@@ -1,14 +1,19 @@
+import {
+  Inject, Injectable,
+} from '@nestjs/common';
 import { User } from './domain/user.entity';
-import { AuthPort } from './ext/spotify/auth.port';
+import {
+  AUTH_PORT, AuthPort,
+} from './ext/spotify/auth.port';
 
-export interface MeOutput {
-  user: User;
-}
-
+@Injectable()
 export class MeUseCase {
-  constructor(private readonly authPort: AuthPort) {}
+  constructor(
+    @Inject(AUTH_PORT)
+    private readonly authPort: AuthPort,
+  ) {}
 
-  public async execute(accessToken: string): Promise<MeOutput> {
+  public async execute(accessToken: string): Promise<{ user: User }> {
     const user = await this.authPort.getProfile(accessToken);
 
     return { user };
