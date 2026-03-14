@@ -1,5 +1,5 @@
-import { User } from './user.entity';
-import { AuthPort } from '../ext/spotify/auth.port';
+import { User } from './domain/user.entity';
+import { AuthPort } from './ext/spotify/auth.port';
 
 export interface MeOutput {
   user: User;

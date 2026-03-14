@@ -4,10 +4,10 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { AuthController } from './auth.controller';
-import { LoginUseCase } from '../domain/login.use-case';
-import { LogoutUseCase } from '../domain/logout.use-case';
-import { MeUseCase } from '../domain/me.use-case';
-import { GetAuthUrlUseCase } from '../domain/get-auth-url.use-case';
+import { LoginUseCase } from '../login.case';
+import { LogoutUseCase } from '../logout.case';
+import { MeUseCase } from '../me.case';
+import { GetAuthUrlUseCase } from '../get-auth-url.case';
 import { User } from '../domain/user.entity';
 
 describe('AuthController', () => {

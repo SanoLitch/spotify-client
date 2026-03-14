@@ -1,7 +1,7 @@
-import { LoginUseCase } from './login.use-case';
-import { User } from './user.entity';
-import { AuthPort } from '../ext/spotify/auth.port';
-import { UserRepositoryPort } from '../ext/storage/user-repository.port';
+import { LoginUseCase } from './login.case';
+import { User } from './domain/user.entity';
+import { AuthPort } from './ext/spotify/auth.port';
+import { UserRepositoryPort } from './ext/storage/user-repository.port';
 
 describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;

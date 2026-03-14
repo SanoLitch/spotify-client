@@ -5,13 +5,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { AuthController } from './api/auth.controller';
 import { AuthMiddleware } from './api/auth.middleware';
-import { LoginUseCase } from './domain/login.use-case';
-import { LogoutUseCase } from './domain/logout.use-case';
-import { MeUseCase } from './domain/me.use-case';
-import { GetAuthUrlUseCase } from './domain/get-auth-url.use-case';
+import { LoginUseCase } from './login.case';
+import { LogoutUseCase } from './logout.case';
+import { MeUseCase } from './me.case';
+import { GetAuthUrlUseCase } from './get-auth-url.case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
 import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
 import { InMemoryUserRepository } from './ext/storage/in-memory-user.repository';
+import { Logger } from '@libs/logger';
 
 @Module({
   imports: [ConfigModule, HttpModule],

@@ -1,4 +1,4 @@
-import { LogoutUseCase } from './logout.use-case';
+import { LogoutUseCase } from './logout.case';
 
 describe('LogoutUseCase', () => {
   let logoutUseCase: LogoutUseCase;

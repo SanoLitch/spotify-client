@@ -8,10 +8,11 @@ import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthenticatedRequest } from './auth.middleware.types';
 import { UserDto } from './user.dto';
-import { LoginUseCase } from '../domain/login.use-case';
-import { LogoutUseCase } from '../domain/logout.use-case';
-import { MeUseCase } from '../domain/me.use-case';
-import { GetAuthUrlUseCase } from '../domain/get-auth-url.use-case';
+import { LoginUseCase } from '../login.case';
+import { LogoutUseCase } from '../logout.case';
+import { MeUseCase } from '../me.case';
+import { GetAuthUrlUseCase } from '../get-auth-url.case';
+import { UserMapper } from '../lib/user.mapper';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -70,14 +71,8 @@ export class AuthController {
 
     const { user } = await this.meUseCase.execute(req.user.accessToken);
 
-    return {
-      id: user.id.getValue(),
-      displayName: user.displayName,
-      email: user.email,
-      avatarUrl: user.avatarUrl,
-    };
-  }
-
+    return UserMapper.toDto(user);
+    }
   @Get('logout')
   @ApiOperation({ summary: 'Logout and clear cookies' })
   public async logout(@Res() res: Response) {

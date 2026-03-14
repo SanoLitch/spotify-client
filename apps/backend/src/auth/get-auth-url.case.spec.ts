@@ -1,5 +1,5 @@
-import { GetAuthUrlUseCase } from './get-auth-url.use-case';
-import { AuthPort } from '../ext/spotify/auth.port';
+import { GetAuthUrlUseCase } from './get-auth-url.case';
+import { AuthPort } from './ext/spotify/auth.port';
 
 describe('GetAuthUrlUseCase', () => {
   let useCase: GetAuthUrlUseCase;
