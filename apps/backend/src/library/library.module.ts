@@ -9,8 +9,7 @@ import {
 import { LibraryController } from './api/library.controller';
 import { GetSavedTracksCase } from './get-saved-tracks.case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
-import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
-import { LIBRARY_PORT } from './domain/library.port';
+import { LIBRARY_PORT } from './ext/library.port';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { LIBRARY_PORT } from './domain/library.port';
   ],
   controllers: [LibraryController],
   providers: [
-    SpotifyLibraryApiService,
     SpotifyLibraryAdapter,
     GetSavedTracksCase,
     {

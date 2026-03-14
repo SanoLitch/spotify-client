@@ -2,7 +2,7 @@ import {
   TrackId, Time,
 } from '@libs/ddd';
 import { GetSavedTracksCase } from './get-saved-tracks.case';
-import { LibraryPort } from './domain/library.port';
+import { LibraryPort } from './ext/library.port';
 import { Track } from './domain/track.entity';
 
 describe('GetSavedTracksCase', () => {

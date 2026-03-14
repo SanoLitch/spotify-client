@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult, LIBRARY_PORT,
-} from './domain/library.port';
+} from './ext/library.port';
 
 @Injectable()
 export class GetSavedTracksCase {

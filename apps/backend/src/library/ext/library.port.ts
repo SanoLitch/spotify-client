@@ -1,4 +1,4 @@
-import { Track } from './track.entity';
+import { Track } from '../domain/track.entity';
 
 export const LIBRARY_PORT = Symbol('LIBRARY_PORT');
 
