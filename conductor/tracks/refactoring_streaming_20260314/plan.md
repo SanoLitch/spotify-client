@@ -10,13 +10,13 @@ Goal: Consolidate external logic inside the adapter, replacing the redundant ser
 - [x] Task: Update the unit tests in `apps/backend/src/streaming/ext/spotify/spotify-streaming.adapter.spec.ts` (create if missing) to test the consolidated logic with injected `HttpService`. [31d0aab]
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Service Consolidation' (Protocol in workflow.md) [7af38fc]
 
-## Phase 2: Use Case Refactoring (Moving, Renaming)
+## Phase 2: Use Case Refactoring (Moving, Renaming) [checkpoint: ae50a20]
 Goal: Align Use Case naming and location with architectural standards.
 
 - [x] Task: Move `apps/backend/src/streaming/domain/stream-track.use-case.ts` to `apps/backend/src/streaming/stream-track.case.ts`. [83179a1]
 - [x] Task: Rename `StreamTrackUseCase` to `StreamTrackCase` and apply `@Injectable()` decorator. [83179a1]
 - [x] Task: Move and update `stream-track.use-case.spec.ts` to `stream-track.case.spec.ts`, reflecting the new class name and location. [83179a1]
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md) [ae50a20]
 
 ## Phase 3: Module & Dependency Injection Cleanup
 Goal: Standardize provider definitions and clean up `StreamingModule`.
