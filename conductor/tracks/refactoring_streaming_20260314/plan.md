@@ -1,14 +1,14 @@
 # Implementation Plan: Refactor @apps/backend/src/streaming for architectural compliance
 
-## Phase 1: Preparation & Service Consolidation
+## Phase 1: Preparation & Service Consolidation [checkpoint: 7af38fc]
 Goal: Consolidate external logic inside the adapter, replacing the redundant service and standardizing logging.
 
-- [ ] Task: Move `apps/backend/src/streaming/ext/spotify-streaming.adapter.ts` into `apps/backend/src/streaming/ext/spotify/`.
-- [ ] Task: Migrate logic from `apps/backend/src/streaming/ext/spotify/spotify-streaming-api.service.ts` into `apps/backend/src/streaming/ext/spotify/spotify-streaming.adapter.ts`.
-- [ ] Task: Replace all usages of `console.error` with NestJS `Logger` in `spotify-streaming.adapter.ts`.
-- [ ] Task: Delete `apps/backend/src/streaming/ext/spotify/spotify-streaming-api.service.ts`.
-- [ ] Task: Update the unit tests in `apps/backend/src/streaming/ext/spotify/spotify-streaming.adapter.spec.ts` (create if missing) to test the consolidated logic with injected `HttpService`.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Service Consolidation' (Protocol in workflow.md)
+- [x] Task: Move `apps/backend/src/streaming/ext/spotify-streaming.adapter.ts` into `apps/backend/src/streaming/ext/spotify/`. [31d0aab]
+- [x] Task: Migrate logic from `apps/backend/src/streaming/ext/spotify/spotify-streaming-api.service.ts` into `apps/backend/src/streaming/ext/spotify/spotify-streaming.adapter.ts`. [31d0aab]
+- [x] Task: Replace all usages of `console.error` with NestJS `Logger` in `spotify-streaming.adapter.ts`. [31d0aab]
+- [x] Task: Delete `apps/backend/src/streaming/ext/spotify/spotify-streaming-api.service.ts`. [31d0aab]
+- [x] Task: Update the unit tests in `apps/backend/src/streaming/ext/spotify/spotify-streaming.adapter.spec.ts` (create if missing) to test the consolidated logic with injected `HttpService`. [31d0aab]
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Service Consolidation' (Protocol in workflow.md) [7af38fc]
 
 ## Phase 2: Use Case Refactoring (Moving, Renaming)
 Goal: Align Use Case naming and location with architectural standards.
