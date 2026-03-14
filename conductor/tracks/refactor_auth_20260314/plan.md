@@ -11,7 +11,7 @@ Goal: Establish the new ports and refine domain interfaces.
     - [x] Delegate token extraction to the port
 - [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
-## Phase 2: Infrastructure Service Decoupling
+## Phase 2: Infrastructure Service Decoupling [checkpoint: 0f8b03b]
 Goal: Remove non-auth logic from the auth module and clean up the Spotify API service.
 
 - [x] Task: Extract Library and Streaming logic from `SpotifyApiService` [0df5295]
@@ -19,7 +19,7 @@ Goal: Remove non-auth logic from the auth module and clean up the Spotify API se
     - [x] Migration to other modules (Done as part of this track)
 - [x] Task: Refactor `SpotifyAuthAdapter` [0df5295]
     - [x] Update it to use a pruned `SpotifyApiService` or direct HTTP client
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Repository and Module Cleanup
 Goal: Finalize architectural alignment and remove technical debt.
