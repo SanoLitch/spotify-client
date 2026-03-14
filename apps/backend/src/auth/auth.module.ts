@@ -1,7 +1,7 @@
 import {
   MiddlewareConsumer, Module, NestModule, RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { AuthController } from './api/auth.controller';
 import { SpotifyApiService } from './lib/spotify-api.service';
