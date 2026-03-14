@@ -12,7 +12,7 @@ Goal: Move DTOs out of the controller and introduce a Mapper to handle data tran
 Goal: Align Use Case naming and location with architectural standards.
 
 - [x] Task: Move `apps/backend/src/library/domain/get-saved-tracks.use-case.ts` to `apps/backend/src/library/get-saved-tracks.case.ts`. [2f0fac7]
-- [ ] Task: Rename `GetSavedTracksUseCase` to `GetSavedTracksCase` and apply `@Injectable()` decorator.
+- [x] Task: Rename `GetSavedTracksUseCase` to `GetSavedTracksCase` and apply `@Injectable()` decorator. [e8cc8cc]
 - [ ] Task: Update `get-saved-tracks.case.spec.ts` to reflect the new location and class name.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md)
 
