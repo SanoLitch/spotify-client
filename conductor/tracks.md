@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Рефакторинг @apps/backend/src/library для соответствия требований архитектуры**
+- [x] **Track: Рефакторинг @apps/backend/src/library для соответствия требований архитектуры**
 *Link: [./tracks/refactor_library_architecture_20260314/](./tracks/refactor_library_architecture_20260314/)*
