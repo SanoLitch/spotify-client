@@ -21,22 +21,22 @@ Goal: Remove non-auth logic from the auth module and clean up the Spotify API se
     - [x] Update it to use a pruned `SpotifyApiService` or direct HTTP client
 - [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
-## Phase 3: Repository and Module Cleanup
+## Phase 3: Repository and Module Cleanup [checkpoint: 7073f74]
 Goal: Finalize architectural alignment and remove technical debt.
 
-- [ ] Task: Implement proper `InMemoryUserRepositoryAdapter`
-    - [ ] Move current inline mock to a dedicated file in `ext/storage`
-    - [ ] Register it in `AuthModule`
-- [ ] Task: Final Module Configuration and Exports
-    - [ ] Review `AuthModule` exports and providers
-    - [ ] Ensure only the necessary ports are available
-- [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [x] Task: Implement proper `InMemoryUserRepositoryAdapter` [7073f74]
+    - [x] Move current inline mock to a dedicated file in `ext/storage`
+    - [x] Register it in `AuthModule`
+- [x] Task: Final Module Configuration and Exports [7073f74]
+    - [x] Review `AuthModule` exports and providers
+    - [x] Ensure only the necessary ports are available
+- [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
 
-## Phase 4: Final Verification
+## Phase 4: Final Verification [checkpoint: 7073f74]
 Goal: Ensure no regressions and full compliance.
 
-- [ ] Task: Run All Existing Tests
-    - [ ] Verify `apps/backend/src/auth/**` tests pass
-- [ ] Task: Manual Flow Verification
-    - [ ] Verify Login -> Callback -> /me -> Logout flow
-- [ ] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)
+- [x] Task: Run All Existing Tests [7073f74]
+    - [x] Verify `apps/backend/src/auth/**` tests pass
+- [x] Task: Manual Flow Verification [7073f74]
+    - [x] Verify Login -> Callback -> /me -> Logout flow
+- [x] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)
