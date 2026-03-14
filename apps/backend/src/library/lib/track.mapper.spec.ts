@@ -1,8 +1,10 @@
-import { TrackMapper, SpotifyTrackItem } from './track.mapper';
-import { Track } from '../domain/track.entity';
 import {
   TrackId, Time,
 } from '@libs/ddd';
+import {
+  TrackMapper, SpotifyTrackItem,
+} from './track.mapper';
+import { Track } from '../domain/track.entity';
 
 describe('TrackMapper', () => {
   const mockSpotifyItem: SpotifyTrackItem = {

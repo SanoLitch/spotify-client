@@ -3,7 +3,9 @@ import { SpotifyLibraryApiService } from './spotify-library-api.service';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
 } from '../../domain/library.port';
-import { TrackMapper, SpotifyTrackItem } from '../../lib/track.mapper';
+import {
+  TrackMapper, SpotifyTrackItem,
+} from '../../lib/track.mapper';
 
 @Injectable()
 export class SpotifyLibraryAdapter implements LibraryPort {

@@ -2,7 +2,9 @@ import {
   TrackId, Time,
 } from '@libs/ddd';
 import { Track } from '../domain/track.entity';
-import { TrackDto, GetTracksResponseDto } from '../api/dtos/get-tracks.dto';
+import {
+  TrackDto, GetTracksResponseDto,
+} from '../api/dtos/get-tracks.dto';
 import { GetSavedTracksResult } from '../domain/library.port';
 
 export interface SpotifyTrackItem {

@@ -1,4 +1,6 @@
-import { Injectable, Inject } from '@nestjs/common';
+import {
+  Injectable, Inject,
+} from '@nestjs/common';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult, LIBRARY_PORT,
 } from './domain/library.port';
@@ -14,4 +16,3 @@ export class GetSavedTracksCase {
     return this.libraryPort.getSavedTracks(params);
   }
 }
-
