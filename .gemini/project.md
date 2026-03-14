@@ -4,15 +4,19 @@ globs:
 alwaysApply: true
 ---
 
-# Description
+# Project Infrastructure
 
-This project is monorepo based on Turborepo lib. Repository splittied into
-packages into _apps/_ for applications and services and _lib/_ for common shared
-code, like libraries and tooling, _docs/_ for project documentation. Each
-package has it's own dependecies.
+This project is a monorepo based on **Turborepo** and **NPM Workspaces**.
 
-# Infrastructure
+## Project Layout
+- `apps/`: Applications and services (Backend, Frontend).
+- `libs/`: Shared internal packages and tooling.
+- `docs/`: Project documentation.
 
-- _NPM_ is used as package manager
-- Project is built with _Turborepo_ over _NPM_ Workspaces\_
-- Turborepo cli is used to run scripts described in _turbo.json_
+## Infrastructure Tools
+- **NPM**: Package manager.
+- **Turborepo**: Build system and pipeline management (`turbo.json`).
+- **Devbox**: Nix-based environment setup (`devbox.json`).
+
+## Monorepo Rules
+For detailed structure guidance, shared libraries usage, and interaction rules, activate the `monorepo-structure-guide` skill.

@@ -44,6 +44,7 @@ import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
       },
     },
   ],
+  exports: [SpotifyApiService],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

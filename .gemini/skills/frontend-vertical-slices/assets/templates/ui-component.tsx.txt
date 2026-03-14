@@ -1,0 +1,33 @@
+import React from 'react';
+import { observer } from 'mobx-react-lite'; // Example reactive observer
+import { useStyles } from './{{component-name}}.css';
+
+export interface {{ComponentName}}Props {
+  title: string;
+  onAction?: () => void;
+  isLoading?: boolean;
+}
+
+/**
+ * {{ComponentName}} - Presentation Layer
+ * Rules:
+ * - Read state from Domain Stores via observer.
+ * - Trigger changes ONLY via Use Cases or callbacks.
+ * - Keep UI logic separated from business logic.
+ */
+export const {{ComponentName}} = observer(({ title, onAction, isLoading }: {{ComponentName}}Props) => {
+  const styles = useStyles();
+
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>{title}</h2>
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <button onClick={onAction} className={styles.button}>
+          Execute Action
+        </button>
+      )}
+    </div>
+  );
+});

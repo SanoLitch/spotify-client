@@ -5,7 +5,8 @@
     "turbo@2.5.6",
     "nest-cli@latest",
     "eslint@latest",
-    "prettier@latest"
+    "prettier@latest",
+    "zip@latest"
   ],
   "shell": {
     "init_hook": ["npm install"],

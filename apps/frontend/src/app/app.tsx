@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router';
 import { observer } from 'mobx-react-lite';
 import { router } from './router';
 import * as styles from './app.css';
+import { PlayerView } from '../player/ui/player-view';
 import { authRootStore } from '../auth';
 
 export const App = observer(() => {
@@ -19,6 +20,9 @@ export const App = observer(() => {
   }
 
   return (
-    <RouterProvider router={ router } />
+    <>
+      <RouterProvider router={ router } />
+      <PlayerView />
+    </>
   );
 });

@@ -1,0 +1,21 @@
+import { Injectable } from '@nestjs/common';
+import { {{EntityName}} } from './domain/{{entity-name}}.entity';
+import { {{RepositoryPortName}} } from './domain/{{entity-name}}.port';
+
+@Injectable()
+export class {{UseCaseName}} {
+  constructor(private readonly {{repositoryName}}: {{RepositoryPortName}}) {}
+
+  public async execute(dto: {{InputDtoName}}): Promise<{{OutputDtoName}}> {
+    // 1. Fetch the aggregate root (Entity) from the repository
+    const {{entityInstance}} = await this.{{repositoryName}}.findById(dto.id);
+
+    // 2. Execute business logic on the entity (Rich Domain Model)
+    {{entityInstance}}.{{businessMethod}}(dto.data);
+
+    // 3. Persist the updated entity back to the repository
+    await this.{{repositoryName}}.save({{entityInstance}});
+
+    return { success: true };
+  }
+}

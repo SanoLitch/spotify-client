@@ -15,9 +15,11 @@ All tasks follow a strict lifecycle:
 
 ### Standard Task Workflow
 
-1. **Select Task:** Choose the next available task from `plan.md` in sequential order
+1. **Select Task:** Choose the next available task from `plan.md` in sequential order.
 
-2. **Mark In Progress:** Before beginning work, edit `plan.md` and change the task from `[ ]` to `[~]`
+2. **Activate Skills:** Activate relevant architectural and testing skills (e.g., `nest-hexagonal-architect`, `ddd-rich-model-expert`, `testing-trophy-strategy`). This ensures the agent is equipped with project-specific patterns and templates.
+
+3. **Mark In Progress:** Before beginning work, edit `plan.md` and change the task from `[ ]` to `[~]`.
 
 3. **Write Failing Tests (Red Phase):**
    - Create a new test file for the feature or bug fix.
@@ -138,12 +140,13 @@ All tasks follow a strict lifecycle:
 
 Before marking any task complete, verify:
 
-- [ ] All tests pass
-- [ ] Code coverage meets requirements (>80%)
-- [ ] Code follows project's code style guidelines (as defined in `code_styleguides/`)
-- [ ] All public functions/methods are documented (e.g., docstrings, JSDoc, GoDoc)
-- [ ] Type safety is enforced (e.g., type hints, TypeScript types, Go types)
-- [ ] No linting or static analysis errors (using the project's configured tools)
+- [ ] All tests pass.
+- [ ] Code coverage meets requirements (>80%).
+- [ ] **Architectural Integrity**: No violations in `dependency-cruiser` reports.
+- [ ] Code follows project's nomenclature and style guidelines.
+- [ ] All public functions/methods are documented (JSDoc).
+- [ ] Type safety is enforced (e.g., TypeScript types).
+- [ ] No linting or static analysis errors.
 - [ ] Works correctly on mobile (if applicable)
 - [ ] Documentation updated if needed
 - [ ] No security vulnerabilities introduced

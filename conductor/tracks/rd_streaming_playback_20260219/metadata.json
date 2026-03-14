@@ -1,0 +1,8 @@
+{
+  "track_id": "rd_streaming_playback_20260219",
+  "type": "rd",
+  "status": "new",
+  "created_at": "2026-02-19T18:00:00Z",
+  "updated_at": "2026-02-19T18:00:00Z",
+  "description": "R&D Architecture Stress Test: Implement UIEventBus (mitt) and Backend HTTP Streaming for track playback."
+}

@@ -1,0 +1,28 @@
+import { {{EntityName}} } from '../domain/{{entity-name}}.entity';
+import { {{PersistenceModelName}} } from '../ext/storage/{{entity-name}}.model'; // or Prisma model
+import { {{DtoName}} } from '../api/{{entity-name}}.dto';
+
+export class {{MapperName}} {
+  public static toEntity(raw: {{PersistenceModelName}}): {{EntityName}} {
+    return {{EntityName}}.create({
+      id: raw.id,
+      // map other fields, hydrating Value Objects if necessary
+      createdAt: raw.created_at,
+    });
+  }
+
+  public static toPersistence(entity: {{EntityName}}): {{PersistenceModelName}} {
+    return {
+      id: entity.id.value,
+      // dehydrate Value Objects back to primitives
+      created_at: entity.createdAt,
+    };
+  }
+
+  public static toDto(entity: {{EntityName}}): {{DtoName}} {
+    return {
+      id: entity.id.value,
+      // format data for presentation
+    };
+  }
+}
