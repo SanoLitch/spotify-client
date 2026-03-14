@@ -1,12 +1,12 @@
 # Implementation Plan: Refactor @apps/backend/src/library for architectural compliance
 
-## Phase 1: Preparation & Extraction (DTOs, Mappers)
+## Phase 1: Preparation & Extraction (DTOs, Mappers) [checkpoint: f3d9f5a]
 Goal: Move DTOs out of the controller and introduce a Mapper to handle data transformations.
 
 - [x] Task: Create `apps/backend/src/library/api/dtos/get-tracks.dto.ts` and move `TrackDto` and `GetTracksResponseDto` from `library.controller.ts`. [bb9d5a1]
 - [x] Task: Create `apps/backend/src/library/lib/track.mapper.ts` to handle mapping between Spotify API response, Domain Entity, and Presentation DTO. [7e4b854]
 - [x] Task: Write unit tests for `TrackMapper` in `apps/backend/src/library/lib/track.mapper.spec.ts`. [c9da0de]
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Extraction' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Extraction' (Protocol in workflow.md)
 
 ## Phase 2: Use Case Refactoring (Moving, Renaming)
 Goal: Align Use Case naming and location with architectural standards.
