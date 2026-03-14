@@ -7,6 +7,7 @@ import {
 import { AuthenticatedRequest } from '@shared/auth';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 import { GetTracksResponseDto } from './dtos/get-tracks.dto';
+import { TrackMapper } from '../lib/track.mapper';
 
 @ApiTags('library')
 @Controller('library')
@@ -46,18 +47,6 @@ export class LibraryController {
       offset: Number(offset),
     });
 
-    return {
-      items: result.items.map(track => ({
-        id: track.id.getValue(),
-        name: track.name,
-        artists: track.artists,
-        albumName: track.albumName,
-        durationMs: track.duration.getMilliseconds(),
-        albumCoverUrl: track.albumCoverUrl,
-      })),
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
-    };
+    return TrackMapper.toResponseDto(result);
   }
 }
