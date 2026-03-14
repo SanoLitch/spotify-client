@@ -7,8 +7,7 @@ import { LibraryController } from './api/library.controller';
 import { GetSavedTracksUseCase } from './domain/get-saved-tracks.use-case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
 import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
-import { AuthMiddleware } from '../auth/api/auth.middleware';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule, AuthMiddleware } from '../auth';
 
 @Module({
   imports: [ConfigModule, HttpModule, AuthModule],

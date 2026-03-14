@@ -6,7 +6,7 @@ import {
   ApiTags, ApiOperation,
 } from '@nestjs/swagger';
 import { StreamTrackUseCase } from '../domain/stream-track.use-case';
-import { AuthenticatedRequest } from '../../auth/api/auth.middleware.types';
+import { AuthenticatedRequest } from '../../auth';
 
 @ApiTags('streaming')
 @Controller('streaming')
