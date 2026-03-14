@@ -5,23 +5,23 @@ import {
   TrackId, Time,
 } from '@libs/ddd';
 import { LibraryController } from './library.controller';
-import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
+import { GetSavedTracksCase } from '../get-saved-tracks.case';
 import { Track } from '../domain/track.entity';
 
 describe('LibraryController', () => {
   let controller: LibraryController;
-  let getSavedTracksUseCase: jest.Mocked<GetSavedTracksUseCase>;
+  let getSavedTracksUseCase: jest.Mocked<GetSavedTracksCase>;
 
   beforeEach(async () => {
     getSavedTracksUseCase = {
       execute: jest.fn(),
-    } as unknown as jest.Mocked<GetSavedTracksUseCase>;
+    } as unknown as jest.Mocked<GetSavedTracksCase>;
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LibraryController],
       providers: [
         {
-          provide: GetSavedTracksUseCase,
+          provide: GetSavedTracksCase,
           useValue: getSavedTracksUseCase,
         },
       ],
