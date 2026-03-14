@@ -5,7 +5,7 @@ Goal: Move DTOs out of the controller and introduce a Mapper to handle data tran
 
 - [x] Task: Create `apps/backend/src/library/api/dtos/get-tracks.dto.ts` and move `TrackDto` and `GetTracksResponseDto` from `library.controller.ts`. [bb9d5a1]
 - [x] Task: Create `apps/backend/src/library/lib/track.mapper.ts` to handle mapping between Spotify API response, Domain Entity, and Presentation DTO. [7e4b854]
-- [ ] Task: Write unit tests for `TrackMapper` in `apps/backend/src/library/lib/track.mapper.spec.ts`.
+- [x] Task: Write unit tests for `TrackMapper` in `apps/backend/src/library/lib/track.mapper.spec.ts`. [c9da0de]
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Extraction' (Protocol in workflow.md)
 
 ## Phase 2: Use Case Refactoring (Moving, Renaming)
