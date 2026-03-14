@@ -1,12 +1,12 @@
 import { Injectable, Inject } from '@nestjs/common';
 import {
-  LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
+  LibraryPort, GetSavedTracksParams, GetSavedTracksResult, LIBRARY_PORT,
 } from './domain/library.port';
 
 @Injectable()
 export class GetSavedTracksCase {
   constructor(
-    @Inject('LibraryPort')
+    @Inject(LIBRARY_PORT)
     private readonly libraryPort: LibraryPort,
   ) {}
 

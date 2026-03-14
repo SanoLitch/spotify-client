@@ -9,6 +9,8 @@ import {
 import { LibraryController } from './api/library.controller';
 import { GetSavedTracksCase } from './get-saved-tracks.case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
+import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
+import { LIBRARY_PORT } from './domain/library.port';
 
 @Module({
   imports: [
@@ -19,11 +21,11 @@ import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
   controllers: [LibraryController],
   providers: [
     SpotifyLibraryApiService,
+    SpotifyLibraryAdapter,
     GetSavedTracksCase,
     {
-      provide: 'LibraryPort',
-      inject: [SpotifyLibraryApiService],
-      useFactory: api => new SpotifyLibraryAdapter(api),
+      provide: LIBRARY_PORT,
+      useExisting: SpotifyLibraryAdapter,
     },
   ],
 })

@@ -1,5 +1,7 @@
 import { Track } from './track.entity';
 
+export const LIBRARY_PORT = Symbol('LIBRARY_PORT');
+
 export interface GetSavedTracksParams {
   accessToken: string;
   limit: number;
