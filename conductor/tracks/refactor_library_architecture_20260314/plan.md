@@ -19,9 +19,9 @@ Goal: Align Use Case naming and location with architectural standards.
 ## Phase 3: Module & Dependency Injection Cleanup
 Goal: Standardize provider definitions and clean up `LibraryModule`.
 
-- [ ] Task: Update `LibraryModule` to use symbolic tokens for `LibraryPort` and standard provider definitions for `GetSavedTracksCase`.
-- [ ] Task: Refactor `LibraryController` to use `GetSavedTracksCase` and `TrackMapper`.
-- [ ] Task: Verify that all internal imports within the `library` module are correct and follow the kebab-case convention.
+- [x] Task: Update `LibraryModule` to use symbolic tokens for `LibraryPort` and standard provider definitions for `GetSavedTracksCase`. [18a9d5c]
+- [x] Task: Refactor `LibraryController` to use `GetSavedTracksCase` and `TrackMapper`. [7e4b854]
+- [~] Task: Verify that all internal imports within the `library` module are correct and follow the kebab-case convention.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
 
 ## Phase 4: Verification & Validation
