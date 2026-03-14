@@ -43,9 +43,4 @@ This document summarizes key rules and best practices from the Google JavaScript
 - **Constants:** `CONSTANT_CASE` (all uppercase with underscores).
 - **Non-constant Fields & Variables:** `lowerCamelCase`.
 
-## 7. JSDoc
-- JSDoc is used on all classes, fields, and methods.
-- Use `@param`, `@return`, `@override`, `@deprecated`.
-- Type annotations are enclosed in braces (e.g., `/** @param {string} userName */`).
-
 *Source: [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)*

@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
+import {
+  useEffect, useRef,
+} from 'react';
 import { observer } from 'mobx-react-lite';
-import { playerRootStore } from '../domain';
 import * as styles from './player-view.css';
+import { playerRootStore } from '../domain';
 
 export const PlayerView = observer(() => {
   const { data } = playerRootStore;
@@ -34,15 +36,17 @@ export const PlayerView = observer(() => {
       <div className={ styles.controls }>
         <audio
           ref={ audioRef }
-          src={ data.streamUrl || undefined }
           controls
+          src={ data.streamUrl || undefined }
           className={ styles.audio }
           onPlay={ () => data.setPlaying(true) }
           onPause={ () => data.setPlaying(false) }
         />
       </div>
 
-      <div style={{ width: '30%' }} /> {/* Spacer */}
+      <div style={ { width: '30%' } } />
+      {' '}
+      {/* Spacer */}
     </div>
   );
 });

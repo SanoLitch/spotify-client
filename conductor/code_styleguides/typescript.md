@@ -35,9 +35,4 @@ This document summarizes key rules and best practices from the Google TypeScript
 - **`Array<T>` Type:** Use `T[]` for simple types. Use `Array<T>` for more complex union types (e.g., `Array<string | number>`).
 - **`{}` Type:** **Do not use `{}`**. Prefer `unknown`, `Record<string, unknown>`, or `object`.
 
-## 5. Comments and Documentation
-- **JSDoc:** Use `/** JSDoc */` for documentation, `//` for implementation comments.
-- **Redundancy:** **Do not declare types in `@param` or `@return` blocks** (e.g., `/** @param {string} user */`). This is redundant in TypeScript.
-- **Add Information:** Comments must add information, not just restate the code.
-
 *Source: [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html)*

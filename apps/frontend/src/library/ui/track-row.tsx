@@ -8,10 +8,10 @@ export interface TrackRowProps {
 
 /**
  * TrackRow component displays a single track in the library list.
- * 
+ *
  * @param props - Component properties
  * @param props.track - The track entity to display
- * 
+ *
  * @fires track:play - Emitted via UIEventBus when the row is clicked
  */
 export const TrackRow = ({ track }: TrackRowProps) => {

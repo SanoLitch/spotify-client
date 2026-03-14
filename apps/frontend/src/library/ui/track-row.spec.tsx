@@ -1,9 +1,13 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import {
+  describe, it, expect, vi,
+} from 'vitest';
+import {
+  render, screen,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { uiEventBus } from '@shared/events';
 import { TrackRow } from './track-row';
 import { Track } from '../domain/track.model';
-import { uiEventBus } from '@shared/events';
 
 // Mock the event bus
 vi.mock('@shared/events', () => ({
@@ -31,9 +35,11 @@ describe('TrackRow', () => {
 
   it('should emit track:play event when clicked', async () => {
     const user = userEvent.setup();
+
     render(<TrackRow track={ mockTrack } />);
 
     const row = screen.getByText('Test Track').closest('div');
+
     await user.click(row!);
 
     expect(uiEventBus.emit).toHaveBeenCalledWith('track:play', {

@@ -8,9 +8,11 @@ export class DummyStreamingAdapter implements StreamingPort {
       read(size) {
         // Just push random bytes to simulate an audio stream
         this.push(Buffer.alloc(size, Math.random() * 255));
-        
-        // In a real implementation, we would eventually push null
-        // or handle backpressure. For R&D noise, we keep it simple.
+
+        /*
+         * In a real implementation, we would eventually push null
+         * or handle backpressure. For R&D noise, we keep it simple.
+         */
       },
     });
   }
