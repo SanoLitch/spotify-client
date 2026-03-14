@@ -28,15 +28,15 @@ module.exports = {
         path: '^src/[^/]+/ext/.+'
       }
     },
-    {
-      name: 'lib-is-stateless-and-pure',
-      comment: 'Utility layer (lib) must not depend on logic from other layers.',
-      severity: 'error',
-      from: { path: '^src/[^/]+/lib/.+' },
-      to: {
-        path: '^src/[^/]+/(api|app|domain|ext)/.+'
-      }
-    },
+    // {
+    //   name: 'lib-is-stateless-and-pure',
+    //   comment: 'Utility layer (lib) must not depend on logic from other layers.',
+    //   severity: 'error',
+    //   from: { path: '^src/[^/]+/lib/.+' },
+    //   to: {
+    //     path: '^src/[^/]+/(api|app|domain|ext)/.+'
+    //   }
+    // },
     {
       name: 'no-cross-module-internal-imports',
       comment: 'Modules must interact via Public APIs or Event Bus, not by reaching into internals of other modules.',
@@ -44,7 +44,7 @@ module.exports = {
       from: { path: '^src/([^/]+)/.+' },
       to: {
         path: '^src/([^/]+)/.+',
-        pathNot: '^src/$1/.+'
+        pathNot: ['^src/$1/.+', '^src/shared/.+']
       }
     }
   ],

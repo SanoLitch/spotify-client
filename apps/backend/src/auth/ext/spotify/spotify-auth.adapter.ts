@@ -80,7 +80,7 @@ export class SpotifyAuthAdapter implements AuthPort {
         }),
       );
 
-      return UserMapper.toDomain(response.data);
+      return UserMapper.toEntity(response.data);
     } catch (error) {
       this.logger.error('Spotify Profile Error', {
         error: error?.response?.data || error.message,

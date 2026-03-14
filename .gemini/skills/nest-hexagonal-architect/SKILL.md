@@ -50,6 +50,6 @@ When implementing a new feature, follow this order to ensure architectural integ
 To prevent "architectural decay," use **`dependency-cruiser`** to enforce layer boundaries:
 - **Rule**: `domain` must NEVER import from `app`, `ext`, or `api`.
 - **Rule**: `app` must NEVER import from `ext` or `api`.
-- **Rule**: `lib` must be stateless and NEVER import from any other layer (except other libs).
+- **Rule**: `lib` must be stateless and can be used in other layers (but avoid use it in domain as possible)
 
 For detailed layer responsibilities and file locations, see [references/layers.md](references/layers.md).

@@ -3,7 +3,7 @@ import { UserDto } from '../api/user.dto';
 import { SpotifyProfileDto } from '../ext/spotify/spotify-profile.dto';
 
 export class UserMapper {
-  public static toDomain(raw: SpotifyProfileDto): User {
+  public static toEntity(raw: SpotifyProfileDto): User {
     return User.create({
       id: raw.id,
       displayName: raw.display_name,
