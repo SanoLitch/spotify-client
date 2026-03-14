@@ -1,11 +1,11 @@
 import {
   TrackId, Time,
 } from '@libs/ddd';
+import { SpotifyLibraryApiService } from './spotify-library-api.service';
 import {
   LibraryPort, GetSavedTracksParams, GetSavedTracksResult,
 } from '../../domain/library.port';
 import { Track } from '../../domain/track.entity';
-import { SpotifyLibraryApiService } from './spotify-library-api.service';
 
 interface SpotifyTrackItem {
   track: {

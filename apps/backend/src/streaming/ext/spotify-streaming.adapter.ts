@@ -2,8 +2,8 @@ import {
   Injectable, NotFoundException,
 } from '@nestjs/common';
 import { Readable } from 'stream';
-import { StreamingPort } from '../domain/streaming.port';
 import { SpotifyStreamingApiService } from './spotify/spotify-streaming-api.service';
+import { StreamingPort } from '../domain/streaming.port';
 
 @Injectable()
 export class SpotifyStreamingAdapter implements StreamingPort {

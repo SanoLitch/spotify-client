@@ -44,7 +44,7 @@ module.exports = {
       from: { path: '^src/([^/]+)/.+' },
       to: {
         path: '^src/([^/]+)/.+',
-        pathNot: '^src/$1/.+'
+        pathNot: ['^src/$1/.+', '^src/shared/.+']
       }
     }
   ],

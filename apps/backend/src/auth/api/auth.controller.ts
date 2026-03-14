@@ -6,7 +6,7 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { AuthenticatedRequest } from './auth.middleware.types';
+import { AuthenticatedRequest } from '@shared/auth';
 import { UserDto } from './user.dto';
 import { LoginUseCase } from '../login.case';
 import { LogoutUseCase } from '../logout.case';
@@ -72,7 +72,8 @@ export class AuthController {
     const { user } = await this.meUseCase.execute(req.user.accessToken);
 
     return UserMapper.toDto(user);
-    }
+  }
+
   @Get('logout')
   @ApiOperation({ summary: 'Logout and clear cookies' })
   public async logout(@Res() res: Response) {

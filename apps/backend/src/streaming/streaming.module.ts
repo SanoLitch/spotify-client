@@ -1,13 +1,17 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer, Module, RequestMethod,
+} from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
+import {
+  AuthMiddleware, IdentityModule,
+} from '@shared/auth';
 import { StreamingController } from './api/streaming.controller';
 import { StreamTrackUseCase } from './domain/stream-track.use-case';
 import { SpotifyStreamingAdapter } from './ext/spotify-streaming.adapter';
 import { SpotifyStreamingApiService } from './ext/spotify/spotify-streaming-api.service';
-import { AuthModule } from '../auth';
-import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [AuthModule, HttpModule],
+  imports: [HttpModule, IdentityModule],
   controllers: [StreamingController],
   providers: [
     SpotifyStreamingApiService,
@@ -23,4 +27,13 @@ import { HttpModule } from '@nestjs/axios';
     },
   ],
 })
-export class StreamingModule {}
+export class StreamingModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({
+        path: 'streaming/:trackId',
+        method: RequestMethod.GET,
+      });
+  }
+}

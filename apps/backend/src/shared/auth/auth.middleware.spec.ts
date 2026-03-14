@@ -1,8 +1,10 @@
 import { UnauthorizedException } from '@nestjs/common';
+import {
+  Response, NextFunction,
+} from 'express';
 import { AuthMiddleware } from './auth.middleware';
 import { AuthenticatedRequest } from './auth.middleware.types';
-import { IdentityPort } from '../domain/identity.port';
-import { Response, NextFunction } from 'express';
+import { IdentityPort } from './identity.port';
 
 describe('AuthMiddleware', () => {
   let middleware: AuthMiddleware;
@@ -19,7 +21,10 @@ describe('AuthMiddleware', () => {
     const req = {} as AuthenticatedRequest;
     const res = {} as Response;
     const next = jest.fn() as NextFunction;
-    const tokens = { accessToken: 'at', refreshToken: 'rt' };
+    const tokens = {
+      accessToken: 'at',
+      refreshToken: 'rt',
+    };
 
     identityPort.extractTokens.mockReturnValue(tokens);
 

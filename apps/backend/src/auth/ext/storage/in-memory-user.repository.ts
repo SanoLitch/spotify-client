@@ -1,5 +1,5 @@
-import { User } from '../../domain/user.entity';
 import { UserRepositoryPort } from './user-repository.port';
+import { User } from '../../domain/user.entity';
 
 export class InMemoryUserRepository implements UserRepositoryPort {
   private readonly users: Map<string, User> = new Map();
