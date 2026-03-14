@@ -1,7 +1,16 @@
-import { AuthPort } from './ext/spotify/auth.port';
+import {
+  Inject, Injectable,
+} from '@nestjs/common';
+import {
+  AUTH_PORT, AuthPort,
+} from './ext/spotify/auth.port';
 
+@Injectable()
 export class GetAuthUrlUseCase {
-  constructor(private readonly authPort: AuthPort) {}
+  constructor(
+    @Inject(AUTH_PORT)
+    private readonly authPort: AuthPort,
+  ) {}
 
   public execute(): string {
     return this.authPort.getAuthUrl();

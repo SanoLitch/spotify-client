@@ -5,12 +5,14 @@ import {
   Response, NextFunction,
 } from 'express';
 import { AuthenticatedRequest } from './auth.middleware.types';
-import { IdentityPort } from './identity.port';
+import {
+  IDENTITY_PORT, IdentityPort,
+} from './identity.port';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(
-    @Inject('IdentityPort')
+    @Inject(IDENTITY_PORT)
     private readonly identityPort: IdentityPort,
   ) {}
 

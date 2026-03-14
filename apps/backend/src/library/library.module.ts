@@ -7,9 +7,9 @@ import {
   AuthMiddleware, IdentityModule,
 } from '@shared/auth';
 import { LibraryController } from './api/library.controller';
-import { GetSavedTracksUseCase } from './domain/get-saved-tracks.use-case';
+import { GetSavedTracksCase } from './get-saved-tracks.case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
-import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
+import { LIBRARY_PORT } from './ext/library.port';
 
 @Module({
   imports: [
@@ -19,16 +19,11 @@ import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.serv
   ],
   controllers: [LibraryController],
   providers: [
-    SpotifyLibraryApiService,
+    SpotifyLibraryAdapter,
+    GetSavedTracksCase,
     {
-      provide: GetSavedTracksUseCase,
-      inject: ['LibraryPort'],
-      useFactory: libraryPort => new GetSavedTracksUseCase(libraryPort),
-    },
-    {
-      provide: 'LibraryPort',
-      inject: [SpotifyLibraryApiService],
-      useFactory: api => new SpotifyLibraryAdapter(api),
+      provide: LIBRARY_PORT,
+      useExisting: SpotifyLibraryAdapter,
     },
   ],
 })

@@ -5,23 +5,23 @@ import {
   TrackId, Time,
 } from '@libs/ddd';
 import { LibraryController } from './library.controller';
-import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
+import { GetSavedTracksCase } from '../get-saved-tracks.case';
 import { Track } from '../domain/track.entity';
 
 describe('LibraryController', () => {
   let controller: LibraryController;
-  let getSavedTracksUseCase: jest.Mocked<GetSavedTracksUseCase>;
+  let getSavedTracksUseCase: jest.Mocked<GetSavedTracksCase>;
 
   beforeEach(async () => {
     getSavedTracksUseCase = {
       execute: jest.fn(),
-    } as unknown as jest.Mocked<GetSavedTracksUseCase>;
+    } as unknown as jest.Mocked<GetSavedTracksCase>;
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LibraryController],
       providers: [
         {
-          provide: GetSavedTracksUseCase,
+          provide: GetSavedTracksCase,
           useValue: getSavedTracksUseCase,
         },
       ],
@@ -38,13 +38,13 @@ describe('LibraryController', () => {
     it('should return tracks from use case', async () => {
       const mockResult = {
         items: [
-          Track.create({
-            id: TrackId.create('1'),
+          {
+            id: '1',
             name: 'Track 1',
             artists: ['Artist 1'],
             albumName: 'Album 1',
-            duration: Time.fromMilliseconds(1000),
-          }),
+            durationMs: 1000,
+          },
         ],
         total: 1,
         limit: 20,
@@ -66,6 +66,14 @@ describe('LibraryController', () => {
       });
       expect(result.items).toHaveLength(1);
       expect(result.items[0].id).toBe('1');
+    });
+
+    it('should throw UnauthorizedException if no user or accessToken', async () => {
+      const req = { user: null } as any;
+
+      await expect(controller.getTracks(req, 20, 0)).rejects.toThrow(
+        'No access token found',
+      );
     });
   });
 });

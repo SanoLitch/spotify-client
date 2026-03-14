@@ -1,12 +1,8 @@
 import {
   MiddlewareConsumer, Module, NestModule, RequestMethod,
 } from '@nestjs/common';
-import {
-  ConfigModule, ConfigService,
-} from '@nestjs/config';
-import {
-  HttpModule, HttpService,
-} from '@nestjs/axios';
+import { ConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 import {
   AuthMiddleware, IdentityModule,
 } from '@shared/auth';
@@ -17,6 +13,8 @@ import { MeUseCase } from './me.case';
 import { GetAuthUrlUseCase } from './get-auth-url.case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
 import { InMemoryUserRepository } from './ext/storage/in-memory-user.repository';
+import { AUTH_PORT } from './ext/spotify/auth.port';
+import { USER_REPOSITORY_PORT } from './ext/storage/user-repository.port';
 
 @Module({
   imports: [
@@ -26,34 +24,20 @@ import { InMemoryUserRepository } from './ext/storage/in-memory-user.repository'
   ],
   controllers: [AuthController],
   providers: [
+    SpotifyAuthAdapter,
     {
-      provide: LoginUseCase,
-      inject: ['AuthPort', 'UserRepositoryPort'],
-      useFactory: (authPort, userRepo) => new LoginUseCase(authPort, userRepo),
+      provide: AUTH_PORT,
+      useExisting: SpotifyAuthAdapter,
     },
+    InMemoryUserRepository,
     {
-      provide: GetAuthUrlUseCase,
-      inject: ['AuthPort'],
-      useFactory: authPort => new GetAuthUrlUseCase(authPort),
+      provide: USER_REPOSITORY_PORT,
+      useExisting: InMemoryUserRepository,
     },
-    {
-      provide: LogoutUseCase,
-      useFactory: () => new LogoutUseCase(),
-    },
-    {
-      provide: MeUseCase,
-      inject: ['AuthPort'],
-      useFactory: authPort => new MeUseCase(authPort),
-    },
-    {
-      provide: 'AuthPort',
-      inject: [HttpService, ConfigService],
-      useFactory: (http, config) => new SpotifyAuthAdapter(http, config),
-    },
-    {
-      provide: 'UserRepositoryPort',
-      useClass: InMemoryUserRepository,
-    },
+    LoginUseCase,
+    GetAuthUrlUseCase,
+    LogoutUseCase,
+    MeUseCase,
   ],
 })
 export class AuthModule implements NestModule {

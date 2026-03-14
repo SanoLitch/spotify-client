@@ -2,14 +2,15 @@ import {
   Module,
 } from '@nestjs/common';
 import { CookieIdentityAdapter } from './cookie-identity.adapter';
+import { IDENTITY_PORT } from './identity.port';
 
 @Module({
   providers: [
     {
-      provide: 'IdentityPort',
+      provide: IDENTITY_PORT,
       useClass: CookieIdentityAdapter,
     },
   ],
-  exports: ['IdentityPort'],
+  exports: [IDENTITY_PORT],
 })
 export class IdentityModule {}

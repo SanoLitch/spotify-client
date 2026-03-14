@@ -2,49 +2,17 @@ import {
   Controller, Get, Query, Req, UnauthorizedException,
 } from '@nestjs/common';
 import {
-  ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty,
+  ApiTags, ApiOperation, ApiQuery, ApiResponse,
 } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '@shared/auth';
-import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
-
-export class TrackDto {
-  @ApiProperty()
-  id: string;
-
-  @ApiProperty()
-  name: string;
-
-  @ApiProperty({ type: [String] })
-  artists: string[];
-
-  @ApiProperty()
-  albumName: string;
-
-  @ApiProperty()
-  durationMs: number;
-
-  @ApiProperty({ required: false })
-  albumCoverUrl?: string;
-}
-
-export class GetTracksResponseDto {
-  @ApiProperty({ type: [TrackDto] })
-  items: TrackDto[];
-
-  @ApiProperty()
-  total: number;
-
-  @ApiProperty()
-  limit: number;
-
-  @ApiProperty()
-  offset: number;
-}
+import { Pageable } from '@libs/types';
+import { TrackDto } from './get-tracks.dto';
+import { GetSavedTracksCase } from '../get-saved-tracks.case';
 
 @ApiTags('library')
 @Controller('library')
 export class LibraryController {
-  constructor(private readonly getSavedTracksUseCase: GetSavedTracksUseCase) {}
+  constructor(private readonly getSavedTracksUseCase: GetSavedTracksCase) {}
 
   @Get('tracks')
   @ApiOperation({ summary: 'Get user saved tracks' })
@@ -62,13 +30,12 @@ export class LibraryController {
   })
   @ApiResponse({
     status: 200,
-    type: GetTracksResponseDto,
   })
   public async getTracks(
     @Req() req: AuthenticatedRequest,
     @Query('limit') limit: number = 20,
     @Query('offset') offset: number = 0,
-  ): Promise<GetTracksResponseDto> {
+  ): Promise<Pageable<TrackDto>> {
     if (!req.user || !req.user.accessToken) {
       throw new UnauthorizedException('No access token found');
     }
@@ -79,18 +46,6 @@ export class LibraryController {
       offset: Number(offset),
     });
 
-    return {
-      items: result.items.map(track => ({
-        id: track.id.getValue(),
-        name: track.name,
-        artists: track.artists,
-        albumName: track.albumName,
-        durationMs: track.duration.getMilliseconds(),
-        albumCoverUrl: track.albumCoverUrl,
-      })),
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
-    };
+    return result;
   }
 }
