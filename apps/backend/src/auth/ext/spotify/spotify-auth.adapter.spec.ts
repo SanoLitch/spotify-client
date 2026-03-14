@@ -1,7 +1,7 @@
-import { SpotifyAuthAdapter } from './spotify-auth.adapter';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { of } from 'rxjs';
+import { SpotifyAuthAdapter } from './spotify-auth.adapter';
 import { User } from '../../domain/user.entity';
 
 describe('SpotifyAuthAdapter', () => {
@@ -24,7 +24,9 @@ describe('SpotifyAuthAdapter', () => {
     configService.getOrThrow.mockImplementation((key: string) => {
       if (key === 'SPOTIFY_CLIENT_ID') return 'client_id';
       if (key === 'SPOTIFY_REDIRECT_URI') return 'redirect_uri';
-      if (key === 'SPOTIFY_AUTH_URI') return 'https://auth.com?client_id=$CLIENT_ID&scope=$SCOPES&redirect_uri=$REDIRECT_URI';
+      if (key === 'SPOTIFY_AUTH_URI') {
+        return 'https://auth.com?client_id=$CLIENT_ID&scope=$SCOPES&redirect_uri=$REDIRECT_URI';
+      }
       return '';
     });
 

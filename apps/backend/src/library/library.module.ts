@@ -3,14 +3,20 @@ import {
 } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
+import {
+  AuthMiddleware, IdentityModule,
+} from '@shared/auth';
 import { LibraryController } from './api/library.controller';
 import { GetSavedTracksUseCase } from './domain/get-saved-tracks.use-case';
 import { SpotifyLibraryAdapter } from './ext/spotify/spotify-library.adapter';
 import { SpotifyLibraryApiService } from './ext/spotify/spotify-library-api.service';
-import { AuthModule, AuthMiddleware } from '../auth';
 
 @Module({
-  imports: [ConfigModule, HttpModule, AuthModule],
+  imports: [
+    ConfigModule,
+    HttpModule,
+    IdentityModule,
+  ],
   controllers: [LibraryController],
   providers: [
     SpotifyLibraryApiService,

@@ -1,21 +1,29 @@
 import {
   MiddlewareConsumer, Module, NestModule, RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HttpModule, HttpService } from '@nestjs/axios';
+import {
+  ConfigModule, ConfigService,
+} from '@nestjs/config';
+import {
+  HttpModule, HttpService,
+} from '@nestjs/axios';
+import {
+  AuthMiddleware, IdentityModule,
+} from '@shared/auth';
 import { AuthController } from './api/auth.controller';
-import { AuthMiddleware } from './api/auth.middleware';
 import { LoginUseCase } from './login.case';
 import { LogoutUseCase } from './logout.case';
 import { MeUseCase } from './me.case';
 import { GetAuthUrlUseCase } from './get-auth-url.case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
-import { CookieIdentityAdapter } from './ext/identity/cookie-identity.adapter';
 import { InMemoryUserRepository } from './ext/storage/in-memory-user.repository';
-import { Logger } from '@libs/logger';
 
 @Module({
-  imports: [ConfigModule, HttpModule],
+  imports: [
+    ConfigModule,
+    HttpModule,
+    IdentityModule,
+  ],
   controllers: [AuthController],
   providers: [
     {
@@ -43,15 +51,10 @@ import { Logger } from '@libs/logger';
       useFactory: (http, config) => new SpotifyAuthAdapter(http, config),
     },
     {
-      provide: 'IdentityPort',
-      useClass: CookieIdentityAdapter,
-    },
-    {
       provide: 'UserRepositoryPort',
       useClass: InMemoryUserRepository,
     },
   ],
-  exports: ['IdentityPort'],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

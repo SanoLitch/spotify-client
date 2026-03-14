@@ -1,6 +1,6 @@
 import {
   IdentityPort, IdentityTokens,
-} from '../../domain/identity.port';
+} from './identity.port';
 
 export class CookieIdentityAdapter implements IdentityPort {
   public extractTokens(request: any): IdentityTokens | null {
@@ -13,7 +13,7 @@ export class CookieIdentityAdapter implements IdentityPort {
 
     return {
       accessToken,
-      refreshToken: refreshToken ?? '',
+      refreshToken: refreshToken,
     };
   }
 }

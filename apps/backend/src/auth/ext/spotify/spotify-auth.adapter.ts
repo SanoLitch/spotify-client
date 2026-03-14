@@ -4,11 +4,13 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { AuthPort } from './auth.port';
-import { User } from '../../domain/user.entity';
-import { SpotifyProfileDto, SpotifyTokenResponseDto } from './spotify-profile.dto';
-import { UserMapper } from '../../lib/user.mapper';
 import { Logger } from '@nestjs/common';
+import { AuthPort } from './auth.port';
+import {
+  SpotifyProfileDto, SpotifyTokenResponseDto,
+} from './spotify-profile.dto';
+import { User } from '../../domain/user.entity';
+import { UserMapper } from '../../lib/user.mapper';
 
 export class SpotifyAuthAdapter implements AuthPort {
   private readonly logger = new Logger(SpotifyAuthAdapter.name);
