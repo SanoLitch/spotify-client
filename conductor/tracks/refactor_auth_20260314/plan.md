@@ -3,12 +3,12 @@
 ## Phase 1: Port and Domain Layer Refinement
 Goal: Establish the new ports and refine domain interfaces.
 
-- [ ] Task: Define `IdentityPort` and its cookie implementation
-    - [ ] Create `IdentityPort` interface
-    - [ ] Implement `CookieIdentityAdapter`
-- [ ] Task: Update `AuthMiddleware` to use `IdentityPort`
-    - [ ] Inject `IdentityPort` into `AuthMiddleware`
-    - [ ] Delegate token extraction to the port
+- [x] Task: Define `IdentityPort` and its cookie implementation [8a4da00]
+    - [x] Create `IdentityPort` interface
+    - [x] Implement `CookieIdentityAdapter`
+- [x] Task: Update `AuthMiddleware` to use `IdentityPort` [8a4da00]
+    - [x] Inject `IdentityPort` into `AuthMiddleware`
+    - [x] Delegate token extraction to the port
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: Infrastructure Service Decoupling
