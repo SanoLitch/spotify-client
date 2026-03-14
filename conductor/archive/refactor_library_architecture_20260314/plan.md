@@ -1,0 +1,33 @@
+# Implementation Plan: Refactor @apps/backend/src/library for architectural compliance
+
+## Phase 1: Preparation & Extraction (DTOs, Mappers) [checkpoint: f3d9f5a]
+Goal: Move DTOs out of the controller and introduce a Mapper to handle data transformations.
+
+- [x] Task: Create `apps/backend/src/library/api/dtos/get-tracks.dto.ts` and move `TrackDto` and `GetTracksResponseDto` from `library.controller.ts`. [bb9d5a1]
+- [x] Task: Create `apps/backend/src/library/lib/track.mapper.ts` to handle mapping between Spotify API response, Domain Entity, and Presentation DTO. [7e4b854]
+- [x] Task: Write unit tests for `TrackMapper` in `apps/backend/src/library/lib/track.mapper.spec.ts`. [c9da0de]
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Preparation & Extraction' (Protocol in workflow.md)
+
+## Phase 2: Use Case Refactoring (Moving, Renaming) [checkpoint: 88250ab]
+Goal: Align Use Case naming and location with architectural standards.
+
+- [x] Task: Move `apps/backend/src/library/domain/get-saved-tracks.use-case.ts` to `apps/backend/src/library/get-saved-tracks.case.ts`. [2f0fac7]
+- [x] Task: Rename `GetSavedTracksUseCase` to `GetSavedTracksCase` and apply `@Injectable()` decorator. [e8cc8cc]
+- [x] Task: Update `get-saved-tracks.case.spec.ts` to reflect the new location and class name. [fdc5344]
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md)
+
+## Phase 3: Module & Dependency Injection Cleanup [checkpoint: 0f9a6ca]
+Goal: Standardize provider definitions and clean up `LibraryModule`.
+
+- [x] Task: Update `LibraryModule` to use symbolic tokens for `LibraryPort` and standard provider definitions for `GetSavedTracksCase`. [18a9d5c]
+- [x] Task: Refactor `LibraryController` to use `GetSavedTracksCase` and `TrackMapper`. [7e4b854]
+- [x] Task: Verify that all internal imports within the `library` module are correct and follow the kebab-case convention. [18a9d5c]
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
+
+## Phase 4: Verification & Validation [checkpoint: d3180bb]
+Goal: Final check of architectural integrity and test coverage.
+
+- [x] Task: Run `dependency-cruiser` to ensure no layer violations exist in the `library` module.
+- [x] Task: Run all tests in the `library` module with coverage report and ensure >80% coverage. [7888db0]
+- [x] Task: Perform a final code review to ensure compliance with `be-rules.md` and `nest-hexagonal-architect` skill. [92a5f25]
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Verification & Validation' (Protocol in workflow.md)
