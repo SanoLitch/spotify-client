@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Res, Header } from '@nestjs/common';
+import { Controller, Get, Param, Res, Header, Req } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { StreamTrackUseCase } from '../domain/stream-track.use-case';
+import { AuthenticatedRequest } from '../../auth/api/auth.middleware';
 
 @ApiTags('streaming')
 @Controller('streaming')
@@ -15,9 +16,30 @@ export class StreamingController {
   public async stream(
     @Param('trackId') trackId: string,
     @Res() res: Response,
+    @Req() req: AuthenticatedRequest,
   ): Promise<void> {
-    const stream = await this.streamTrackUseCase.execute(trackId);
-    
-    stream.pipe(res);
+    try {
+      const accessToken = req.user?.accessToken;
+
+      if (!accessToken) {
+        res.status(401).send('Unauthorized');
+        return;
+      }
+
+      const stream = await this.streamTrackUseCase.execute(trackId, accessToken);
+      
+      stream.on('error', () => {
+        if (!res.headersSent) {
+          res.status(500).send('Streaming failed');
+        }
+      });
+
+      stream.pipe(res);
+    } catch (error) {
+      if (!res.headersSent) {
+        const status = error.status || 500;
+        res.status(status).send(error.message);
+      }
+    }
   }
 }

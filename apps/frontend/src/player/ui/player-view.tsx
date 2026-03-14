@@ -11,6 +11,7 @@ export const PlayerView = observer(() => {
     if (!audioRef.current) return;
 
     if (data.isPlaying) {
+      audioRef.current.load(); // Ensure the new src is loaded
       audioRef.current.play().catch(err => {
         console.warn('Auto-play blocked or stream error:', err);
       });

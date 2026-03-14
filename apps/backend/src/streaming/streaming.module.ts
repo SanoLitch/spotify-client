@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from '../auth/auth.module';
 import { StreamingController } from './api/streaming.controller';
 import { StreamTrackUseCase } from './domain/stream-track.use-case';
-import { DummyStreamingAdapter } from './ext/dummy-streaming.adapter';
+import { SpotifyStreamingAdapter } from './ext/spotify-streaming.adapter';
 
 @Module({
+  imports: [AuthModule],
   controllers: [StreamingController],
   providers: [
     {
@@ -13,7 +15,7 @@ import { DummyStreamingAdapter } from './ext/dummy-streaming.adapter';
     },
     {
       provide: 'StreamingPort',
-      useClass: DummyStreamingAdapter,
+      useClass: SpotifyStreamingAdapter,
     },
   ],
 })

@@ -29,9 +29,9 @@ Goal: Create the player module that reacts to events.
     - [ ] Connect to store and `<audio>` element
 - [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
 
-## Phase 4: Cross-Module Integration
+## Phase 4: Cross-Module Integration [checkpoint: 798cd3a]
 Goal: Connect the library click to the player.
 
-- [ ] Task: Emit Event from TrackRow [ ]
-    - [ ] Update `TrackRow` to emit `track:play` via `UIEventBus`
-- [ ] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)
+- [x] Task: Emit Event from TrackRow [798cd3a]
+    - [x] Update `TrackRow` to emit `track:play` via `UIEventBus`
+- [x] Task: Conductor - User Manual Verification 'Phase 4' [798cd3a]
