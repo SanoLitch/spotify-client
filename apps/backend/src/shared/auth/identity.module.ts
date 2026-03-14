@@ -8,7 +8,7 @@ import { IDENTITY_PORT } from './identity.port';
   providers: [
     {
       provide: IDENTITY_PORT,
-      useClass: CookieIdentityAdapter,
+      useExisting: CookieIdentityAdapter,
     },
   ],
   exports: [IDENTITY_PORT],
