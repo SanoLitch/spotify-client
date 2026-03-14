@@ -16,13 +16,13 @@ Goal: Align Use Case naming and location with architectural standards.
 - [x] Task: Update `get-saved-tracks.case.spec.ts` to reflect the new location and class name. [fdc5344]
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md)
 
-## Phase 3: Module & Dependency Injection Cleanup
+## Phase 3: Module & Dependency Injection Cleanup [checkpoint: 0f9a6ca]
 Goal: Standardize provider definitions and clean up `LibraryModule`.
 
 - [x] Task: Update `LibraryModule` to use symbolic tokens for `LibraryPort` and standard provider definitions for `GetSavedTracksCase`. [18a9d5c]
 - [x] Task: Refactor `LibraryController` to use `GetSavedTracksCase` and `TrackMapper`. [7e4b854]
-- [~] Task: Verify that all internal imports within the `library` module are correct and follow the kebab-case convention.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
+- [x] Task: Verify that all internal imports within the `library` module are correct and follow the kebab-case convention. [18a9d5c]
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
 
 ## Phase 4: Verification & Validation
 Goal: Final check of architectural integrity and test coverage.
