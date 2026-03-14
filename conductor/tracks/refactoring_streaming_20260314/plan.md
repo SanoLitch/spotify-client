@@ -18,14 +18,14 @@ Goal: Align Use Case naming and location with architectural standards.
 - [x] Task: Move and update `stream-track.use-case.spec.ts` to `stream-track.case.spec.ts`, reflecting the new class name and location. [83179a1]
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Use Case Refactoring' (Protocol in workflow.md) [ae50a20]
 
-## Phase 3: Module & Dependency Injection Cleanup
+## Phase 3: Module & Dependency Injection Cleanup [checkpoint: f7afa6e]
 Goal: Standardize provider definitions and clean up `StreamingModule`.
 
 - [x] Task: Update `apps/backend/src/streaming/domain/streaming.port.ts` to export a `STREAMING_PORT` symbol token. [83179a1]
 - [x] Task: Refactor `apps/backend/src/streaming/streaming.module.ts` to use standard NestJS provider definitions with the `STREAMING_PORT` token. [1f4872d]
 - [x] Task: Update `apps/backend/src/streaming/api/streaming.controller.ts` to use `StreamTrackCase` and verify its specs. [1f4872d]
-- [~] Task: Verify that all internal imports within the `streaming` module are correct and follow the kebab-case convention.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md)
+- [x] Task: Verify that all internal imports within the `streaming` module are correct and follow the kebab-case convention. [fe9f356]
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Module & Dependency Injection Cleanup' (Protocol in workflow.md) [f7afa6e]
 
 ## Phase 4: Verification & Validation
 Goal: Final check of architectural integrity and test coverage.
