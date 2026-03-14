@@ -4,7 +4,7 @@ import {
 import {
   ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiProperty,
 } from '@nestjs/swagger';
-import { AuthenticatedRequest } from '../../auth/api/auth.middleware.types';
+import { AuthenticatedRequest } from '../../auth';
 import { GetSavedTracksUseCase } from '../domain/get-saved-tracks.use-case';
 
 export class TrackDto {

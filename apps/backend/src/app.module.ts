@@ -1,16 +1,19 @@
 import {
   MiddlewareConsumer, Module, NestModule, RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoggerModule } from '@libs/logger';
+import { AuthModule, AuthMiddleware } from './auth';
 import { LibraryModule } from './library/library.module';
 import { StreamingModule } from './streaming/streaming.module';
-import { AuthMiddleware } from './auth/api/auth.middleware';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    LoggerModule.forRootAsync({
+      useFactory: (config: ConfigService) => config.get('NODE_ENV') || 'development',
     }),
     AuthModule,
     LibraryModule,

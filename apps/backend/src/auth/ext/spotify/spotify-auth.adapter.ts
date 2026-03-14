@@ -6,8 +6,13 @@ import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { AuthPort } from './auth.port';
 import { User } from '../../domain/user.entity';
+import { SpotifyProfileDto, SpotifyTokenResponseDto } from './spotify-profile.dto';
+import { UserMapper } from '../../lib/user.mapper';
+import { Logger } from '@nestjs/common';
 
 export class SpotifyAuthAdapter implements AuthPort {
+  private readonly logger = new Logger(SpotifyAuthAdapter.name);
+
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -48,7 +53,7 @@ export class SpotifyAuthAdapter implements AuthPort {
 
     try {
       const response = await firstValueFrom(
-        this.httpService.post('https://accounts.spotify.com/api/token', params, { headers }),
+        this.httpService.post<SpotifyTokenResponseDto>('https://accounts.spotify.com/api/token', params, { headers }),
       );
 
       return {
@@ -56,7 +61,9 @@ export class SpotifyAuthAdapter implements AuthPort {
         refreshToken: response.data.refresh_token,
       };
     } catch (error) {
-      console.error('Spotify Token Exchange Error:', error?.response?.data || error.message);
+      this.logger.error('Spotify Token Exchange Error', {
+        error: error?.response?.data || error.message,
+      });
       throw new InternalServerErrorException('Failed to exchange code for tokens');
     }
   }
@@ -64,23 +71,18 @@ export class SpotifyAuthAdapter implements AuthPort {
   public async getProfile(accessToken: string): Promise<User> {
     try {
       const response = await firstValueFrom(
-        this.httpService.get('https://api.spotify.com/v1/me', {
+        this.httpService.get<SpotifyProfileDto>('https://api.spotify.com/v1/me', {
           headers: {
             Authorization: `Bearer ${ accessToken }`,
           },
         }),
       );
 
-      const data = response.data;
-
-      return User.create({
-        id: data.id,
-        displayName: data.display_name,
-        email: data.email,
-        avatarUrl: data.images?.[0]?.url,
-      });
+      return UserMapper.toDomain(response.data);
     } catch (error) {
-      console.error('Spotify Profile Error:', error?.response?.data || error.message);
+      this.logger.error('Spotify Profile Error', {
+        error: error?.response?.data || error.message,
+      });
       throw new InternalServerErrorException('Failed to fetch user profile');
     }
   }

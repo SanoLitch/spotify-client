@@ -3,7 +3,7 @@ import { StreamingController } from './api/streaming.controller';
 import { StreamTrackUseCase } from './domain/stream-track.use-case';
 import { SpotifyStreamingAdapter } from './ext/spotify-streaming.adapter';
 import { SpotifyStreamingApiService } from './ext/spotify/spotify-streaming-api.service';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from '../auth';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
