@@ -33,7 +33,7 @@ describe('SpotifyAuthAdapter', () => {
 
     const user = await adapter.getMe();
 
-    expect(apiClient.get).toHaveBeenCalledWith('auth/me');
+    expect(apiClient.get).toHaveBeenCalledWith('user/me');
     expect(user).toBeInstanceOf(User);
     expect(user.id.getValue()).toBe('123');
     expect(user.displayName).toBe('Test');

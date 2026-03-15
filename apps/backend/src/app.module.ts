@@ -6,6 +6,7 @@ import { LoggerModule } from '@libs/logger';
 import { AuthModule } from './auth';
 import { LibraryModule } from './library';
 import { StreamingModule } from './streaming';
+import { UserModule } from './user';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { StreamingModule } from './streaming';
     AuthModule,
     LibraryModule,
     StreamingModule,
+    UserModule,
   ],
 })
 export class AppModule { }

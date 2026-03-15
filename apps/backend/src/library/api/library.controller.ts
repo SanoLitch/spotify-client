@@ -1,10 +1,14 @@
 import {
   Controller, Get, Query, Req, UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags, ApiOperation, ApiQuery, ApiResponse,
 } from '@nestjs/swagger';
-import { AuthenticatedRequest } from '@shared/auth';
+import {
+  AuthenticatedRequest, AuthGuard,
+  CurrentUser,
+} from '@shared/auth';
 import { Pageable } from '@libs/types';
 import { TrackDto } from './get-tracks.dto';
 import { GetSavedTracksCase } from '../get-saved-tracks.case';
@@ -15,6 +19,7 @@ export class LibraryController {
   constructor(private readonly getSavedTracksUseCase: GetSavedTracksCase) {}
 
   @Get('tracks')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get user saved tracks' })
   @ApiQuery({
     name: 'limit',
@@ -32,16 +37,12 @@ export class LibraryController {
     status: 200,
   })
   public async getTracks(
-    @Req() req: AuthenticatedRequest,
     @Query('limit') limit: number = 20,
     @Query('offset') offset: number = 0,
+    @CurrentUser() user,
   ): Promise<Pageable<TrackDto>> {
-    if (!req.user || !req.user.accessToken) {
-      throw new UnauthorizedException('No access token found');
-    }
-
     const result = await this.getSavedTracksUseCase.execute({
-      accessToken: req.user.accessToken,
+      accessToken: user.accessToken,
       limit: Number(limit),
       offset: Number(offset),
     });

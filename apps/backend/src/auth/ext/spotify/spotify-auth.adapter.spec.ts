@@ -1,22 +1,20 @@
-import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { of } from 'rxjs';
+import { HttpClient } from '@libs/http';
+import { Mocked } from 'vitest';
+import { createMockHttpClient } from '@shared/test';
 import { SpotifyAuthAdapter } from './spotify-auth.adapter';
-import { User } from '../../domain/user.entity';
 
 describe('SpotifyAuthAdapter', () => {
   let adapter: SpotifyAuthAdapter;
-  let httpService: jest.Mocked<HttpService>;
-  let configService: jest.Mocked<ConfigService>;
+  let httpService: Mocked<HttpClient>;
+  let configService: Mocked<ConfigService>;
 
   beforeEach(() => {
-    httpService = {
-      post: jest.fn(),
-      get: jest.fn(),
-    } as unknown as jest.Mocked<HttpService>;
+    httpService = createMockHttpClient();
     configService = {
-      getOrThrow: jest.fn(),
-    } as unknown as jest.Mocked<ConfigService>;
+      getOrThrow: vi.fn(),
+    } as unknown as Mocked<ConfigService>;
     adapter = new SpotifyAuthAdapter(httpService, configService);
   });
 
@@ -39,44 +37,19 @@ describe('SpotifyAuthAdapter', () => {
   it('should exchange code for tokens', async () => {
     const code = 'code';
     const mockResponse = {
-      data: {
-        access_token: 'at',
-        refresh_token: 'rt',
-      },
+      access_token: 'at',
+      refresh_token: 'rt',
     };
 
     configService.getOrThrow.mockReturnValue('value');
-    httpService.post.mockReturnValue(of(mockResponse as any));
+    httpService.api.mockReturnValue(Promise.resolve(mockResponse));
 
     const result = await adapter.exchangeCodeForTokens(code);
 
-    expect(httpService.post).toHaveBeenCalled();
+    expect(httpService.api).toHaveBeenCalled();
     expect(result).toEqual({
       accessToken: 'at',
       refreshToken: 'rt',
     });
-  });
-
-  it('should get profile and map to User entity', async () => {
-    const accessToken = 'at';
-    const mockResponse = {
-      data: {
-        id: 'sp-id',
-        display_name: 'Spotify User',
-        email: 'sp@example.com',
-        images: [{ url: 'avatar.png' }],
-      },
-    };
-
-    httpService.get.mockReturnValue(of(mockResponse as any));
-
-    const user = await adapter.getProfile(accessToken);
-
-    expect(httpService.get).toHaveBeenCalledWith(expect.any(String), expect.any(Object));
-    expect(user).toBeInstanceOf(User);
-    expect(user.id.getValue()).toBe('sp-id');
-    expect(user.displayName).toBe('Spotify User');
-    expect(user.email).toBe('sp@example.com');
-    expect(user.avatarUrl).toBe('avatar.png');
   });
 });

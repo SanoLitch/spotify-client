@@ -1,50 +1,41 @@
-import {
-  Injectable, InternalServerErrorException, Logger,
-} from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
+import { Injectable } from '@nestjs/common';
 import { Pageable } from '@libs/types';
+import {
+  HttpClient, InjectApi,
+} from '@libs/http';
 import { SpotifyTrackItem } from './types';
 import type { Track } from '../../domain/track.entity';
 import {
   LibraryPort, GetSavedTracksParams,
+  LIBRARY_CLIENT_PORT,
 } from '../library.port';
 import { TrackMapper } from '../../lib/track.mapper';
 
 @Injectable()
 export class SpotifyLibraryAdapter implements LibraryPort {
-  private readonly logger = new Logger(SpotifyLibraryAdapter.name);
-
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    @InjectApi(LIBRARY_CLIENT_PORT)
+    private readonly spotify: HttpClient,
+  ) {}
 
   public async getSavedTracks(params: GetSavedTracksParams): Promise<Pageable<Track>> {
-    try {
-      const response = await firstValueFrom(
-        this.httpService.get('https://api.spotify.com/v1/me/tracks', {
-          headers: {
-            Authorization: `Bearer ${ params.accessToken }`,
-          },
-          params: {
-            limit: params.limit,
-            offset: params.offset,
-          },
-        }),
-      );
+    const response = await this.spotify.api<Pageable<SpotifyTrackItem>>('/v1/me/tracks', {
+      headers: {
+        Authorization: `Bearer ${ params.accessToken }`,
+      },
+      params: {
+        limit: params.limit,
+        offset: params.offset,
+      },
+    });
 
-      const data = response.data;
-      const items = data.items.map((item: SpotifyTrackItem) => TrackMapper.toEntity(item));
+    const items = response.items.map((item: SpotifyTrackItem) => TrackMapper.toEntity(item));
 
-      return {
-        items,
-        total: data.total,
-        limit: data.limit,
-        offset: data.offset,
-      };
-    } catch (error) {
-      this.logger.error('Spotify Library Error', {
-        error: error?.response?.data || error.message,
-      });
-      throw new InternalServerErrorException('Failed to fetch saved tracks');
-    }
+    return {
+      items,
+      total: response.total,
+      limit: response.limit,
+      offset: response.offset,
+    };
   }
 }

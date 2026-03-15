@@ -1,4 +1,4 @@
-import { AuthenticatedRequest } from './auth.middleware.types';
+import { AuthenticatedRequest } from './auth-guard.types';
 
 export interface IdentityTokens {
   accessToken: string;

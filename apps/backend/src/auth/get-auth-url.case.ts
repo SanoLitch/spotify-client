@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import {
   AUTH_PORT, AuthPort,
-} from './ext/spotify/auth.port';
+} from './ext/auth.port';
 
 @Injectable()
 export class GetAuthUrlUseCase {

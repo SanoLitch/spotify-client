@@ -3,8 +3,8 @@ import {
 } from '@nestjs/common';
 import { Readable } from 'stream';
 import {
-  StreamingPort, STREAMING_PORT,
-} from './domain/streaming.port';
+  STREAMING_PORT, StreamingPort,
+} from './ext/streaming.port';
 
 @Injectable()
 export class StreamTrackCase {

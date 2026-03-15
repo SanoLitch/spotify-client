@@ -1,6 +1,7 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalEnv": ["NODE_ENV"],
   "tasks": {
     "build": {
       "dependsOn": ["^pipeline:build", "^build"],
@@ -8,36 +9,47 @@
     },
     "test": {
       "dependsOn": ["^pipeline:build"],
-      "cache": false,
-      "persistent": false
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.ts", "vitest.setup.ts"],
+      "outputs": ["coverage/**"],
+      "cache": true
     },
     "test:cov": {
       "dependsOn": ["^pipeline:build"],
-      "cache": false,
-      "persistent": false
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.ts", "vitest.setup.ts"],
+      "outputs": ["coverage/**"],
+      "cache": true
     },
     "test:arch": {
       "dependsOn": ["^pipeline:build"],
-      "cache": false,
-      "persistent": false
+      "inputs": ["$TURBO_DEFAULT$", ".dependency-cruiser.js", ".dependency-cruiser.cjs"],
+      "cache": true
+    },
+    "test:e2e": {
+      "dependsOn": ["^pipeline:build"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.e2e.config.ts"],
+      "cache": true
     },
     "test:back": {
       "dependsOn": ["^pipeline:build"],
-      "with": ["backend#test"],
-      "cache": false,
-      "persistent": true
+      "with": ["@spotify/backend#test"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.ts"],
+      "cache": true
     },
     "test:front": {
       "dependsOn": ["^pipeline:build"],
-      "with": ["frontend#test"],
-      "cache": false,
-      "persistent": true
+      "with": ["@spotify/frontend#test"],
+      "inputs": ["$TURBO_DEFAULT$", "vite.config.ts", "vitest.setup.ts"],
+      "cache": true
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"],
+      "cache": true
     },
     "lint:fix": {
-      "dependsOn": ["^lint:fix"]
+      "dependsOn": ["^lint:fix"],
+      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"],
+      "cache": false
     },
     "start:dev": {
       "dependsOn": ["^pipeline:build"],
@@ -46,7 +58,7 @@
     },
     "start:back": {
       "dependsOn": ["^pipeline:build"],
-      "with": ["backend#start:dev"],
+      "with": ["@spotify/backend#start:dev"],
       "cache": false,
       "persistent": true
     },

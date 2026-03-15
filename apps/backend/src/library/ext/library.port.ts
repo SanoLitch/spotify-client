@@ -1,6 +1,8 @@
 import { Pageable } from '@libs/types';
 import { Track } from '../domain/track.entity';
 
+export const LIBRARY_CLIENT_PORT = 'LIBRARY_CLIENT_PORT';
+
 export const LIBRARY_PORT = Symbol('LIBRARY_PORT');
 
 export interface GetSavedTracksParams {

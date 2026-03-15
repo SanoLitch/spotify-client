@@ -12,7 +12,7 @@ describe('GetSavedTracksCase', () => {
 
   beforeEach(() => {
     libraryPort = {
-      getSavedTracks: jest.fn(),
+      getSavedTracks: vi.fn(),
     } as any;
     useCase = new GetSavedTracksCase(libraryPort);
   });

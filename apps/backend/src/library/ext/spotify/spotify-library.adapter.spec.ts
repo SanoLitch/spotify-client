@@ -1,18 +1,17 @@
-import { HttpService } from '@nestjs/axios';
+import { Mocked } from 'vitest';
 import {
-  of, throwError,
-} from 'rxjs';
+  HttpClient, HttpClientError,
+} from '@libs/http';
+import { createMockHttpClient } from '@shared/test';
 import { SpotifyLibraryAdapter } from './spotify-library.adapter';
 import { Track } from '../../domain/track.entity';
 
 describe('SpotifyLibraryAdapter', () => {
   let adapter: SpotifyLibraryAdapter;
-  let httpService: jest.Mocked<HttpService>;
+  let httpService: Mocked<HttpClient>;
 
   beforeEach(() => {
-    httpService = {
-      get: jest.fn(),
-    } as unknown as jest.Mocked<HttpService>;
+    httpService = createMockHttpClient();
     adapter = new SpotifyLibraryAdapter(httpService);
   });
 
@@ -24,45 +23,43 @@ describe('SpotifyLibraryAdapter', () => {
     };
 
     const mockSpotifyResponse = {
-      data: {
-        items: [
-          {
-            track: {
-              id: 'id1',
-              name: 'Track 1',
-              artists: [{ name: 'Artist 1' }],
-              album: {
-                name: 'Album 1',
-                images: [{ url: 'cover1.png' }],
-              },
-              duration_ms: 1000,
+      items: [
+        {
+          track: {
+            id: 'id1',
+            name: 'Track 1',
+            artists: [{ name: 'Artist 1' }],
+            album: {
+              name: 'Album 1',
+              images: [{ url: 'cover1.png' }],
             },
+            duration_ms: 1000,
           },
-          {
-            track: {
-              id: 'id2',
-              name: 'Track 2',
-              artists: [{ name: 'Artist 2' }, { name: 'Artist 3' }],
-              album: {
-                name: 'Album 2',
-                images: [{ url: 'cover2.png' }],
-              },
-              duration_ms: 2000,
+        },
+        {
+          track: {
+            id: 'id2',
+            name: 'Track 2',
+            artists: [{ name: 'Artist 2' }, { name: 'Artist 3' }],
+            album: {
+              name: 'Album 2',
+              images: [{ url: 'cover2.png' }],
             },
+            duration_ms: 2000,
           },
-        ],
-        total: 100,
-        limit: 2,
-        offset: 0,
-      },
+        },
+      ],
+      total: 100,
+      limit: 2,
+      offset: 0,
     };
 
-    httpService.get.mockReturnValue(of(mockSpotifyResponse as any));
+    httpService.api.mockReturnValue(Promise.resolve(mockSpotifyResponse));
 
     const result = await adapter.getSavedTracks(params);
 
-    expect(httpService.get).toHaveBeenCalledWith(
-      'https://api.spotify.com/v1/me/tracks',
+    expect(httpService.api).toHaveBeenCalledWith(
+      '/v1/me/tracks',
       expect.objectContaining({
         headers: {
           Authorization: 'Bearer token',
@@ -88,8 +85,8 @@ describe('SpotifyLibraryAdapter', () => {
       offset: 0,
     };
 
-    httpService.get.mockReturnValue(throwError(() => new Error('API Error')));
+    httpService.api.mockReturnValue(Promise.reject(new HttpClientError('Not Allowed', 403)));
 
-    await expect(adapter.getSavedTracks(params)).rejects.toThrow('Failed to fetch saved tracks');
+    await expect(adapter.getSavedTracks(params)).rejects.toThrow('Not Allowed');
   });
 });

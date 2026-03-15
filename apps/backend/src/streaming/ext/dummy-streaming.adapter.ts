@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import { StreamingPort } from '../domain/streaming.port';
+import { StreamingPort } from './streaming.port';
 
 export class DummyStreamingAdapter implements StreamingPort {
   public async getTrackStream(trackId: string): Promise<Readable> {

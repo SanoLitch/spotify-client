@@ -1,4 +1,4 @@
-import { User } from '../../domain/user.entity';
+import { User } from '../domain/user.entity';
 
 export const USER_REPOSITORY_PORT = Symbol.for('USER_REPOSITORY_PORT');
 

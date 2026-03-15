@@ -1,25 +1,23 @@
-import {
-  MiddlewareConsumer, Module, NestModule, RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { HttpModule } from '@nestjs/axios';
-import {
-  AuthMiddleware, IdentityModule,
-} from '@shared/auth';
+import { IdentityModule } from '@shared/auth';
+import { HttpModule } from '@libs/http';
 import { AuthController } from './api/auth.controller';
 import { LoginUseCase } from './login.case';
 import { LogoutUseCase } from './logout.case';
-import { MeUseCase } from './me.case';
 import { GetAuthUrlUseCase } from './get-auth-url.case';
 import { SpotifyAuthAdapter } from './ext/spotify/spotify-auth.adapter';
-import { InMemoryUserRepository } from './ext/storage/in-memory-user.repository';
-import { AUTH_PORT } from './ext/spotify/auth.port';
-import { USER_REPOSITORY_PORT } from './ext/storage/user-repository.port';
-
+import {
+  AUTH_CLIENT_PORT, AUTH_PORT,
+} from './ext/auth.port';
+;
 @Module({
   imports: [
     ConfigModule,
-    HttpModule,
+    HttpModule.registerAsync({
+      name: AUTH_CLIENT_PORT,
+      useFactory: () => ({ baseURL: 'https://accounts.spotify.com/api' }),
+    }),
     IdentityModule,
   ],
   controllers: [AuthController],
@@ -29,24 +27,9 @@ import { USER_REPOSITORY_PORT } from './ext/storage/user-repository.port';
       provide: AUTH_PORT,
       useExisting: SpotifyAuthAdapter,
     },
-    InMemoryUserRepository,
-    {
-      provide: USER_REPOSITORY_PORT,
-      useExisting: InMemoryUserRepository,
-    },
     LoginUseCase,
     GetAuthUrlUseCase,
     LogoutUseCase,
-    MeUseCase,
   ],
 })
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({
-        path: 'auth/me',
-        method: RequestMethod.GET,
-      });
-  }
-}
+export class AuthModule {}

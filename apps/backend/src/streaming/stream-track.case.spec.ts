@@ -1,14 +1,15 @@
+import { Mocked } from 'vitest';
 import { Readable } from 'stream';
 import { StreamTrackCase } from './stream-track.case';
-import { StreamingPort } from './domain/streaming.port';
+import { StreamingPort } from './ext/streaming.port';
 
 describe('StreamTrackCase', () => {
   let useCase: StreamTrackCase;
-  let streamingPort: jest.Mocked<StreamingPort>;
+  let streamingPort: Mocked<StreamingPort>;
 
   beforeEach(() => {
     streamingPort = {
-      getTrackStream: jest.fn(),
+      getTrackStream: vi.fn(),
     } as any;
     useCase = new StreamTrackCase(streamingPort);
   });

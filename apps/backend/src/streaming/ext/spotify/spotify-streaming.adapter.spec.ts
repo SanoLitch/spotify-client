@@ -1,18 +1,17 @@
-import { HttpService } from '@nestjs/axios';
-import { InternalServerErrorException } from '@nestjs/common';
+import { Mocked } from 'vitest';
 import {
-  of, throwError,
-} from 'rxjs';
+  HttpClient, HttpClientError,
+} from '@libs/http';
+import { createMockHttpClient } from '@shared/test';
+import { Readable } from 'node:stream';
 import { SpotifyStreamingAdapter } from './spotify-streaming.adapter';
 
 describe('SpotifyStreamingAdapter', () => {
   let adapter: SpotifyStreamingAdapter;
-  let httpService: jest.Mocked<HttpService>;
+  let httpService: Mocked<HttpClient>;
 
   beforeEach(() => {
-    httpService = {
-      get: jest.fn(),
-    } as any;
+    httpService = createMockHttpClient();
     adapter = new SpotifyStreamingAdapter(httpService);
   });
 
@@ -25,42 +24,42 @@ describe('SpotifyStreamingAdapter', () => {
       const trackId = 'track-1';
       const accessToken = 'token';
       const mockTrack = { preview_url: 'http://preview.com' };
-      const mockStream = { pipe: jest.fn() };
+      const dummyWebStream = new Blob(['fake-audio-chunk']).stream();
 
-      httpService.get.mockReturnValueOnce(of({ data: mockTrack } as any));
-      httpService.get.mockReturnValueOnce(of({ data: mockStream } as any));
+      httpService.api.mockReturnValueOnce(Promise.resolve(mockTrack));
+      httpService.api.mockReturnValueOnce(Promise.resolve(dummyWebStream));
 
       const result = await adapter.getTrackStream(trackId, accessToken);
 
-      expect(result).toBe(mockStream);
-      expect(httpService.get).toHaveBeenCalledTimes(2);
-      expect(httpService.get)
-        .toHaveBeenCalledWith(`https://api.spotify.com/v1/tracks/${ trackId }`, expect.any(Object));
-      expect(httpService.get).toHaveBeenCalledWith(mockTrack.preview_url, expect.any(Object));
+      expect(result).toBeInstanceOf(Readable);
+      expect(httpService.api).toHaveBeenCalledTimes(2);
+      expect(httpService.api)
+        .toHaveBeenCalledWith(`/v1/tracks/${ trackId }`, expect.any(Object));
+      expect(httpService.api).toHaveBeenCalledWith(mockTrack.preview_url, expect.any(Object));
     });
 
     it('should use fallback URL if preview_url is missing', async () => {
       const trackId = 'track-1';
       const accessToken = 'token';
       const mockTrack = { preview_url: null };
-      const mockStream = { pipe: jest.fn() };
+      const dummyWebStream = new Blob(['fake-audio-chunk']).stream();
 
-      httpService.get.mockReturnValueOnce(of({ data: mockTrack } as any));
-      httpService.get.mockReturnValueOnce(of({ data: mockStream } as any));
+      httpService.api.mockReturnValueOnce(Promise.resolve(mockTrack));
+      httpService.api.mockResolvedValueOnce(dummyWebStream);
 
       const result = await adapter.getTrackStream(trackId, accessToken);
 
-      expect(result).toBe(mockStream);
-      expect(httpService.get).toHaveBeenCalledWith('https://www.w3schools.com/html/horse.mp3', expect.any(Object));
+      expect(result).toBeInstanceOf(Readable);
+      expect(httpService.api).toHaveBeenCalledWith('https://www.w3schools.com/html/horse.mp3', expect.any(Object));
     });
 
     it('should throw InternalServerErrorException if track fetch fails', async () => {
       const trackId = 'track-1';
       const accessToken = 'token';
 
-      httpService.get.mockReturnValueOnce(throwError(() => new Error('API Error')));
+      httpService.api.mockReturnValue(Promise.reject(new HttpClientError('Not Allowed', 403)));
 
-      await expect(adapter.getTrackStream(trackId, accessToken)).rejects.toThrow(InternalServerErrorException);
+      await expect(adapter.getTrackStream(trackId, accessToken)).rejects.toThrow('Not Allowed');
     });
 
     it('should throw InternalServerErrorException if audio stream fetch fails', async () => {
@@ -68,10 +67,10 @@ describe('SpotifyStreamingAdapter', () => {
       const accessToken = 'token';
       const mockTrack = { preview_url: 'http://preview.com' };
 
-      httpService.get.mockReturnValueOnce(of({ data: mockTrack } as any));
-      httpService.get.mockReturnValueOnce(throwError(() => new Error('Stream Error')));
+      httpService.api.mockReturnValueOnce(Promise.resolve(mockTrack));
+      httpService.api.mockReturnValue(Promise.reject(new HttpClientError('Not Allowed', 403)));
 
-      await expect(adapter.getTrackStream(trackId, accessToken)).rejects.toThrow(InternalServerErrorException);
+      await expect(adapter.getTrackStream(trackId, accessToken)).rejects.toThrow('Not Allowed');
     });
   });
 });

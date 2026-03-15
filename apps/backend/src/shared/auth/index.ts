@@ -1,5 +1,6 @@
-export { AuthMiddleware } from './auth.middleware';
-export type { AuthenticatedRequest } from './auth.middleware.types';
+export { AuthGuard } from './auth.guard';
+export { CurrentUser } from './current-user.decorator';
+export type { AuthenticatedRequest } from './auth-guard.types';
 export type {
   IdentityPort, IdentityTokens,
 } from './identity.port';

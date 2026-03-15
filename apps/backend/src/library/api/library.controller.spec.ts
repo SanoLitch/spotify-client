@@ -1,21 +1,20 @@
 import {
   Test, TestingModule,
 } from '@nestjs/testing';
-import {
-  TrackId, Time,
-} from '@libs/ddd';
+import { Mocked } from 'vitest';
+import { IDENTITY_PORT } from '@shared/auth/identity.port';
+import { CookieIdentityAdapter } from '@shared/auth/cookie-identity.adapter';
 import { LibraryController } from './library.controller';
 import { GetSavedTracksCase } from '../get-saved-tracks.case';
-import { Track } from '../domain/track.entity';
 
 describe('LibraryController', () => {
   let controller: LibraryController;
-  let getSavedTracksUseCase: jest.Mocked<GetSavedTracksCase>;
+  let getSavedTracksUseCase: Mocked<GetSavedTracksCase>;
 
   beforeEach(async () => {
     getSavedTracksUseCase = {
-      execute: jest.fn(),
-    } as unknown as jest.Mocked<GetSavedTracksCase>;
+      execute: vi.fn(),
+    } as unknown as Mocked<GetSavedTracksCase>;
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LibraryController],
@@ -23,6 +22,10 @@ describe('LibraryController', () => {
         {
           provide: GetSavedTracksCase,
           useValue: getSavedTracksUseCase,
+        },
+        {
+          provide: IDENTITY_PORT,
+          useClass: CookieIdentityAdapter,
         },
       ],
     }).compile();
@@ -53,11 +56,9 @@ describe('LibraryController', () => {
 
       getSavedTracksUseCase.execute.mockResolvedValue(mockResult);
 
-      const req = {
-        user: { accessToken: 'token' },
-      } as any;
+      const user = { accessToken: 'token' };
 
-      const result = await controller.getTracks(req, 20, 0);
+      const result = await controller.getTracks(20, 0, user);
 
       expect(getSavedTracksUseCase.execute).toHaveBeenCalledWith({
         accessToken: 'token',
@@ -68,12 +69,8 @@ describe('LibraryController', () => {
       expect(result.items[0].id).toBe('1');
     });
 
-    it('should throw UnauthorizedException if no user or accessToken', async () => {
-      const req = { user: null } as any;
-
-      await expect(controller.getTracks(req, 20, 0)).rejects.toThrow(
-        'No access token found',
-      );
+    it('should throw Error if no user', async () => {
+      await expect(controller.getTracks(20, 0, null)).rejects.toThrow();
     });
   });
 });

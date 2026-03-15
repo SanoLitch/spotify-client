@@ -1,25 +1,17 @@
+import { Mocked } from 'vitest';
 import { LoginUseCase } from './login.case';
-import { User } from './domain/user.entity';
-import { AuthPort } from './ext/spotify/auth.port';
-import { UserRepositoryPort } from './ext/storage/user-repository.port';
+import { AuthPort } from './ext/auth.port';
 
 describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;
-  let authProvider: jest.Mocked<AuthPort>;
-  let userRepository: jest.Mocked<UserRepositoryPort>;
+  let authProvider: Mocked<AuthPort>;
 
   beforeEach(() => {
     authProvider = {
-      getAuthUrl: jest.fn(),
-      exchangeCodeForTokens: jest.fn(),
-      getProfile: jest.fn(),
+      getAuthUrl: vi.fn(),
+      exchangeCodeForTokens: vi.fn(),
     };
-    userRepository = {
-      save: jest.fn(),
-      findById: jest.fn(),
-      findByEmail: jest.fn(),
-    };
-    loginUseCase = new LoginUseCase(authProvider, userRepository);
+    loginUseCase = new LoginUseCase(authProvider);
   });
 
   it('should authenticate user and save to repository', async () => {
@@ -28,22 +20,13 @@ describe('LoginUseCase', () => {
       accessToken: 'at',
       refreshToken: 'rt',
     };
-    const user = User.create({
-      id: 'spotify-id',
-      displayName: 'Test User',
-      email: 'test@example.com',
-    });
 
     authProvider.exchangeCodeForTokens.mockResolvedValue(tokens);
-    authProvider.getProfile.mockResolvedValue(user);
 
     const result = await loginUseCase.execute({ code });
 
     expect(authProvider.exchangeCodeForTokens).toHaveBeenCalledWith(code);
-    expect(authProvider.getProfile).toHaveBeenCalledWith(tokens.accessToken);
-    expect(userRepository.save).toHaveBeenCalledWith(user);
     expect(result).toEqual({
-      user,
       tokens,
     });
   });

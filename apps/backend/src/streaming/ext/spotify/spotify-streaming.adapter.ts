@@ -1,65 +1,41 @@
 import {
-  Injectable, InternalServerErrorException, Logger,
+  Injectable, Logger,
 } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
-import { Readable } from 'stream';
-import { StreamingPort } from '../../domain/streaming.port';
+import {
+  HttpClient, InjectApi,
+} from '@libs/http';
+import { Readable } from 'node:stream';
+import {
+  STREAMING_CLIENT_PORT, StreamingPort,
+} from '../streaming.port';
 
 @Injectable()
 export class SpotifyStreamingAdapter implements StreamingPort {
   private readonly logger = new Logger(SpotifyStreamingAdapter.name);
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    @InjectApi(STREAMING_CLIENT_PORT)
+    private readonly httpService: HttpClient,
+  ) {}
 
   public async getTrackStream(trackId: string, accessToken: string): Promise<Readable> {
-    try {
-      const track = await this.getTrack(accessToken, trackId);
+    const track = await this.httpService.api(`/v1/tracks/${ trackId }`, {
+      headers: {
+        Authorization: `Bearer ${ accessToken }`,
+      },
+    });
 
-      let previewUrl = track.preview_url;
+    let previewUrl = track.preview_url;
 
-      if (!previewUrl) {
-        this.logger.warn(`No preview URL for track ${ trackId }, using fallback horse.mp3`);
-        // Use a short silent or beep MP3 from a public source for R&D purposes
-        previewUrl = 'https://www.w3schools.com/html/horse.mp3';
-      }
-
-      return this.getAudioStream(previewUrl);
-    } catch (error) {
-      this.logger.error(`Failed to get track stream for ${ trackId }`, error.stack);
-      throw new InternalServerErrorException('Failed to fetch track stream');
+    if (!previewUrl) {
+      this.logger.warn(`No preview URL for track ${ trackId }, using fallback horse.mp3`);
+      // Use a short silent or beep MP3 from a public source for R&D purposes
+      previewUrl = 'https://www.w3schools.com/html/horse.mp3';
     }
-  }
+    const stream = await this.httpService.api(previewUrl, {
+      responseType: 'stream',
+    }) as any;
 
-  private async getTrack(accessToken: string, trackId: string) {
-    try {
-      const response = await firstValueFrom(
-        this.httpService.get(`https://api.spotify.com/v1/tracks/${ trackId }`, {
-          headers: {
-            Authorization: `Bearer ${ accessToken }`,
-          },
-        }),
-      );
-
-      return response.data;
-    } catch (error) {
-      this.logger.error(`Spotify API error fetching track ${ trackId }`, error.response?.data || error.message);
-      throw new InternalServerErrorException(`Failed to fetch track details`);
-    }
-  }
-
-  private async getAudioStream(url: string): Promise<Readable> {
-    try {
-      const response = await firstValueFrom(
-        this.httpService.get(url, {
-          responseType: 'stream',
-        }),
-      );
-
-      return response.data;
-    } catch (error) {
-      this.logger.error(`Error fetching audio stream from ${ url }`, error.message);
-      throw new InternalServerErrorException(`Failed to fetch audio stream`);
-    }
+    return Readable.fromWeb(stream);
   }
 }

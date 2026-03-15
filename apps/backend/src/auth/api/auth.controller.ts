@@ -1,18 +1,14 @@
 import {
-  Controller, Get, Query, Res, Req, UnauthorizedException,
+  Controller, Get, Query, Res,
 } from '@nestjs/common';
 import {
-  ApiTags, ApiOperation, ApiQuery, ApiResponse,
+  ApiTags, ApiOperation, ApiQuery,
 } from '@nestjs/swagger';
-import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { AuthenticatedRequest } from '@shared/auth';
-import { UserDto } from './user.dto';
+import { FastifyReply } from 'fastify';
 import { LoginUseCase } from '../login.case';
 import { LogoutUseCase } from '../logout.case';
-import { MeUseCase } from '../me.case';
 import { GetAuthUrlUseCase } from '../get-auth-url.case';
-import { UserMapper } from '../lib/user.mapper';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -21,62 +17,47 @@ export class AuthController {
     private readonly configService: ConfigService,
     private readonly loginUseCase: LoginUseCase,
     private readonly logoutUseCase: LogoutUseCase,
-    private readonly meUseCase: MeUseCase,
     private readonly getAuthUrlUseCase: GetAuthUrlUseCase,
   ) {}
 
   @Get('login')
-  @ApiOperation({ summary: 'Redirect to Spotify login' })
-  public login(@Res() res: Response): void {
+  @ApiOperation({ summary: 'Redirect to OAuth login' })
+  public login(@Res() res: FastifyReply) {
     const url = this.getAuthUrlUseCase.execute();
 
-    return res.redirect(url);
+    return res.status(302).redirect(url);
   }
 
   @Get('callback')
-  @ApiOperation({ summary: 'Spotify OAuth callback' })
+  @ApiOperation({ summary: 'OAuth callback' })
   @ApiQuery({
     name: 'code',
-    description: 'Authorization code from Spotify',
+    description: 'Authorization code',
   })
-  public async callback(@Query('code') code: string, @Res() res: Response): Promise<void> {
+  public async callback(@Query('code') code: string, @Res({ passthrough: true }) res: FastifyReply): Promise<void> {
     const { tokens } = await this.loginUseCase.execute({ code });
 
-    res.cookie('access_token', tokens.accessToken, {
+    res.setCookie('access_token', tokens.accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
       maxAge: 3600 * 1000,
+      path: '/',
     });
 
-    res.cookie('refresh_token', tokens.refreshToken, {
+    res.setCookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
       maxAge: 30 * 24 * 60 * 60 * 1000,
+      path: '/',
     });
-    return res.redirect(this.configService.getOrThrow<string>('FE_URI'));
-  }
-
-  @Get('me')
-  @ApiOperation({ summary: 'Get current user profile' })
-  @ApiResponse({
-    status: 200,
-    type: UserDto,
-  })
-  public async me(@Req() req: AuthenticatedRequest): Promise<UserDto> {
-    if (!req.user || !req.user.accessToken) {
-      throw new UnauthorizedException('No access token found');
-    }
-
-    const { user } = await this.meUseCase.execute(req.user.accessToken);
-
-    return UserMapper.toDto(user);
+    return res.status(302).redirect(this.configService.getOrThrow<string>('FE_URI'));
   }
 
   @Get('logout')
   @ApiOperation({ summary: 'Logout and clear cookies' })
-  public async logout(@Res() res: Response) {
+  public async logout(@Res({ passthrough: true }) res: FastifyReply) {
     await this.logoutUseCase.execute();
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');

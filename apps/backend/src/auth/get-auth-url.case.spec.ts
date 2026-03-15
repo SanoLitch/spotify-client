@@ -1,5 +1,5 @@
 import { GetAuthUrlUseCase } from './get-auth-url.case';
-import { AuthPort } from './ext/spotify/auth.port';
+import { AuthPort } from './ext/auth.port';
 
 describe('GetAuthUrlUseCase', () => {
   let useCase: GetAuthUrlUseCase;
@@ -7,7 +7,7 @@ describe('GetAuthUrlUseCase', () => {
 
   beforeEach(() => {
     authPort = {
-      getAuthUrl: jest.fn(),
+      getAuthUrl: vi.fn(),
     } as unknown as jest.Mocked<AuthPort>;
     useCase = new GetAuthUrlUseCase(authPort);
   });
